@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Providence Presbyterian Church Sermons</title>
+    <link>~/SermonFeed.aspx</link>
+    <description>Sermons from Providence Presbyterian Church in Robinson Township, PA</description>
+    <ttl>10</ttl>
+    <name></name>
+    <user></user>
+    <skipDays>
+      <day>Monday</day>
+      <day>Tuesday</day>
+      <day>Wednesday</day>
+      <day>Thursday</day>
+      <day>Friday</day>
+      <day>Saturday</day>
+    </skipDays>
+    <pubDate>Tue, 10 Apr 2007 23:01:10 GMT</pubDate>
+    <lastBuildDate>Tue, 10 Apr 2007 23:01:10 GMT</lastBuildDate>
+    <webMaster>webmaster@email.com</webMaster>
+    <item>
+      <title></title>
+      <description></description>
+      <link></link>
+    </item>
+    <item>
+      <title></title>
+      <description></description>
+      <link></link>
+    </item>
+  </channel>
+</rss>
