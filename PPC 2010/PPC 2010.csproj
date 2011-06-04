@@ -105,6 +105,7 @@
     <Content Include="Calendar.ascx" />
     <Content Include="CalendarList.ascx" />
     <Content Include="ContactList.ascx" />
+    <Content Include="Elmah.ascx" />
     <Content Include="Images\rss.gif" />
     <Content Include="AdminLogin.ascx" />
     <Content Include="MediaUrlByPath.ascx" />
