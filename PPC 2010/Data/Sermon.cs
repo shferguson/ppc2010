@@ -39,6 +39,11 @@ namespace PPC_2010.Data
                     title = media.getProperty("title").Value as string;
                 return title;
             }
+            set
+            {
+                title = value;
+                media.getProperty("title").Value = title;
+            }
         }
 
         private DateTime? recordingDate = null;
