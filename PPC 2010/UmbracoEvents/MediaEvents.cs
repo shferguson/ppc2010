@@ -59,7 +59,10 @@ namespace PPC_2010.UmbracoEvents
         void Media_AfterSave(Media sender, umbraco.cms.businesslogic.SaveEventArgs e)
         {
             if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            {
                 SermonRepository.RebuildCache();
+                SermonRepository.OrderSermons();
+            }
         }
     }
 }

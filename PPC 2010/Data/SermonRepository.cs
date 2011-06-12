@@ -104,7 +104,7 @@ namespace PPC_2010.Data
             }
         }
 
-        private IEnumerable<Sermon> GetSermons()
+        private static IEnumerable<Sermon> GetSermons()
         {
             Media sermonRoot = Media.GetRootMedias().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == SermonFolderAlias);
 
@@ -168,6 +168,22 @@ namespace PPC_2010.Data
             }
 
             return sermon;
+        }
+
+        public static void OrderSermons()
+        {
+            IEnumerable<Sermon> sermons = GetSermons();
+
+            int i = 1;
+            foreach (var sermon in sermons)
+            {
+                if (sermon.SortOrder != i)
+                {
+                    sermon.SortOrder = i;
+                }
+                
+                i++;
+            }
         }
     }
 }

@@ -20,6 +20,12 @@ namespace PPC_2010.Data
             this.media = media;
         }
 
+        public int SortOrder
+        {
+            get { return media.sortOrder; }
+            set { media.sortOrder = value; }
+        }
+
         public int Id
         {
             get { return media.Id; }
