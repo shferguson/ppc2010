@@ -12,7 +12,7 @@
   </section>
 --%>
 
-<script language="JavaScript">
+<script type="text/javascript">
 <!--
 window.onresize=autoResize
 
