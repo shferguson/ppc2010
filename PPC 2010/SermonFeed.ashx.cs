@@ -40,7 +40,7 @@ namespace PPC_2010
                     Description = s.SpeakerName + " - " + s.ScriptureReferenceText,
                     //Link = baseUrl + "/Sermon?id=" + s.Id,
                     Link = baseUrl + s.RecordingUrl.Replace("~", ""),
-                    PubDateParsed = TimeZoneConverter.ConvertToEastern(s.RecordingDate.Date.AddHours(12)),
+                    PubDateParsed = s.RecordingDate.Date.AddHours(12),
                     //Guid = new RssGuid() { Text = baseUrl + "/Sermon?SermonId=" + s.Id },
                     Guid = new RssGuid() { Text = baseUrl + s.RecordingUrl.Replace("~", "") }
                 }
