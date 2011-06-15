@@ -27,7 +27,7 @@ namespace PPC_2010
             Rss.Channel.Title = "Providence PCA Sermons";
             Rss.Channel.PubDate = DateTime.UtcNow.ToString("r");
             Rss.Channel.LastBuildDate = DateTime.UtcNow.ToString("r");
-            Rss.Channel.WebMaster = "newsletter@providence-pca.net";
+            Rss.Channel.WebMaster = "newsletter@providence-pca.net (Providence Presbyterian Church)";
             Rss.Channel.Description = "Sermons from Providence Presbyterian Church in Robinson, PA";
             Rss.Channel.Link = Context.Request.Url.ToString();
                         
@@ -40,7 +40,7 @@ namespace PPC_2010
                     Description = s.SpeakerName + " - " + s.ScriptureReferenceText,
                     //Link = baseUrl + "/Sermon?id=" + s.Id,
                     Link = baseUrl + s.RecordingUrl.Replace("~", ""),
-                    PubDate = TimeZoneConverter.ConvertToEastern(s.RecordingDate.Date.AddHours(12)).ToString("r"),
+                    PubDateParsed = TimeZoneConverter.ConvertToEastern(s.RecordingDate.Date.AddHours(12)),
                     //Guid = new RssGuid() { Text = baseUrl + "/Sermon?SermonId=" + s.Id },
                     Guid = new RssGuid() { Text = baseUrl + s.RecordingUrl.Replace("~", "") }
                 }
