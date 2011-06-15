@@ -18,8 +18,8 @@
     <asp:Button runat="server" Width="100" ID="next" Text="Next »" OnClick="nextClick" />
     <br />
     <br />
-    <%--<asp:HyperLink runat="server" Target="_blank" NavigateUrl="http://feeds.feedburner.com/ProvidencePcaSermons" >--%>
-    <asp:HyperLink runat="server" Target="_blank" NavigateUrl="/usercontrols/sermonfeed.ashx" >
+    <asp:HyperLink runat="server" Target="_blank" NavigateUrl="http://feeds.feedburner.com/ProvidencePcaSermons" >
+    <%--<asp:HyperLink runat="server" Target="_blank" NavigateUrl="/usercontrols/sermonfeed.ashx" >--%>
         <asp:Image ID="Image1" runat="server" ImageUrl="~/UserControls/images/rss.gif" />
     </asp:HyperLink>
 

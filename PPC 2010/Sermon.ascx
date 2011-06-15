@@ -18,8 +18,8 @@
 <p />
     <asp:Literal runat="server" ID="scriptureText" />
 <p />
-<%--<asp:HyperLink runat="server" Target="_blank" NavigateUrl="http://feeds.feedburner.com/ProvidencePcaSermons" >--%>
- <asp:HyperLink runat="server" Target="_blank" NavigateUrl="/usercontrols/sermonfeed.ashx" >
+<asp:HyperLink runat="server" Target="_blank" NavigateUrl="http://feeds.feedburner.com/ProvidencePcaSermons" >
+ <%--<asp:HyperLink runat="server" Target="_blank" NavigateUrl="/usercontrols/sermonfeed.ashx" > --%>
     <asp:Image runat="server" ImageUrl="~/UserControls/images/rss.gif" />
 </asp:HyperLink>
 <p />
