@@ -30,12 +30,12 @@ namespace PPC_2010.Data
         {
             get
             {
-                string scriptureText = null;
+                string scriptureText = string.Empty;
                 if (StartChapter != EndChapter)
                     scriptureText = string.Format("{0} {1}:{2}-{3}:{4}", Book, StartChapter, StartVerse, EndChapter, EndVerse);
                 else if (StartChapter != EndVerse)
                     scriptureText = string.Format("{0} {1}:{2}-{3}", Book, StartChapter, StartVerse, EndVerse);
-                else
+                else if (!string.IsNullOrWhiteSpace(Book))
                     scriptureText = string.Format("{0} {1}:{2}", Book, StartChapter, StartVerse);
 
                 return scriptureText;

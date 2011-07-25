@@ -23,6 +23,9 @@ namespace PPC_2010.Services
 
         public string GetScriptureTextHtml(ScriptureReferences scriptureReferences)
         {
+            if (!scriptureReferences.HasReference)
+                return string.Empty;
+
             string scriptureText = HttpContext.Current.Cache[BuildCacheKey(scriptureReferences)] as string;
             if (scriptureText == null)
             {

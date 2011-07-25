@@ -24,8 +24,10 @@ namespace PPC_2010.Data
                 ScriptureString = string.Format("{0} {1}:{2}-{3}:{4}", book, startChapter, startVerse, endChapter, endVerse);
             else if (startChapter != endVerse)
                 ScriptureString = string.Format("{0} {1}:{2}-{3}", book, startChapter, startVerse, endVerse);
-            else
+            else if (!string.IsNullOrWhiteSpace(book))
                 ScriptureString = string.Format("{0} {1}:{2}", book, startChapter, startVerse);
+            else
+                ScriptureString = string.Empty;
 
             references.Add(new ScriptureReference()
             {
@@ -79,6 +81,8 @@ namespace PPC_2010.Data
 
             return null; 
         }
+
+        public bool HasReference { get { return !string.IsNullOrWhiteSpace(ScriptureString); } }
 
         public override string ToString()
         {
