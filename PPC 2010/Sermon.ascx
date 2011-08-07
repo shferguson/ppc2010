@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Sermon.ascx.cs" Inherits="PPC_2010.Sermon" ViewStateMode="Disabled" %>
-<p />
+<p>
     <h1>Current Sermon</h1>
 <p />
    <h3>"<asp:Label runat="server" ID="sermonTitle" />"</h3>
@@ -9,13 +9,16 @@
 <p>
     <a class="download_sermonbutton" style="background-image:url(<%= DownloadImageUrl %>)" title="Download Sermon" href="<%= RecordingUrl %>" >Download Sermon</a>
 </p>
-    <h3>Play This Sermon</h3>
-<p />
-<div style="margin-left:10%;margin-right:10%">
+<asp:Panel runat="server" id="sermonPlayerPanel">
+
+<h3>Play This Sermon</h3>
+
+ <div style="margin-left:10%;margin-right:10%">
     <embed style="background:green" type="application/x-mplayer2" src="<%= RecordingUrl %>" name="MediaPlayer"
 		    width="500" height="<%= MediaPlayerHeight %>" showcontrols="1" showstatusbar="1" showdisplay="0" autostart="0" />
-</div>
-<p />
+ </div>
+ </asp:Panel>
+<p>
     <asp:Literal runat="server" ID="scriptureText" />
 <p />
 <asp:HyperLink runat="server" Target="_blank" NavigateUrl="http://feeds.feedburner.com/ProvidencePcaSermons" >

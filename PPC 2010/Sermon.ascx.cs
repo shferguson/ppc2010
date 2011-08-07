@@ -82,14 +82,26 @@ namespace PPC_2010
             // Other browsers on Windows use the Firefox media player plug in which is 45 pixels
             // On Mac, all browsers use the QuickTime control which has no header
 
-            if (Request.UserAgent.Contains("Windows"))
+            if (string.IsNullOrEmpty(Request.UserAgent))
             {
-                if (Request.UserAgent.Contains("MSIE"))
+                sermonPlayerPanel.Visible = false;
+                return;
+            }
+
+            string userAgent = Request.UserAgent.ToLower();
+
+            if (userAgent.Contains("mobile"))
+            {
+                sermonPlayerPanel.Visible = false;
+            }
+            else if (userAgent.Contains("windows"))
+            {
+                if (userAgent.Contains("msie"))
                     MediaPlayerHeight = 50;
                 else
                     MediaPlayerHeight = 45;
             }
-            else if (Request.UserAgent.Contains("Macintosh"))
+            else if (userAgent.Contains("macintosh"))
             {
                 MediaPlayerHeight = 16;
             }
