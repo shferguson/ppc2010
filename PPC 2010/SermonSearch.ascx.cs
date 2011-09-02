@@ -25,7 +25,7 @@ namespace PPC_2010
             year.DataSource = PrependEmptyString(years);
             year.DataBind();
 
-            var months = Enumerable.Range(0, 12).Select(i => new { Month = i, String = i == 0 ? "" : new DateTime(2010, i, 1).ToString("MMMM") });
+            var months = Enumerable.Range(0, 13).Select(i => new { Month = i, String = i == 0 ? "" : new DateTime(2010, i, 1).ToString("MMMM") });
             month.DataSource = months;
             month.DataValueField = "Month";
             month.DataTextField = "String";
