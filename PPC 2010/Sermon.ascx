@@ -7,7 +7,7 @@
     <asp:Label runat="server" ID="speakerName" />&nbsp;|&nbsp;Recorded&nbsp;<asp:Label runat="server" ID="recordingDate" />&nbsp;|&nbsp;<asp:Label runat="server" ID="recordingSession" />
 <p />
 <p>
-    <a class="download_sermonbutton" style="background-image:url(<%= DownloadImageUrl %>)" title="Download Sermon" href="<%= RecordingUrl %>" >Download Sermon</a>
+    <a class="download_sermonbutton" style="background-image:url(<%= DownloadImageUrl %>)" title="Download Sermon" href="<%= RecordingUrl %>" onClick="javascript: _gaq.push(['_trackPageview', '<%= RecordingUrl %>']);" >Download Sermon</a>
 </p>
 <asp:Panel runat="server" id="sermonPlayerPanel">
 
