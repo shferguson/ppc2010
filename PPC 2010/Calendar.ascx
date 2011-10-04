@@ -4,7 +4,8 @@
   <bc:BaseCalendar runat="server"  ID="calendar"
     NavPrevFormat='<a href="calendar.aspx?d={0:d}">{0:MMM}</a>'
     NavNextFormat='<a href="calendar.aspx?d={0:d}">{0:MMM}</a>'
-    UrlVisibleDateAttribute="d"  
+    UrlVisibleDateAttribute="d" 
+    UrlVisibleDateFormat="d"
     
     CssClass="calendar"  
     
