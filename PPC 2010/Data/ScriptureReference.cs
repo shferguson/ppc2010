@@ -33,7 +33,7 @@ namespace PPC_2010.Data
                 string scriptureText = string.Empty;
                 if (StartChapter != EndChapter)
                     scriptureText = string.Format("{0} {1}:{2}-{3}:{4}", Book, StartChapter, StartVerse, EndChapter, EndVerse);
-                else if (StartChapter != EndVerse)
+                else if (StartVerse != EndVerse)
                     scriptureText = string.Format("{0} {1}:{2}-{3}", Book, StartChapter, StartVerse, EndVerse);
                 else if (!string.IsNullOrWhiteSpace(Book))
                     scriptureText = string.Format("{0} {1}:{2}", Book, StartChapter, StartVerse);

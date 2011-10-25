@@ -22,7 +22,7 @@ namespace PPC_2010.Data
         {
             if (startChapter != endChapter)
                 ScriptureString = string.Format("{0} {1}:{2}-{3}:{4}", book, startChapter, startVerse, endChapter, endVerse);
-            else if (startChapter != endVerse)
+            else if (startVerse != endVerse)
                 ScriptureString = string.Format("{0} {1}:{2}-{3}", book, startChapter, startVerse, endVerse);
             else if (!string.IsNullOrWhiteSpace(book))
                 ScriptureString = string.Format("{0} {1}:{2}", book, startChapter, startVerse);
