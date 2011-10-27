@@ -25,15 +25,15 @@ namespace PPC_2010
 
         private void LoadSermons()
         {
-            SermonRepository repository = new SermonRepository();
+            using (ISermonRepository repository = new SermonLinqToSqlRepository())
+            {
+                var sermons = repository.LoadAllSermons();
+                if (sermons.Count() == 0 && pageNumber != 1)
+                    Response.Redirect(Request.Url.AbsolutePath + "?page=1");
 
-            var sermons = repository.LoadAllSermons();
-            if (sermons.Count() == 0 && pageNumber != 1)
-                Response.Redirect(Request.Url.AbsolutePath + "?page=1");
-            
-            //sermonGrid.DataSource = new DataTableConverter<Data.Sermon>(sermons);
-            sermonGrid.DataSource = sermons;
-            sermonGrid.DataBind();
+                sermonGrid.DataSource = sermons;
+                sermonGrid.DataBind();
+            }
         }
 
         protected void previousClick(object sender, EventArgs e)
@@ -47,11 +47,13 @@ namespace PPC_2010
 
         protected void nextClick(object sender, EventArgs e)
         {
-            SermonRepository repository = new SermonRepository();
-            if (repository.GetNumberOfSermons() > pageNumber * 10)
+            using (ISermonRepository repository = new SermonLinqToSqlRepository())
             {
-                pageNumber += 1;
-                Response.Redirect(Request.Url.AbsolutePath + "?page=" + pageNumber);
+                if (repository.GetNumberOfSermons() > pageNumber * 10)
+                {
+                    pageNumber += 1;
+                    Response.Redirect(Request.Url.AbsolutePath + "?page=" + pageNumber);
+                }
             }
         }
     }

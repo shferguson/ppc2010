@@ -15,26 +15,26 @@ namespace PPC_2010.UmbracoEvents
             Media.AfterSave += new Media.SaveEventHandler(Media_AfterSave);
             Media.BeforeSave += new Media.SaveEventHandler(Media_BeforeSave);
 
-            SermonRepository.RebuildCache();
+            SermonMediaRepository.RebuildCache();
         }
 
         void Media_New(Media sender, umbraco.cms.businesslogic.NewEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
             {
                 // Automatically populate the sermon title from what the user entered in for the element name
                 // The element name will be set in Media_BeforeSave and having the name they type in when
                 // creating a new sermon makes more sense to users
-                var sermon = new Data.Sermon(sender);
+                var sermon = new Data.SermonFromMedia(sender);
                 sermon.Title = sender.Text;
             }
         }
 
         void Media_BeforeSave(Media sender, umbraco.cms.businesslogic.SaveEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
             {
-                Data.Sermon sermon = new Data.Sermon(sender);
+                Data.SermonFromMedia sermon = new Data.SermonFromMedia(sender);
 
                 // don't update anything recorded before the launch of the new web site
                 if (sermon.RecordingDate > new DateTime(2011, 2, 28))
@@ -71,10 +71,10 @@ namespace PPC_2010.UmbracoEvents
 
         void Media_AfterSave(Media sender, umbraco.cms.businesslogic.SaveEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
             {
-                SermonRepository.RebuildCache();
-                SermonRepository.OrderSermons();
+                SermonMediaRepository.RebuildCache();
+                SermonMediaRepository.OrderSermons();
             }
         }
     }

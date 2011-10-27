@@ -16,7 +16,6 @@ namespace PPC_2010
 
         protected int MediaPlayerHeight { get; set; }
 
-        private SermonRepository repository = new SermonRepository();
         private IScriptureService scriptureService = null;
         
         protected string RecordingUrl { get; set; }
@@ -55,23 +54,26 @@ namespace PPC_2010
 
         private void LoadSermon(int sermonId)
         {
-            Data.Sermon sermon = null;
-            if (sermonId > 0)
-                sermon = repository.LoadSermon(sermonId);
-            else
-                sermon = repository.LoadCurrentSermon(SundaySermonType);
-
-            if (sermon != null)
+            using (ISermonRepository repository = new SermonLinqToSqlRepository())
             {
-                string baseUrl = string.Format("{0}", (Request.ApplicationPath.Equals("/")) ? string.Empty : Request.ApplicationPath);
+                ISermon sermon = null;
+                if (sermonId > 0)
+                    sermon = repository.LoadSermon(sermonId);
+                else
+                    sermon = repository.LoadCurrentSermon(SundaySermonType);
 
-                sermonTitle.Text = sermon.Title;
-                speakerName.Text = sermon.SpeakerName;
-                recordingDate.Text = sermon.RecordingDate.ToShortDateString();
-                recordingSession.Text = sermon.RecordingSession;
-                RecordingUrl = sermon.RecordingUrl.Replace("~", baseUrl);
+                if (sermon != null)
+                {
+                    string baseUrl = string.Format("{0}", (Request.ApplicationPath.Equals("/")) ? string.Empty : Request.ApplicationPath);
 
-                scriptureText.Text = scriptureService.GetScriptureTextHtml(sermon.ScriptureReference);
+                    sermonTitle.Text = sermon.Title;
+                    speakerName.Text = sermon.SpeakerName;
+                    recordingDate.Text = sermon.RecordingDate.ToShortDateString();
+                    recordingSession.Text = sermon.RecordingSession;
+                    RecordingUrl = sermon.RecordingUrl.Replace("~", baseUrl);
+
+                    scriptureText.Text = scriptureService.GetScriptureTextHtml(sermon.ScriptureReference);
+                }
             }
         }
 

@@ -18,7 +18,7 @@ namespace PPC_2010.Data
         /// <summary>
         /// Construct from a verse list
         /// </summary>
-        public ScriptureReferences(string book, int startChapter, int startVerse, int endChapter, int endVerse)
+        public ScriptureReferences(string book, int? startChapter, int? startVerse, int? endChapter, int? endVerse)
         {
             if (startChapter != endChapter)
                 ScriptureString = string.Format("{0} {1}:{2}-{3}:{4}", book, startChapter, startVerse, endChapter, endVerse);

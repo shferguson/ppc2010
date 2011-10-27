@@ -18,7 +18,7 @@ namespace PPC_2010
 
         private void PopulateListBoxes()
         {
-            SermonRepository repository = new SermonRepository();
+            SermonMediaRepository repository = new SermonMediaRepository();
             var sermons = repository.LoadAllSermons();
 
             var years = sermons.Select(s => s.RecordingDate.Year).Distinct().OrderByDescending(y => y).Select(y => y.ToString());
@@ -32,15 +32,15 @@ namespace PPC_2010
             month.DataBind();
 
 
-            var speakers = Data.Sermon.GetSpeakerList();
+            var speakers = Data.SermonFromMedia.GetSpeakerList();
             speaker.DataSource = PrependEmptyString(speakers);
             speaker.DataBind();
 
-            var audioTypes = Data.Sermon.GetRecordingSessionList();
+            var audioTypes = Data.SermonFromMedia.GetRecordingSessionList();
             audioType.DataSource = PrependEmptyString(audioTypes);
             audioType.DataBind();
 
-            var series = Data.Sermon.GetSermonSeriesList();
+            var series = Data.SermonFromMedia.GetSermonSeriesList();
             audioSeries.DataSource = PrependEmptyString(series);
             audioSeries.DataBind();
         }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using umbraco.cms.businesslogic.media;
 using System.Threading;
+using System.Configuration;
+using PPC_2010.Data.LinqToSql;
 
 namespace PPC_2010.Data
 {
@@ -48,22 +50,88 @@ namespace PPC_2010.Data
     */
     #endregion
 
-    public class SermonRepository
+    public interface ISermonRepository: IDisposable
+    {
+        ISermon LoadCurrentSermon(string recordingSession);
+        ISermon LoadSermon(int sermonId);
+        IEnumerable<ISermon> LoadLastSermons(int count);
+        IEnumerable<ISermon> LoadSermonsByPage(int pageNumber, int itemsPerPage);
+        IEnumerable<ISermon> LoadAllSermons();
+        int GetNumberOfSermons();
+    }
+
+    public class SermonLinqToSqlRepository : ISermonRepository
+    {
+        ProvidenceDbDataContext providence = new ProvidenceDbDataContext(ConfigurationManager.AppSettings["umbracoDbDSN"]);
+
+        public ISermon LoadCurrentSermon(string recordingSession)
+        {
+            return providence.Sermons
+                .Where(s => s.RecordingSession == recordingSession)
+                .OrderByDescending(s => s.RecordingDate)
+                .ThenByDescending(s => s.RecordingSession)
+                .Take(1)
+                .FirstOrDefault();
+        }
+
+        public ISermon LoadSermon(int sermonId)
+        {
+            return providence
+                .Sermons
+                .Single(s => ((LinqToSql.Sermon)s).Id == sermonId);
+        }
+
+        public IEnumerable<ISermon> LoadLastSermons(int count)
+        {
+            return providence.Sermons
+                .OrderByDescending(s => s.RecordingDate)
+                .ThenByDescending(s => s.RecordingSession)
+                .Take(count);
+        }
+
+        public IEnumerable<ISermon> LoadSermonsByPage(int pageNumber, int itemsPerPage)
+        {
+            return providence.Sermons
+                .OrderByDescending(s => s.RecordingDate)
+                .ThenByDescending(s => s.RecordingSession)
+                .Skip((pageNumber-1) * itemsPerPage)
+                .Take(itemsPerPage);
+        }
+
+        public IEnumerable<ISermon> LoadAllSermons()
+        {
+            return providence.Sermons
+                .OrderByDescending(s => s.RecordingDate)
+                .ThenByDescending(s => s.RecordingSession);
+        }
+
+        public int GetNumberOfSermons()
+        {
+            return providence.Sermons.Count();
+        }
+
+        public void Dispose()
+        {
+            providence.Dispose();
+        }
+    }
+
+    public class SermonMediaRepository : ISermonRepository
     {
         public const string SermonFolderAlias = "SermonFolder";
         public const string SermonAlias = "Sermon";
 
-        public Sermon LoadCurrentSermon(string recordingSession)
+        public ISermon LoadCurrentSermon(string recordingSession)
         {
-            IEnumerable<Sermon> sermons = LoadAllSermons();
+            IEnumerable<ISermon> sermons = LoadAllSermons();
 
-            Sermon sermon = sermons.FirstOrDefault(s => s.RecordingSession == recordingSession);
+            ISermon sermon = sermons.FirstOrDefault(s => s.RecordingSession == recordingSession);
 
             // Reload the sermon so we don't run into caching issues
             return LoadSermon(sermon.Id);
         }
 
-        public Sermon LoadSermon(int sermonId)
+        public ISermon LoadSermon(int sermonId)
         {
             Media media = new Media(sermonId);
             if (media != null)
@@ -71,14 +139,20 @@ namespace PPC_2010.Data
             return null; 
         }
 
-        public IEnumerable<Sermon> LoadLastSermons(int count)
+        public IEnumerable<ISermon> LoadLastSermons(int count)
         {
-            IEnumerable<Sermon> sermons = LoadAllSermons();
+            IEnumerable<ISermon> sermons = LoadAllSermons();
 
             return sermons.Take(count);
         }
 
-        public IEnumerable<Sermon> LoadAllSermons()
+        public IEnumerable<ISermon> LoadSermonsByPage(int pageNumber, int itemsPerPage)
+        {
+            var sermons = LoadAllSermons();
+            return sermons.Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage);
+        }
+
+        public IEnumerable<ISermon> LoadAllSermons()
         {
             return GetSermons();
         }
@@ -88,14 +162,16 @@ namespace PPC_2010.Data
             return GetSermons().Count();
         }
 
+        public void Dispose() { }
+
         private static readonly object cacheLock = new object();
-        private static Dictionary<int, Sermon> sermonCache 
+        private static Dictionary<int, SermonFromMedia> sermonCache 
         {
             get
             {
-                Dictionary<int, Sermon> cache = HttpContext.Current.Application["SermonCache"] as Dictionary<int, Sermon>;
+                Dictionary<int, SermonFromMedia> cache = HttpContext.Current.Application["SermonCache"] as Dictionary<int, SermonFromMedia>;
                 if (cache == null)
-                    cache = new Dictionary<int, Sermon>();
+                    cache = new Dictionary<int, SermonFromMedia>();
                 return cache;
             }
             set
@@ -104,7 +180,7 @@ namespace PPC_2010.Data
             }
         }
 
-        private static IEnumerable<Sermon> GetSermons()
+        private static IEnumerable<SermonFromMedia> GetSermons()
         {
             Media sermonRoot = Media.GetRootMedias().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == SermonFolderAlias);
 
@@ -115,7 +191,7 @@ namespace PPC_2010.Data
                     RebuildCache();
                 }
 
-                return sermonCache.Values.AsEnumerable<Sermon>()
+                return sermonCache.Values.AsEnumerable<SermonFromMedia>()
                     .OrderByDescending(s => s.RecordingDate)
                     .ThenByDescending(s => s.RecordingSession)
                     .ToList();
@@ -127,7 +203,7 @@ namespace PPC_2010.Data
             lock (cacheLock)
             {
                 if (media.ContentType.Alias == SermonAlias)
-                    sermonCache[media.Id] = new Sermon(media);
+                    sermonCache[media.Id] = new SermonFromMedia(media);
             }
         }
 
@@ -135,7 +211,7 @@ namespace PPC_2010.Data
         {
             lock (cacheLock)
             {
-                sermonCache = new Dictionary<int, Sermon>();
+                sermonCache = new Dictionary<int, SermonFromMedia>();
             }
         }
 
@@ -151,9 +227,9 @@ namespace PPC_2010.Data
         }
 
 
-        private static Sermon SermonFromMedia(Media media)
+        private static SermonFromMedia SermonFromMedia(Media media)
         {
-            Sermon sermon = null;
+            SermonFromMedia sermon = null;
             lock (cacheLock)
             {
                 if (sermonCache.ContainsKey(media.Id))
@@ -162,7 +238,7 @@ namespace PPC_2010.Data
                 }
                 else
                 {
-                    sermon = new Sermon(media);
+                    sermon = new SermonFromMedia(media);
                     sermonCache[media.Id] = sermon;
                 }
             }
@@ -172,14 +248,14 @@ namespace PPC_2010.Data
 
         public static void OrderSermons()
         {
-            IEnumerable<Sermon> sermons = GetSermons();
+            IEnumerable<ISermon> sermons = GetSermons();
 
             int i = 1;
             foreach (var sermon in sermons)
             {
                 if (sermon.SortOrder != i)
                 {
-                    sermon.SortOrder = i;
+                   // sermon.SortOrder = i;
                 }
                 
                 i++;

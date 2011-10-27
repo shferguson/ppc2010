@@ -54,5 +54,4 @@ namespace PPC_2010.Services
             return "ESV - " + scriptureReferences.ScriptureString;
         }
     }
-
 }

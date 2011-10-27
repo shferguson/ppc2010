@@ -35,35 +35,36 @@ namespace PPC_2010
 
         private void LoadSermons()
         {
-            SermonRepository repository = new SermonRepository();
+            using (ISermonRepository repository = new SermonLinqToSqlRepository())
+            {
+                var sermons = repository.LoadAllSermons();
 
-            var sermons = repository.LoadAllSermons();
+                if (SearchYear != 0)
+                    sermons = sermons.Where(s => s.RecordingDate.Year == SearchYear);
+                if (SearchMonth != 0)
+                    sermons = sermons.Where(s => s.RecordingDate.Month == SearchMonth);
+                if (!string.IsNullOrEmpty(SearchSpeaker))
+                    sermons = sermons.Where(s => String.Equals(s.SpeakerName, SearchSpeaker, StringComparison.CurrentCultureIgnoreCase));
+                if (!string.IsNullOrEmpty(SearchSeries))
+                    sermons = sermons.Where(s => String.Equals(s.SermonSeries, SearchSeries, StringComparison.CurrentCultureIgnoreCase));
+                if (!string.IsNullOrEmpty(SearchRecordingType))
+                    sermons = sermons.Where(s => String.Equals(s.RecordingSession, SearchRecordingType, StringComparison.CurrentCultureIgnoreCase));
+                if (!string.IsNullOrEmpty(SearchTitle))
+                    sermons = sermons.Where(s => s.Title.ToLower().Contains(SearchTitle));
 
-            if (SearchYear != 0)
-                sermons = sermons.Where(s => s.RecordingDate.Year == SearchYear);
-            if (SearchMonth != 0)
-                sermons = sermons.Where(s => s.RecordingDate.Month == SearchMonth);
-            if (!string.IsNullOrEmpty(SearchSpeaker))
-                sermons = sermons.Where(s => String.Equals(s.SpeakerName, SearchSpeaker, StringComparison.CurrentCultureIgnoreCase));
-            if (!string.IsNullOrEmpty(SearchSeries))
-                sermons = sermons.Where(s => String.Equals(s.SermonSeries, SearchSeries, StringComparison.CurrentCultureIgnoreCase));
-            if (!string.IsNullOrEmpty(SearchRecordingType))
-                sermons = sermons.Where(s => String.Equals(s.RecordingSession, SearchRecordingType, StringComparison.CurrentCultureIgnoreCase));
-            if (!string.IsNullOrEmpty(SearchTitle))
-                sermons = sermons.Where(s => s.Title.ToLower().Contains(SearchTitle));
+                sermonCount = sermons.Count();
 
-            sermonCount = sermons.Count();
+                sermons = sermons.Skip((PageNumber - 1) * ItemsPerPage).Take(ItemsPerPage);
 
-            sermons = sermons.Skip((PageNumber - 1) * ItemsPerPage).Take(ItemsPerPage);
+                if (sermonCount == 0 && PageNumber != 1)
+                    RedirectToPage(1);
 
-            if (sermonCount == 0 && PageNumber != 1)
-                RedirectToPage(1);
+                sermonGrid.DataSource = sermons;
+                sermonGrid.DataBind();
 
-            sermonGrid.DataSource = sermons;
-            sermonGrid.DataBind();
-            
-            previous.Enabled = PageNumber > 1;
-            next.Enabled = sermonCount > PageNumber * ItemsPerPage;
+                previous.Enabled = PageNumber > 1;
+                next.Enabled = sermonCount > PageNumber * ItemsPerPage;
+            }
         }
 
         protected void sermonGrid_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -71,7 +72,7 @@ namespace PPC_2010
             string baseUrl = string.Format("{0}", (Request.ApplicationPath.Equals("/")) ? string.Empty : Request.ApplicationPath);
 
             if (e.Row.DataItem != null)
-                e.Row.Attributes.Add("onclick", "window.location.href='" + ((Data.Sermon)e.Row.DataItem).SermonUrl.Replace("~", baseUrl) + "'" );
+                e.Row.Attributes.Add("onclick", "window.location.href='" + ((ISermon)e.Row.DataItem).SermonUrl.Replace("~", baseUrl) + "'" );
         }
 
         protected void previousClick(object sender, EventArgs e)

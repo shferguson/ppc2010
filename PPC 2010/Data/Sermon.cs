@@ -6,33 +6,107 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Xml;
+using System.Data;
 
 namespace PPC_2010.Data
 {
+    public interface ISermon
+    {
+        int SortOrder { get; set; }
+        int Id { get; }
+        string Title { get; set; }
+        DateTime RecordingDate { get; set; }
+        string SpeakerTitle { get; set; }
+        string SpeakerName { get; set; }
+        string RecordingSession { get; set; }
+        string SermonSeries { get; set; }
+        string ScriptureReferenceText { get; set; }
+        string Book { get; set; }
+        int? StartChapter { get; set; }
+        int? StartVerse { get; set; }
+        int? EndChapter { get; set; }
+        int? EndVerse { get; set; }
+
+        ScriptureReferences ScriptureReference { get; }
+        string RecordingUrl { get; }
+        string SermonUrl { get; }
+    }
+
+    public abstract class Sermon : ISermon
+    {
+        public abstract int SortOrder { get; set; }
+        public abstract int Id { get; }
+        public abstract string Title { get; set; }
+        public abstract DateTime RecordingDate { get; set; }
+        public abstract string SpeakerTitle { get; set; }
+        public abstract string SpeakerName { get; set; }
+        public abstract string RecordingSession { get; set; }
+        public abstract string SermonSeries { get; set; }
+        public abstract string ScriptureReferenceText { get; set; }
+        public abstract string Book { get; set; }
+        public abstract int? StartChapter { get; set; }
+        public abstract int? StartVerse { get; set; }
+        public abstract int? EndChapter { get; set; }
+        public abstract int? EndVerse { get; set; }
+
+        protected abstract string GetUrl();
+
+        private ScriptureReferences scriptureReferences = null;
+        public virtual ScriptureReferences ScriptureReference { get { return BuildScriptureReferences(); } }
+
+        public virtual string RecordingUrl 
+        { 
+            get {  return "~" + GetUrl(); } 
+        }
+
+        public virtual string SermonUrl
+        {
+            get { return "~" + "/Sermon.aspx?SermonId=" + Id; }
+        }
+
+        private ScriptureReferences BuildScriptureReferences()
+        {
+            if (scriptureReferences == null)
+            {
+                if (!string.IsNullOrWhiteSpace(ScriptureReferenceText))
+                {
+                    scriptureReferences = new ScriptureReferences(ScriptureReferenceText);
+                }
+                else
+                {
+                    scriptureReferences = new ScriptureReferences(Book, StartChapter, StartVerse, EndChapter, EndVerse);
+                }
+            }
+
+            return scriptureReferences;
+        }
+    }
+
     // Changed all of the sermon properties so that they are lazily loaded to try to improve performance
 
-    public class Sermon
+    public class SermonFromMedia : Sermon
     {
         private Media media = null;
 
-        public Sermon(Media media)
+        public SermonFromMedia(Media media)
         {
             this.media = media;
         }
 
-        public int SortOrder
+        public override int SortOrder
         {
             get { return media.sortOrder; }
             set { media.sortOrder = value; }
         }
 
-        public int Id
+        public override int Id
         {
             get { return media.Id; }
         }
 
         private string title = null;
-        public string Title {
+        public override string Title
+        {
             get
             { 
                 if (title == null)
@@ -47,7 +121,7 @@ namespace PPC_2010.Data
         }
 
         private DateTime? recordingDate = null;
-        public DateTime RecordingDate
+        public override DateTime RecordingDate
         {
             get
             {
@@ -55,10 +129,13 @@ namespace PPC_2010.Data
                     recordingDate = media.getProperty("recordingDate").Value as DateTime? ?? DateTime.MinValue;
                 return recordingDate.Value;
             }
+            set
+            {
+            }
         }
 
         private string speakerTitle = null;
-        public string SpeakerTitle
+        public override string SpeakerTitle
         {
             get
             {
@@ -66,10 +143,13 @@ namespace PPC_2010.Data
                     speakerTitle = media.getProperty("speakerTitle").GetPreValueAsString();
                 return speakerTitle;
             }
+            set
+            {
+            }
         }
 
         private string speakerName = null;
-        public string SpeakerName
+        public override string SpeakerName
         {
             get
             {
@@ -77,10 +157,13 @@ namespace PPC_2010.Data
                     speakerName = media.getProperty("speakerName").GetPreValueAsString();
                 return speakerName;
             }
+            set
+            {
+            }
         }
 
         private string recordingSession = null;
-        public string RecordingSession
+        public override string RecordingSession
         {
             get
             {
@@ -89,10 +172,13 @@ namespace PPC_2010.Data
 
                 return recordingSession;
             }
+            set
+            {
+            }
         }
 
         private string sermonSeries = null;
-        public string SermonSeries
+        public override string SermonSeries
         {
             get
             {
@@ -100,88 +186,74 @@ namespace PPC_2010.Data
                     sermonSeries = media.getProperty("sermonSeries").GetPreValueAsString();
                 return sermonSeries;
             }
+            set
+            {
+            }
         }
   
-        private ScriptureReferences scriptureReferences = null;
-        public ScriptureReferences ScriptureReference
+        private string url = null;
+        protected override string GetUrl()
         {
-            get
-            {
-                if (scriptureReferences == null)
-                    scriptureReferences = BuildScriptureReferences();
-                return scriptureReferences;
-            }
+            if (url == null)
+                url = "~" + media.getProperty("audioFile").Value as string;
+            return url;
         }
 
-        private string recordingUrl = null;
-        public string RecordingUrl
+        public override string ScriptureReferenceText
         {
-            get
-            {
-                if (recordingUrl == null)
-                    recordingUrl = "~" + media.getProperty("audioFile").Value as string;
-                return recordingUrl;
-            }
+            get { return media.getProperty("scriptureReferenceText").Value as string; }
+            set { }
         }
 
-        public string SermonUrl
+        public override string Book
         {
-            get
-            {
-                return "~" + "/Sermon.aspx?SermonId=" + Id;
-            }
+            get { return media.getProperty("book").GetPreValueAsString(); }
+            set { }
         }
 
 
-        public string ScriptureReferenceText
+        public override int? StartChapter
         {
-            get { return ScriptureReference.ScriptureString; }
+            get { return media.getProperty("startChapter").Value as int?; }
+            set { }
         }
 
-        private ScriptureReferences BuildScriptureReferences()
+        public override int? StartVerse
         {
-            string scriptureReferenceText = media.getProperty("scriptureReferenceText").Value as string;
-            if (!string.IsNullOrWhiteSpace(scriptureReferenceText))
-            {
-                scriptureReferences = new ScriptureReferences(scriptureReferenceText);
-            }
-            else
-            {
-                int startChapter = media.getProperty("startChapter").Value as int? ?? 1;
-                int startVerse = media.getProperty("startVerse").Value as int? ?? 1;
-                int? endChapter = media.getProperty("endChapter").Value as int?;
-                int? endVerse = media.getProperty("endVerse").Value as int?;
-
-                if (!endChapter.HasValue)
-                    endChapter = startChapter;
-                if (!endVerse.HasValue)
-                    endVerse = startVerse;
-
-                string book = media.getProperty("book").GetPreValueAsString();
-                scriptureReferences = new ScriptureReferences(book, startChapter, startVerse, endChapter.Value, endVerse.Value);
-
-            }
-
-            return scriptureReferences;
+            get { return media.getProperty("startVerse").Value as int?; }
+            set { }
         }
+
+        public override int? EndChapter
+        {
+            get { return media.getProperty("endChapter").Value as int?; }
+            set { }
+        }
+
+        public override int? EndVerse
+        {
+            get { return media.getProperty("endVerse").Value as int?; }
+            set { }
+        }
+
 
         #region Static Methods
 
         public static IEnumerable<string> GetSpeakerList()
         {
-            var sermon = new SermonRepository().LoadLastSermons(1).First();
+            var sermon = (SermonFromMedia)new SermonMediaRepository().LoadLastSermons(1).First();
             return sermon.media.getProperty("speakerName").GetPreValues();
         }
 
         public static IEnumerable<string> GetSermonSeriesList()
         {
-            var sermon = new SermonRepository().LoadLastSermons(1).First();
+            var sermon = (SermonFromMedia)new SermonMediaRepository().LoadLastSermons(1).First();
             return sermon.media.getProperty("sermonSeries").GetPreValues();
         }
 
         public static IEnumerable<string> GetRecordingSessionList()
         {
-            var sermon = new SermonRepository().LoadLastSermons(1).First();
+            var sermon = (SermonFromMedia)new SermonMediaRepository().LoadLastSermons(1).First();
             return sermon.media.getProperty("recordingSession").GetPreValues();
         }
 
