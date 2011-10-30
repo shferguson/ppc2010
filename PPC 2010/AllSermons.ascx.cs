@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using PPC_2010.Data;
+using PPC_2010.Data.LinqToSql;
 
 namespace PPC_2010
 {
@@ -25,7 +23,7 @@ namespace PPC_2010
 
         private void LoadSermons()
         {
-            using (ISermonRepository repository = new SermonLinqToSqlRepository())
+            using (ISermonRepository repository = new LinqToSqlSermonRepository())
             {
                 var sermons = repository.LoadAllSermons();
                 if (sermons.Count() == 0 && pageNumber != 1)
@@ -47,7 +45,7 @@ namespace PPC_2010
 
         protected void nextClick(object sender, EventArgs e)
         {
-            using (ISermonRepository repository = new SermonLinqToSqlRepository())
+            using (ISermonRepository repository = new LinqToSqlSermonRepository())
             {
                 if (repository.GetNumberOfSermons() > pageNumber * 10)
                 {

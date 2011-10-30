@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Web.UI;
 using PPC_2010.Data;
+using PPC_2010.Data.LinqToSql;
 using PPC_2010.Services;
 using umbraco.cms.businesslogic.media;
 
@@ -54,7 +54,7 @@ namespace PPC_2010
 
         private void LoadSermon(int sermonId)
         {
-            using (ISermonRepository repository = new SermonLinqToSqlRepository())
+            using (ISermonRepository repository = new LinqToSqlSermonRepository())
             {
                 ISermon sermon = null;
                 if (sermonId > 0)

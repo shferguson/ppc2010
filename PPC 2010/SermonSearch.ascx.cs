@@ -32,15 +32,15 @@ namespace PPC_2010
             month.DataBind();
 
 
-            var speakers = Data.SermonFromMedia.GetSpeakerList();
+            var speakers = Data.MediaSermon.GetSpeakerList();
             speaker.DataSource = PrependEmptyString(speakers);
             speaker.DataBind();
 
-            var audioTypes = Data.SermonFromMedia.GetRecordingSessionList();
+            var audioTypes = Data.MediaSermon.GetRecordingSessionList();
             audioType.DataSource = PrependEmptyString(audioTypes);
             audioType.DataBind();
 
-            var series = Data.SermonFromMedia.GetSermonSeriesList();
+            var series = Data.MediaSermon.GetSermonSeriesList();
             audioSeries.DataSource = PrependEmptyString(series);
             audioSeries.DataBind();
         }

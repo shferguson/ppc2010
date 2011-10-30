@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using PPC_2010.Data;
+using PPC_2010.Data.LinqToSql;
 using RssToolkit.Rss;
-using System.Web.UI;
-using PPC_2010.TimeZone;
 
 namespace PPC_2010
 {
@@ -31,7 +29,7 @@ namespace PPC_2010
             Rss.Channel.Description = "Sermons from Providence Presbyterian Church in Robinson, PA";
             Rss.Channel.Link = Context.Request.Url.ToString();
 
-            using (ISermonRepository repsository = new SermonLinqToSqlRepository())
+            using (ISermonRepository repsository = new LinqToSqlSermonRepository())
             {
 
                 Rss.Channel.Items = repsository.LoadLastSermons(50).Select(s =>

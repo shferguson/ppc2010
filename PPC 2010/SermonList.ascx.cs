@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using PPC_2010.Data;
+using PPC_2010.Data.LinqToSql;
 
 namespace PPC_2010
 {
@@ -35,7 +36,7 @@ namespace PPC_2010
 
         private void LoadSermons()
         {
-            using (ISermonRepository repository = new SermonLinqToSqlRepository())
+            using (ISermonRepository repository = new LinqToSqlSermonRepository())
             {
                 var sermons = repository.LoadAllSermons();
 
