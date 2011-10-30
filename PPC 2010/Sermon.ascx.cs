@@ -54,7 +54,7 @@ namespace PPC_2010
 
         private void LoadSermon(int sermonId)
         {
-            using (ISermonRepository repository = new LinqToSqlSermonRepository())
+            using (ISermonRepository repository = ServiceLocator.Instance.Locate<ISermonRepository>())
             {
                 ISermon sermon = null;
                 if (sermonId > 0)

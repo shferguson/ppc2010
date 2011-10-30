@@ -29,7 +29,7 @@ namespace PPC_2010
             Rss.Channel.Description = "Sermons from Providence Presbyterian Church in Robinson, PA";
             Rss.Channel.Link = Context.Request.Url.ToString();
 
-            using (ISermonRepository repsository = new LinqToSqlSermonRepository())
+            using (ISermonRepository repsository = ServiceLocator.Instance.Locate<ISermonRepository>())
             {
 
                 Rss.Channel.Items = repsository.LoadLastSermons(50).Select(s =>
