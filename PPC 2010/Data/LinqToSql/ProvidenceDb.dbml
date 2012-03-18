@@ -2,9 +2,9 @@
   <Connection Mode="WebSettings" ConnectionString="Data Source=(local)\sqlexpress;Initial Catalog=providence;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="providenceConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="ppc2010.view_Sermons" Member="Sermons">
     <Type Name="Sermon">
-      <Column Name="Id" Modifier="Override" Type="System.Int32" DbType="Int NOT NULL" IsReadOnly="true" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="Id" Modifier="Override" Type="System.Int32" DbType="Int NOT NULL" IsReadOnly="true" CanBeNull="false" />
       <Column Name="UmbracoTitle" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="RecordingDate" Modifier="Override" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
+      <Column Name="RecordingDate" Modifier="Override" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Title" Modifier="Override" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="SpeakerName" Modifier="Override" Type="System.String" DbType="NVarChar(2500)" CanBeNull="true" />
       <Column Name="RecordingSession" Modifier="Override" Type="System.String" DbType="NVarChar(2500)" CanBeNull="true" />
@@ -14,7 +14,7 @@
       <Column Name="StartVerse" Modifier="Override" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="EndChapter" Modifier="Override" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="EndVerse" Modifier="Override" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ScriptureReferenceText" Modifier="Override" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="ScriptureReferenceText" Modifier="Override" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="true" />
       <Column Name="AudioFile" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
     </Type>
   </Table>

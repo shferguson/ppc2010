@@ -43,7 +43,7 @@ namespace PPC_2010.Data
         }
 
         private DateTime? recordingDate = null;
-        public override DateTime RecordingDate
+        public override DateTime? RecordingDate
         {
             get
             {

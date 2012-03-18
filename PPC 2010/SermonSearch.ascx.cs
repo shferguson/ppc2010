@@ -21,7 +21,7 @@ namespace PPC_2010
             SermonMediaRepository repository = new SermonMediaRepository();
             var sermons = repository.LoadAllSermons();
 
-            var years = sermons.Select(s => s.RecordingDate.Year).Distinct().OrderByDescending(y => y).Select(y => y.ToString());
+            var years = sermons.Where(s => s.RecordingDate.HasValue).Select(s => s.RecordingDate.Value.Year).Distinct().OrderByDescending(y => y).Select(y => y.ToString());
             year.DataSource = PrependEmptyString(years);
             year.DataBind();
 

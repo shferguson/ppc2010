@@ -7,7 +7,7 @@ namespace PPC_2010.Data
         int SortOrder { get; set; }
         int Id { get; }
         string Title { get; set; }
-        DateTime RecordingDate { get; set; }
+        DateTime? RecordingDate { get; set; }
         string SpeakerTitle { get; set; }
         string SpeakerName { get; set; }
         string RecordingSession { get; set; }

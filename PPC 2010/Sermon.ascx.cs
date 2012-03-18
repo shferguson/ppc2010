@@ -68,7 +68,7 @@ namespace PPC_2010
 
                     sermonTitle.Text = sermon.Title;
                     speakerName.Text = sermon.SpeakerName;
-                    recordingDate.Text = sermon.RecordingDate.ToShortDateString();
+                    recordingDate.Text = sermon.RecordingDate.GetValueOrDefault().ToShortDateString();
                     recordingSession.Text = sermon.RecordingSession;
                     RecordingUrl = sermon.RecordingUrl.Replace("~", baseUrl);
 

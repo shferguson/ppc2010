@@ -41,9 +41,9 @@ namespace PPC_2010
                 var sermons = repository.LoadAllSermons();
 
                 if (SearchYear != 0)
-                    sermons = sermons.Where(s => s.RecordingDate.Year == SearchYear);
+                    sermons = sermons.Where(s => s.RecordingDate.HasValue && s.RecordingDate.Value.Year == SearchYear);
                 if (SearchMonth != 0)
-                    sermons = sermons.Where(s => s.RecordingDate.Month == SearchMonth);
+                    sermons = sermons.Where(s => s.RecordingDate.HasValue && s.RecordingDate.Value.Month == SearchMonth);
                 if (!string.IsNullOrEmpty(SearchSpeaker))
                     sermons = sermons.Where(s => String.Equals(s.SpeakerName, SearchSpeaker, StringComparison.CurrentCultureIgnoreCase));
                 if (!string.IsNullOrEmpty(SearchSeries))

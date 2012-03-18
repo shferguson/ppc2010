@@ -40,7 +40,7 @@ namespace PPC_2010.UmbracoEvents
                 if (sermon.RecordingDate > new DateTime(2011, 2, 28))
                 {
                     // Canonicalize the name of the sermon so they are consistent and easy to find in the list
-                    sender.Text = sermon.RecordingDate.ToString("MM/dd/yyyy") + " - " + sermon.RecordingSession;
+                    sender.Text = sermon.RecordingDate.Value.ToString("MM/dd/yyyy") + " - " + sermon.RecordingSession;
 
                     // Cananicalize the file name,
                     if (sermon.RecordingDate > new DateTime(2011, 2, 28))

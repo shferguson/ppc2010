@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ProvidenceDb">
   <DataContextMoniker Name="/ProvidenceDbDataContext" />
   <nestedChildShapes>
-    <classShape Id="645f9f31-25c5-4edb-9f73-98d46f5e9e53" absoluteBounds="0.875, 0.75, 2, 3.0683211263020831">
+    <classShape Id="645f9f31-25c5-4edb-9f73-98d46f5e9e53" absoluteBounds="0.875, 0.75, 2, 3.5016097005208326">
       <DataClassMoniker Name="/ProvidenceDbDataContext/Sermon" />
       <nestedChildShapes>
-        <elementListCompartment Id="b7b122e6-cc37-45fe-a00a-7a47191b91a3" absoluteBounds="0.88999999999999968, 1.21, 1.9700000000000002, 2.508321126302083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b7b122e6-cc37-45fe-a00a-7a47191b91a3" absoluteBounds="0.88999999999999968, 1.21, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
