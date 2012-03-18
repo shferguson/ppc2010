@@ -26,12 +26,16 @@
             get
             {
                 string scriptureText = string.Empty;
-                if (StartChapter != EndChapter)
+                if (StartChapter != (EndChapter ?? StartChapter))
                     scriptureText = string.Format("{0} {1}:{2}-{3}:{4}", Book, StartChapter, StartVerse, EndChapter, EndVerse);
-                else if (StartVerse != EndVerse)
+                else if (StartVerse != (EndVerse ?? StartVerse))
                     scriptureText = string.Format("{0} {1}:{2}-{3}", Book, StartChapter, StartVerse, EndVerse);
+                else if (StartChapter != null)
+                    scriptureText = string.Format("{0} {1}", Book, StartChapter);
                 else if (!string.IsNullOrWhiteSpace(Book))
-                    scriptureText = string.Format("{0} {1}:{2}", Book, StartChapter, StartVerse);
+                    scriptureText = string.Format("{0}", Book);
+                else
+                    scriptureText = string.Empty;
 
                 return scriptureText;
             }

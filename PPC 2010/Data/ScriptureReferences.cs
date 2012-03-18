@@ -18,12 +18,16 @@ namespace PPC_2010.Data
         /// </summary>
         public ScriptureReferences(string book, int? startChapter, int? startVerse, int? endChapter, int? endVerse)
         {
-            if (startChapter != endChapter)
+            if (startChapter != (endChapter ?? startChapter))
                 ScriptureString = string.Format("{0} {1}:{2}-{3}:{4}", book, startChapter, startVerse, endChapter, endVerse);
-            else if (startVerse != endVerse)
+            else if (startVerse != (endVerse ?? startVerse))
                 ScriptureString = string.Format("{0} {1}:{2}-{3}", book, startChapter, startVerse, endVerse);
-            else if (!string.IsNullOrWhiteSpace(book))
+            else if (startVerse != null)
                 ScriptureString = string.Format("{0} {1}:{2}", book, startChapter, startVerse);
+            else if (startChapter != null)
+                ScriptureString = string.Format("{0} {1}", book, startChapter);
+            else if (!string.IsNullOrWhiteSpace(book))
+                ScriptureString = string.Format("{0}", book);
             else
                 ScriptureString = string.Empty;
 
