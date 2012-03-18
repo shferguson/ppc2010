@@ -15,7 +15,7 @@ namespace PPC_2010.UmbracoEvents
             Media.AfterSave += new Media.SaveEventHandler(Media_AfterSave);
             Media.BeforeSave += new Media.SaveEventHandler(Media_BeforeSave);
 
-            SermonMediaRepository.RebuildCache();
+            //SermonMediaRepository.RebuildCache();
         }
 
         void Media_New(Media sender, umbraco.cms.businesslogic.NewEventArgs e)
@@ -71,11 +71,11 @@ namespace PPC_2010.UmbracoEvents
 
         void Media_AfterSave(Media sender, umbraco.cms.businesslogic.SaveEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
-            {
-                SermonMediaRepository.RebuildCache();
-                SermonMediaRepository.OrderSermons();
-            }
+            //if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
+            //{
+            //    SermonMediaRepository.RebuildCache();
+            //    SermonMediaRepository.OrderSermons();
+            //}
         }
     }
 }
