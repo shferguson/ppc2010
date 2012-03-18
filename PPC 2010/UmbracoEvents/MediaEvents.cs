@@ -4,6 +4,7 @@ using umbraco.cms.businesslogic.media;
 using System.IO;
 using System.Web;
 using System;
+using PPC_2010.Data.Media;
 
 namespace PPC_2010.UmbracoEvents
 {
@@ -25,7 +26,7 @@ namespace PPC_2010.UmbracoEvents
                 // Automatically populate the sermon title from what the user entered in for the element name
                 // The element name will be set in Media_BeforeSave and having the name they type in when
                 // creating a new sermon makes more sense to users
-                var sermon = new Data.MediaSermon(sender);
+                var sermon = new Data.Media.MediaSermon(sender);
                 sermon.Title = sender.Text;
             }
         }
@@ -34,7 +35,7 @@ namespace PPC_2010.UmbracoEvents
         {
             if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
             {
-                Data.MediaSermon sermon = new Data.MediaSermon(sender);
+                Data.Media.MediaSermon sermon = new Data.Media.MediaSermon(sender);
 
                 // don't update anything recorded before the launch of the new web site
                 if (sermon.RecordingDate > new DateTime(2011, 2, 28))

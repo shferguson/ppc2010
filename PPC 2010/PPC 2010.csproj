@@ -172,6 +172,7 @@
     <Compile Include="ContactList.ascx.designer.cs">
       <DependentUpon>ContactList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Data\SermonCacheRepository.cs" />
     <Compile Include="Data\DataTableConverter.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -186,9 +187,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProvidenceDb.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Data\MediaRepository.cs" />
-    <Compile Include="Data\MediaSermon.cs" />
-    <Compile Include="Data\MediaSermonRepository.cs" />
+    <Compile Include="Data\Media\MediaRepository.cs" />
+    <Compile Include="Data\Media\MediaSermon.cs" />
+    <Compile Include="Data\Media\MediaSermonRepository.cs" />
     <Compile Include="Data\ScriptureReference.cs" />
     <Compile Include="Data\ScriptureReferences.cs" />
     <Compile Include="Data\Sermon.cs" />
@@ -262,9 +263,7 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\Media\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>

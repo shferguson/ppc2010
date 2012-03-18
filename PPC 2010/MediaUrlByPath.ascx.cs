@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using PPC_2010.Data;
 using umbraco.cms.businesslogic.media;
+using PPC_2010.Data.Media;
 
 namespace PPC_2010
 {

@@ -1,8 +1,9 @@
 ﻿using System.Linq;
-using umbraco.cms.businesslogic.media;
 
-namespace PPC_2010.Data
+namespace PPC_2010.Data.Media
 {
+    using umbraco.cms.businesslogic.media;
+
     public class MediaRepository
     {
         public Media GetMediaByAliasPath(string aliasPath)

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using PPC_2010.Extensions;
-using umbraco.cms.businesslogic.media;
 
-namespace PPC_2010.Data
+namespace PPC_2010.Data.Media
 {
+    using umbraco.cms.businesslogic.media;
+
     public class MediaSermon : Sermon
     {
         private Media media = null;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.StaticFactory;
 using PPC_2010.Data;
 
 namespace PPC_2010
@@ -19,7 +20,10 @@ namespace PPC_2010
 
         protected ServiceLocator()
         {
-            container.RegisterType<ISermonRepository, Data.LinqToSql.LinqToSqlSermonRepository>();
+            container.RegisterType<ISermonRepository>(new InjectionFactory(i => new Data.SermonCacheRepository(new Data.LinqToSql.LinqToSqlSermonRepository())));
+            //container.RegisterType<ISermonRepository>(new InjectionFactory(i => new Data.SermonCacheRepository(new Data.Media.SermonMediaRepository())));
+            //container.RegisterType<ISermonRepository, Data.LinqToSql.LinqToSqlSermonRepository>();
+            //container.RegisterType<ISermonRepository, Data.Media.SermonMediaRepository>();
         }
 
         public T Locate<T>()

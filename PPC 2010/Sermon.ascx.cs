@@ -4,6 +4,7 @@ using PPC_2010.Data;
 using PPC_2010.Data.LinqToSql;
 using PPC_2010.Services;
 using umbraco.cms.businesslogic.media;
+using PPC_2010.Data.Media;
 
 namespace PPC_2010
 {

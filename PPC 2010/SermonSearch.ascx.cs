@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using PPC_2010.Data;
+using PPC_2010.Data.Media;
 
 namespace PPC_2010
 {
@@ -32,15 +33,15 @@ namespace PPC_2010
             month.DataBind();
 
 
-            var speakers = Data.MediaSermon.GetSpeakerList();
+            var speakers = Data.Media.MediaSermon.GetSpeakerList();
             speaker.DataSource = PrependEmptyString(speakers);
             speaker.DataBind();
 
-            var audioTypes = Data.MediaSermon.GetRecordingSessionList();
+            var audioTypes = Data.Media.MediaSermon.GetRecordingSessionList();
             audioType.DataSource = PrependEmptyString(audioTypes);
             audioType.DataBind();
 
-            var series = Data.MediaSermon.GetSermonSeriesList();
+            var series = Data.Media.MediaSermon.GetSermonSeriesList();
             audioSeries.DataSource = PrependEmptyString(series);
             audioSeries.DataBind();
         }
