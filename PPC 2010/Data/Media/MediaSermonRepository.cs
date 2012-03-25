@@ -58,7 +58,12 @@ namespace PPC_2010.Data.Media
         {
             Media sermonRoot = Media.GetRootMedias().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == SermonFolderAlias);
             if (sermonRoot != null)
-                return sermonRoot.Children.Select(m => new MediaSermon(m)).ToArray();
+            {
+                return sermonRoot.Children.Select(m => new MediaSermon(m))
+                    .OrderByDescending(s => s.RecordingDate)
+                    .ThenByDescending(s => s.RecordingSession)
+                    .ToArray();
+            }
             return Enumerable.Empty<MediaSermon>();
         }
     }

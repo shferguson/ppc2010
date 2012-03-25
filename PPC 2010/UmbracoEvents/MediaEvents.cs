@@ -5,6 +5,8 @@ using System.IO;
 using System.Web;
 using System;
 using PPC_2010.Data.Media;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PPC_2010.UmbracoEvents
 {
@@ -72,11 +74,21 @@ namespace PPC_2010.UmbracoEvents
 
         void Media_AfterSave(Media sender, umbraco.cms.businesslogic.SaveEventArgs e)
         {
-            //if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
-            //{
-            //    SermonMediaRepository.RebuildCache();
-            //    SermonMediaRepository.OrderSermons();
-            //}
+            if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
+            {
+                var sermons = new Data.Media.SermonMediaRepository().LoadAllSermons().Cast<MediaSermon>();
+
+                int i = 1;
+                foreach (var sermon in sermons)
+                {
+                    if (sermon.SortOrder != i)
+                    {
+                        sermon.SortOrder = i;
+                    }
+
+                    i++;
+                }
+            }
         }
     }
 }
