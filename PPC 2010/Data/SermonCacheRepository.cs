@@ -109,6 +109,5 @@ namespace PPC_2010.Data
                 sermons.ForEach(s => sermonCache.Add(s.Id, s));
             }
         }
-
     }
 }

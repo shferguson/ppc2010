@@ -69,6 +69,14 @@ namespace PPC_2010.Data.LinqToSql
 				return this.GetTable<Sermon>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Article> Articles
+		{
+			get
+			{
+				return this.GetTable<Article>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="ppc2010.view_Sermons")]
@@ -320,6 +328,123 @@ namespace PPC_2010.Data.LinqToSql
 				if ((this._AudioFile != value))
 				{
 					this._AudioFile = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="ppc2010.view_Articles")]
+	public partial class Article
+	{
+		
+		private int _Id;
+		
+		private string _UmbracoTitle;
+		
+		private string _Title;
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		private string _Text;
+		
+		private string _ScriptureReference;
+		
+		public Article()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UmbracoTitle", DbType="NVarChar(255)")]
+		public string UmbracoTitle
+		{
+			get
+			{
+				return this._UmbracoTitle;
+			}
+			set
+			{
+				if ((this._UmbracoTitle != value))
+				{
+					this._UmbracoTitle = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(500)")]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this._Title = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this._Date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string Text
+		{
+			get
+			{
+				return this._Text;
+			}
+			set
+			{
+				if ((this._Text != value))
+				{
+					this._Text = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ScriptureReference", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string ScriptureReference
+		{
+			get
+			{
+				return this._ScriptureReference;
+			}
+			set
+			{
+				if ((this._ScriptureReference != value))
+				{
+					this._ScriptureReference = value;
 				}
 			}
 		}

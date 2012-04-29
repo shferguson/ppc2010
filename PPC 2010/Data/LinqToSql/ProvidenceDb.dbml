@@ -18,4 +18,14 @@
       <Column Name="AudioFile" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="ppc2010.view_Articles" Member="Articles">
+    <Type Name="Article">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UmbracoTitle" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Text" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ScriptureReference" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
 </Database>

@@ -6,11 +6,16 @@ namespace PPC_2010.Data.LinqToSql
 {
     public class LinqToSqlSermonRepository : ISermonRepository
     {
-        ProvidenceDbDataContext providence = new ProvidenceDbDataContext(ConfigurationManager.AppSettings["umbracoDbDSN"]);
+        private readonly ProvidenceDbDataContext _providence;
+
+        public LinqToSqlSermonRepository(ProvidenceDbDataContext providence)
+        {
+            _providence = providence;
+        }
 
         public ISermon LoadCurrentSermon(string recordingSession)
         {
-            return providence.Sermons
+            return _providence.Sermons
                 .Where(s => s.RecordingSession == recordingSession)
                 .OrderByDescending(s => s.RecordingDate)
                 .ThenByDescending(s => s.RecordingSession)
@@ -20,14 +25,14 @@ namespace PPC_2010.Data.LinqToSql
 
         public ISermon LoadSermon(int sermonId)
         {
-            return providence
+            return _providence
                 .Sermons
                 .Single(s => ((LinqToSql.Sermon)s).Id == sermonId);
         }
 
         public IEnumerable<ISermon> LoadLastSermons(int count)
         {
-            return providence.Sermons
+            return _providence.Sermons
                 .OrderByDescending(s => s.RecordingDate)
                 .ThenByDescending(s => s.RecordingSession)
                 .Take(count);
@@ -35,7 +40,7 @@ namespace PPC_2010.Data.LinqToSql
 
         public IEnumerable<ISermon> LoadSermonsByPage(int pageNumber, int itemsPerPage)
         {
-            return providence.Sermons
+            return _providence.Sermons
                 .OrderByDescending(s => s.RecordingDate)
                 .ThenByDescending(s => s.RecordingSession)
                 .Skip((pageNumber - 1) * itemsPerPage)
@@ -44,19 +49,16 @@ namespace PPC_2010.Data.LinqToSql
 
         public IEnumerable<ISermon> LoadAllSermons()
         {
-            return providence.Sermons
+            return _providence.Sermons
                 .OrderByDescending(s => s.RecordingDate)
                 .ThenByDescending(s => s.RecordingSession);
         }
 
         public int GetNumberOfSermons()
         {
-            return providence.Sermons.Count();
+            return _providence.Sermons.Count();
         }
 
-        public void Dispose()
-        {
-            providence.Dispose();
-        }
+        public void Dispose()  {  }
     }
 }

@@ -10,9 +10,9 @@ using System.Linq;
 
 namespace PPC_2010.UmbracoEvents
 {
-    public class MediaEvents : ApplicationBase
+    public class SermonEvents : ApplicationBase
     {
-        public MediaEvents()
+        public SermonEvents()
         {
             Media.New += new Media.NewEventHandler(Media_New);
             Media.AfterSave += new Media.SaveEventHandler(Media_AfterSave);

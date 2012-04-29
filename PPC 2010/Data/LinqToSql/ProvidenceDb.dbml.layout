@@ -8,5 +8,11 @@
         <elementListCompartment Id="b7b122e6-cc37-45fe-a00a-7a47191b91a3" absoluteBounds="0.88999999999999968, 1.21, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="52009715-5526-432f-b255-58b8cfc596bb" absoluteBounds="3, 0.75, 2, 1.9631982421875">
+      <DataClassMoniker Name="/ProvidenceDbDataContext/Article" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ca4ef303-421c-4ec5-8554-bfed66478f69" absoluteBounds="3.0149999999999997, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

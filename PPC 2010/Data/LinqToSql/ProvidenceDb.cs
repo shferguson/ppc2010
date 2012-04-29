@@ -20,4 +20,8 @@ namespace PPC_2010.Data.LinqToSql
             return AudioFile;
         }
     }
+
+    partial class Article : IArticle
+    {
+    }
 }
