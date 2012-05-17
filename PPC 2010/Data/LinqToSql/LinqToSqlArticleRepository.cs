@@ -18,7 +18,7 @@ namespace PPC_2010.Data.LinqToSql
         public IArticle LoadLatestArticle()
         {
             return _providence.Articles
-                .Where(a => a.Date == _providence.Articles.Max(a2 => a2.Date))
+                .OrderByDescending(a => a.Date)
                 .FirstOrDefault();
         }
 
@@ -26,6 +26,24 @@ namespace PPC_2010.Data.LinqToSql
         {
             return _providence.Articles
                 .Where(a => a.Id == articleId)
+                .FirstOrDefault();
+        }
+
+        public IArticle NextArticle(int articleId)
+        {
+            IArticle article = LoadArticle(articleId);
+            return _providence.Articles
+                .Where(a => a.Date > article.Date)
+                .OrderBy(a => a.Date)
+                .FirstOrDefault();
+        }
+
+        public IArticle PrevArticle(int articleId)
+        {
+            IArticle article = LoadArticle(articleId);
+            return _providence.Articles
+                .Where(a => a.Date < article.Date)
+                .OrderByDescending(a => a.Date)
                 .FirstOrDefault();
         }
 

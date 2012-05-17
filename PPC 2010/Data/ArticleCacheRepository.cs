@@ -26,6 +26,16 @@ namespace PPC_2010.Data
             return ArticleCache[articleId];
         }
 
+        public IArticle NextArticle(int articleId)
+        {
+            return ArticleCache[articleId];
+        }
+
+        public IArticle PrevArticle(int articleId)
+        {
+            return ArticleCache[articleId];
+        }
+
         public IEnumerable<IArticle> LoadLastArticles(int count)
         {
             return ArticleCache

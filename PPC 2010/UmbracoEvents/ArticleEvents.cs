@@ -1,35 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using umbraco.cms.businesslogic.web;
+using PPC_2010.Extensions;
+using umbraco.BusinessLogic;
 using umbraco.cms.businesslogic;
+using umbraco.cms.businesslogic.web;
 
 namespace PPC_2010.UmbracoEvents
 {
-    public class ArticleEvents
+    public class ArticleEvents : ApplicationBase
     {
         static ArticleEvents()
         {
-            Content.AfterNew += new EventHandler<NewEventArgs>(Content_AfterNew);
-            Content.BeforeSave += new EventHandler<SaveEventArgs>(Content_BeforeSave);
-            Content.AfterSave += new EventHandler<SaveEventArgs>(Content_AfterSave);
+            Document.New += new Document.NewEventHandler(Document_New);
+            Document.BeforeSave += new Document.SaveEventHandler(Document_BeforeSave);
         }
 
-        static void Content_AfterSave(object sender, SaveEventArgs e)
+        static void Document_New(Document sender, NewEventArgs e)
         {
-            throw new NotImplementedException();
+            if (sender.ContentType.Alias == "Article")
+            {
+                var article = new Data.Media.Article(sender);
+                article.Title = sender.Text;
+                article.Date = DateTime.Today.GetDateOfNext(DayOfWeek.Sunday);
+            }
         }
 
-        static void Content_AfterNew(object sender, NewEventArgs e)
+        static void Document_BeforeSave(Document sender, SaveEventArgs e)
         {
-            throw new NotImplementedException();
+            if (sender.ContentType.Alias == "Article")
+            {
+                var article = new Data.Media.Article(sender);
+                if (article.Date.HasValue)
+                    sender.Text = "Article-" + article.Date.Value.ToString("MM/dd/yyyy");
+            }
+           
         }
-
-        static void Content_BeforeSave(object sender, SaveEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        
     }
 }

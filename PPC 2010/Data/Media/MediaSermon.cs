@@ -171,6 +171,7 @@ namespace PPC_2010.Data.Media
         public static IEnumerable<string> GetSermonSeriesList()
         {
             var sermon = (MediaSermon)new SermonMediaRepository().LoadLastSermons(1).First();
+
             return sermon.media.getProperty("sermonSeries").GetPreValues();
         }
 

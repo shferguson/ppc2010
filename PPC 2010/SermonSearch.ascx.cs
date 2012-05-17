@@ -19,7 +19,7 @@ namespace PPC_2010
 
         private void PopulateListBoxes()
         {
-            SermonMediaRepository repository = new SermonMediaRepository();
+            ISermonRepository repository = ServiceLocator.Instance.Locate<ISermonRepository>();
             var sermons = repository.LoadAllSermons();
 
             var years = sermons.Where(s => s.RecordingDate.HasValue).Select(s => s.RecordingDate.Value.Year).Distinct().OrderByDescending(y => y).Select(y => y.ToString());
