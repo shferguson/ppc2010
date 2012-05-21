@@ -29,6 +29,7 @@ namespace PPC_2010
                 //x.For<ISermonRepository>().HttpContextScoped().Use(() => new Data.SermonCacheRepository(_container.GetInstance<Data.LinqToSql.LinqToSqlSermonRepository>()));
                 //x.For<IArticleRepository>().HttpContextScoped().Use(() => new Data.ArticleCacheRepository(_container.GetInstance<Data.LinqToSql.LinqToSqlArticleRepository>()));
                 x.For<IArticleRepository>().HttpContextScoped().Use<Data.LinqToSql.LinqToSqlArticleRepository>();
+                x.For<IPrevalueRepository>().HttpContextScoped().Use<Data.LinqToSql.PrevalueRepository>();
             });
         }
 

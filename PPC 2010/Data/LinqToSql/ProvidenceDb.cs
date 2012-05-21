@@ -24,4 +24,8 @@ namespace PPC_2010.Data.LinqToSql
     partial class Article : IArticle
     {
     }
+
+    partial class Prevalue : IPrevalue
+    {
+    }
 }

@@ -54,6 +54,8 @@ namespace PPC_2010.Data.Media
             }
             set
             {
+                recordingDate = value;
+                media.getProperty("recordingDate").Value = value;
             }
         }
 
@@ -63,7 +65,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (speakerTitle == null)
-                    speakerTitle = media.getProperty("speakerTitle").GetPreValueAsString();
+                    speakerTitle = media.getProperty("speakerTitle").GetPrevalueAsString();
                 return speakerTitle;
             }
             set
@@ -77,7 +79,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (speakerName == null)
-                    speakerName = media.getProperty("speakerName").GetPreValueAsString();
+                    speakerName = media.getProperty("speakerName").GetPrevalueAsString();
                 return speakerName;
             }
             set
@@ -91,7 +93,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (recordingSession == null)
-                    recordingSession = media.getProperty("recordingSession").GetPreValueAsString();
+                    recordingSession = media.getProperty("recordingSession").GetPrevalueAsString();
 
                 return recordingSession;
             }
@@ -106,7 +108,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (sermonSeries == null)
-                    sermonSeries = media.getProperty("sermonSeries").GetPreValueAsString();
+                    sermonSeries = media.getProperty("sermonSeries").GetPrevalueAsString();
                 return sermonSeries;
             }
             set
@@ -130,7 +132,7 @@ namespace PPC_2010.Data.Media
 
         public override string Book
         {
-            get { return media.getProperty("book").GetPreValueAsString(); }
+            get { return media.getProperty("book").GetPrevalueAsString(); }
             set { }
         }
 
@@ -165,20 +167,20 @@ namespace PPC_2010.Data.Media
         public static IEnumerable<string> GetSpeakerList()
         {
             var sermon = (MediaSermon)new SermonMediaRepository().LoadLastSermons(1).First();
-            return sermon.media.getProperty("speakerName").GetPreValues();
+            return sermon.media.getProperty("speakerName").GetPrevalues();
         }
 
         public static IEnumerable<string> GetSermonSeriesList()
         {
             var sermon = (MediaSermon)new SermonMediaRepository().LoadLastSermons(1).First();
 
-            return sermon.media.getProperty("sermonSeries").GetPreValues();
+            return sermon.media.getProperty("sermonSeries").GetPrevalues();
         }
 
         public static IEnumerable<string> GetRecordingSessionList()
         {
             var sermon = (MediaSermon)new SermonMediaRepository().LoadLastSermons(1).First();
-            return sermon.media.getProperty("recordingSession").GetPreValues();
+            return sermon.media.getProperty("recordingSession").GetPrevalues();
         }
 
         #endregion

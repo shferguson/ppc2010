@@ -109,5 +109,10 @@ namespace PPC_2010.Data
                 Articles.ForEach(s => ArticleCache.Add(s.Id, s));
             }
         }
+
+
+        public void RefreshSermons()
+        {
+        }
     }
 }

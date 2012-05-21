@@ -30,6 +30,7 @@ namespace PPC_2010.UmbracoEvents
                 // creating a new sermon makes more sense to users
                 var sermon = new Data.Media.MediaSermon(sender);
                 sermon.Title = sender.Text;
+                sermon.RecordingDate = DateTime.Today;
             }
         }
 

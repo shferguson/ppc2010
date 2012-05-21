@@ -7,20 +7,20 @@ namespace PPC_2010.Extensions
 {
     public static class PropertyExtensions
     {
-        public static string GetPreValueAsString(this Property property)
+        public static string GetPrevalueAsString(this Property property)
         {
             int value = 0;
             if (property.Value != null)
                 if (int.TryParse(property.Value.ToString(), out value))
-                    return umbraco.library.GetPreValueAsString(value);
+                    return umbraco.library.GetPrevalueAsString(value);
             return "";
         }
 
-        public static IEnumerable<string> GetPreValues(this Property property)
+        public static IEnumerable<string> GetPrevalues(this Property property)
         {
             int dataTypeId = property.PropertyType.DataTypeDefinition.Id;
 
-            var preValues = umbraco.library.GetPreValues(dataTypeId).OfType<IHasXmlNode>();
+            var preValues = umbraco.library.GetPrevalues(dataTypeId).OfType<IHasXmlNode>();
 
             IEnumerable<string> preValueList = 
                 preValues
@@ -36,7 +36,7 @@ namespace PPC_2010.Extensions
         private static readonly TimeSpan preValueCacheTime = TimeSpan.FromSeconds(60);
         private static Dictionary<int, Tuple<DateTime, object>> preValueCache = new Dictionary<int, Tuple<DateTime, object>>();
 
-        public static T GetPreValue<T>(this Property property)
+        public static T GetPrevalue<T>(this Property property)
         {
             int preValue = 0;
             if (property.Value != null && int.TryParse(property.Value as string, out preValue))

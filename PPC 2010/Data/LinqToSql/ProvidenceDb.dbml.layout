@@ -14,5 +14,11 @@
         <elementListCompartment Id="ca4ef303-421c-4ec5-8554-bfed66478f69" absoluteBounds="3.0149999999999997, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="e71fed52-14ed-4a68-9988-3d6a90bfdd3f" absoluteBounds="5.25, 0.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/ProvidenceDbDataContext/Prevalue" />
+      <nestedChildShapes>
+        <elementListCompartment Id="75a47cdc-9646-4751-81df-7ad39bb27409" absoluteBounds="5.265, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

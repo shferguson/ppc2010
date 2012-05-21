@@ -60,5 +60,11 @@ namespace PPC_2010.Data.LinqToSql
         }
 
         public void Dispose()  {  }
+
+
+        public void RefreshSermons()
+        {
+            _providence.RefreshSermons();
+        }
     }
 }

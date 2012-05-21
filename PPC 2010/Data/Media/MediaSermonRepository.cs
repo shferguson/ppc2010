@@ -66,5 +66,10 @@ namespace PPC_2010.Data.Media
             }
             return Enumerable.Empty<MediaSermon>();
         }
+
+
+        public void RefreshSermons()
+        {
+        }
     }
 }

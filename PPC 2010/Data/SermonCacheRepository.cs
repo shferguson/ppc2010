@@ -80,7 +80,7 @@ namespace PPC_2010.Data
             {
                 if (sermonRoot.ChildCount != sermonCache.Count)
                 {
-                    RebuildCache();
+                    RefreshSermons();
                 }
 
                 return sermonCache.Values
@@ -98,7 +98,7 @@ namespace PPC_2010.Data
             }
         }
 
-        public void RebuildCache()
+        public void RefreshSermons()
         {
             lock (cacheLock)
             {

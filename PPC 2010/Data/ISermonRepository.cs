@@ -11,5 +11,7 @@ namespace PPC_2010.Data
         IEnumerable<ISermon> LoadSermonsByPage(int pageNumber, int itemsPerPage);
         IEnumerable<ISermon> LoadAllSermons();
         int GetNumberOfSermons();
+
+        void RefreshSermons();
     }
 }

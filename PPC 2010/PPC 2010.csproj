@@ -168,8 +168,11 @@
     <Compile Include="Data\ArticleCacheRepository.cs" />
     <Compile Include="Data\IArticle.cs" />
     <Compile Include="Data\IArticleRepository.cs" />
+    <Compile Include="Data\IPrevalueRepository.cs" />
     <Compile Include="Data\LinqToSql\LinqToSqlArticleRepository.cs" />
+    <Compile Include="Data\LinqToSql\PrevalueRepository.cs" />
     <Compile Include="Data\Media\Article.cs" />
+    <Compile Include="Data\IPrevalue.cs" />
     <Compile Include="Data\SermonCacheRepository.cs" />
     <Compile Include="Data\DataTableConverter.cs">
       <SubType>Component</SubType>

@@ -77,5 +77,11 @@ namespace PPC_2010.Data.LinqToSql
             return _providence.Articles
                 .OrderByDescending(a => a.Date);
         }
+
+
+        public void RefreshSermons()
+        {
+            _providence.RefreshSermons();
+        }
     }
 }
