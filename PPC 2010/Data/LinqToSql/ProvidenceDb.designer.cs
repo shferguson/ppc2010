@@ -472,7 +472,7 @@ namespace PPC_2010.Data.LinqToSql
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_PreValues")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="ppc2010.view_PreValues")]
 	public partial class PreValue
 	{
 		

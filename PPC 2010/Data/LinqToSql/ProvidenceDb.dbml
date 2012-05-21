@@ -28,7 +28,7 @@
       <Column Name="ScriptureReference" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
     </Type>
   </Table>
-  <Table Name="dbo.view_PreValues" Member="PreValues">
+  <Table Name="ppc2010.view_PreValues" Member="PreValues">
     <Type Name="PreValue">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
