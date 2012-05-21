@@ -168,18 +168,18 @@
     <Compile Include="Data\ArticleCacheRepository.cs" />
     <Compile Include="Data\IArticle.cs" />
     <Compile Include="Data\IArticleRepository.cs" />
-    <Compile Include="Data\IPrevalueRepository.cs" />
-    <Compile Include="Data\LinqToSql\LinqToSqlArticleRepository.cs" />
-    <Compile Include="Data\LinqToSql\PrevalueRepository.cs" />
+    <Compile Include="Data\IPreValueRepository.cs" />
+    <Compile Include="Data\LinqToSql\ArticleRepository.cs" />
+    <Compile Include="Data\LinqToSql\PreValueRepository.cs" />
     <Compile Include="Data\Media\Article.cs" />
-    <Compile Include="Data\IPrevalue.cs" />
+    <Compile Include="Data\IPreValue.cs" />
     <Compile Include="Data\SermonCacheRepository.cs" />
     <Compile Include="Data\DataTableConverter.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data\ISermon.cs" />
     <Compile Include="Data\ISermonRepository.cs" />
-    <Compile Include="Data\LinqToSql\LinqToSqlSermonRepository.cs" />
+    <Compile Include="Data\LinqToSql\SermonRepository.cs" />
     <Compile Include="Data\LinqToSql\ProvidenceDb.cs">
       <DependentUpon>ProvidenceDb.dbml</DependentUpon>
     </Compile>
@@ -190,7 +190,7 @@
     </Compile>
     <Compile Include="Data\Media\MediaRepository.cs" />
     <Compile Include="Data\Media\MediaSermon.cs" />
-    <Compile Include="Data\Media\MediaSermonRepository.cs" />
+    <Compile Include="Data\Media\SermonRepository.cs" />
     <Compile Include="Data\ScriptureReference.cs" />
     <Compile Include="Data\ScriptureReferences.cs" />
     <Compile Include="Data\Sermon.cs" />

@@ -6,11 +6,11 @@ using System.Configuration;
 
 namespace PPC_2010.Data.LinqToSql
 {
-    public class LinqToSqlArticleRepository : IArticleRepository
+    public class ArticleRepository : IArticleRepository
     {
         private readonly ProvidenceDbDataContext _providence;
 
-        public LinqToSqlArticleRepository(ProvidenceDbDataContext providence)
+        public ArticleRepository(ProvidenceDbDataContext providence)
         {
             _providence = providence;
         }

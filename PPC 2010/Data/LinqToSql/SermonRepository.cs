@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace PPC_2010.Data.LinqToSql
 {
-    public class LinqToSqlSermonRepository : ISermonRepository
+    public class SermonRepository : ISermonRepository
     {
         private readonly ProvidenceDbDataContext _providence;
 
-        public LinqToSqlSermonRepository(ProvidenceDbDataContext providence)
+        public SermonRepository(ProvidenceDbDataContext providence)
         {
             _providence = providence;
         }

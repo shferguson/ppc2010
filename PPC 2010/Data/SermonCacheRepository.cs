@@ -74,7 +74,7 @@ namespace PPC_2010.Data
 
         private IEnumerable<ISermon> GetSermons()
         {
-            var sermonRoot = umbraco.cms.businesslogic.media.Media.GetRootMedias().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == Data.Media.SermonMediaRepository.SermonFolderAlias);
+            var sermonRoot = umbraco.cms.businesslogic.media.Media.GetRootMedias().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == Data.Media.SermonRepository.SermonFolderAlias);
 
             lock (sermonCache)
             {

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace PPC_2010.Data.LinqToSql
 {
-    class PrevalueRepository : IPrevalueRepository
+    class PreValueRepository : IPreValueRepository
     {
         private readonly ProvidenceDbDataContext _providence;
 
@@ -12,34 +12,34 @@ namespace PPC_2010.Data.LinqToSql
         private const string SessionsName = "Recording Session";
         private const string SermonSeriesName = "Sermon Series";
 
-        public PrevalueRepository(ProvidenceDbDataContext providence)
+        public PreValueRepository(ProvidenceDbDataContext providence)
         {
             _providence = providence;
         }
 
-        public IEnumerable<IPrevalue> BibleBooks()
+        public IEnumerable<IPreValue> BibleBooks()
         {
-            return GetPrevalues(BibleBooksName);
+            return GetPreValues(BibleBooksName);
         }
 
-        public IEnumerable<IPrevalue> Speakers()
+        public IEnumerable<IPreValue> Speakers()
         {
-            return GetPrevalues(SpeakersName);
+            return GetPreValues(SpeakersName);
         }
 
-        public IEnumerable<IPrevalue> Sessions()
+        public IEnumerable<IPreValue> Sessions()
         {
-            return GetPrevalues(SessionsName);
+            return GetPreValues(SessionsName);
         }
 
-        public IEnumerable<IPrevalue> SermonSeries()
+        public IEnumerable<IPreValue> SermonSeries()
         {
-            return GetPrevalues(SermonSeriesName);
+            return GetPreValues(SermonSeriesName);
         }
 
-        private IEnumerable<IPrevalue> GetPrevalues(string name)
+        private IEnumerable<IPreValue> GetPreValues(string name)
         {
-            return _providence.Prevalues
+            return _providence.PreValues
                 .Where(v => v.Name == name)
                 .OrderBy(v => v.SortOrder);
         }

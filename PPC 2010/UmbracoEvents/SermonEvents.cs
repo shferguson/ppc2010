@@ -23,7 +23,7 @@ namespace PPC_2010.UmbracoEvents
 
         void Media_New(Media sender, umbraco.cms.businesslogic.NewEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
+            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
             {
                 // Automatically populate the sermon title from what the user entered in for the element name
                 // The element name will be set in Media_BeforeSave and having the name they type in when
@@ -36,7 +36,7 @@ namespace PPC_2010.UmbracoEvents
 
         void Media_BeforeSave(Media sender, umbraco.cms.businesslogic.SaveEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
+            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
             {
                 Data.Media.MediaSermon sermon = new Data.Media.MediaSermon(sender);
 
@@ -75,9 +75,9 @@ namespace PPC_2010.UmbracoEvents
 
         void Media_AfterSave(Media sender, umbraco.cms.businesslogic.SaveEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonMediaRepository.SermonAlias)
+            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
             {
-                var sermons = new Data.Media.SermonMediaRepository().LoadAllSermons().Cast<MediaSermon>();
+                var sermons = new Data.Media.SermonRepository().LoadAllSermons().Cast<MediaSermon>();
 
                 int i = 1;
                 foreach (var sermon in sermons)

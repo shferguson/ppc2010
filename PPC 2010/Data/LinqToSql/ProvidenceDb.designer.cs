@@ -78,11 +78,11 @@ namespace PPC_2010.Data.LinqToSql
 			}
 		}
 		
-		public System.Data.Linq.Table<Prevalue> Prevalues
+		public System.Data.Linq.Table<PreValue> PreValues
 		{
 			get
 			{
-				return this.GetTable<Prevalue>();
+				return this.GetTable<PreValue>();
 			}
 		}
 		
@@ -472,8 +472,8 @@ namespace PPC_2010.Data.LinqToSql
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_Prevalues")]
-	public partial class Prevalue
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.view_PreValues")]
+	public partial class PreValue
 	{
 		
 		private int _Id;
@@ -484,7 +484,7 @@ namespace PPC_2010.Data.LinqToSql
 		
 		private int _SortOrder;
 		
-		public Prevalue()
+		public PreValue()
 		{
 		}
 		

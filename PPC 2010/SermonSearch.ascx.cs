@@ -9,11 +9,11 @@ namespace PPC_2010
 {
     public partial class SermonSearch : System.Web.UI.UserControl
     {
-        private IPrevalueRepository _prevalueRepository;
+        private IPreValueRepository _PreValueRepository;
 
         public SermonSearch()
         {
-            _prevalueRepository = ServiceLocator.Instance.Locate<IPrevalueRepository>();
+            _PreValueRepository = ServiceLocator.Instance.Locate<IPreValueRepository>();
         }
 
 
@@ -40,15 +40,15 @@ namespace PPC_2010
             month.DataTextField = "String";
             month.DataBind();
 
-            var speakers = _prevalueRepository.Speakers().Select(s => s.Value);
+            var speakers = _PreValueRepository.Speakers().Select(s => s.Value);
             speaker.DataSource = PrependEmptyString(speakers);
             speaker.DataBind();
 
-            var audioTypes = _prevalueRepository.Sessions().Select(s => s.Value);
+            var audioTypes = _PreValueRepository.Sessions().Select(s => s.Value);
             audioType.DataSource = PrependEmptyString(audioTypes);
             audioType.DataBind();
 
-            var series = _prevalueRepository.SermonSeries().Select(s => s.Value);
+            var series = _PreValueRepository.SermonSeries().Select(s => s.Value);
             audioSeries.DataSource = PrependEmptyString(series);
             audioSeries.DataBind();
         }

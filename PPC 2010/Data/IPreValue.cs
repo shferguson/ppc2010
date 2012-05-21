@@ -1,7 +1,7 @@
 ﻿
 namespace PPC_2010.Data
 {
-    public interface IPrevalue
+    public interface IPreValue
     {
         int Id { get; }
         string Value { get; }

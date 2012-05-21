@@ -25,7 +25,7 @@ namespace PPC_2010.Data.LinqToSql
     {
     }
 
-    partial class Prevalue : IPrevalue
+    partial class PreValue : IPreValue
     {
     }
 }

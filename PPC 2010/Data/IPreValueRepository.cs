@@ -2,11 +2,11 @@
 
 namespace PPC_2010.Data
 {
-    public interface IPrevalueRepository
+    public interface IPreValueRepository
     {
-        IEnumerable<IPrevalue> BibleBooks();
-        IEnumerable<IPrevalue> Speakers();
-        IEnumerable<IPrevalue> Sessions();
-        IEnumerable<IPrevalue> SermonSeries();
+        IEnumerable<IPreValue> BibleBooks();
+        IEnumerable<IPreValue> Speakers();
+        IEnumerable<IPreValue> Sessions();
+        IEnumerable<IPreValue> SermonSeries();
     }
 }
