@@ -14,6 +14,6 @@ namespace PPC_2010.Data
         IEnumerable<IArticle> LoadAllArticles();
         int GetNumberOfArticles();
 
-        void RefreshSermons();
+        void RefreshArticles();
     }
 }

@@ -111,7 +111,7 @@ namespace PPC_2010.Data
         }
 
 
-        public void RefreshSermons()
+        public void RefreshArticles()
         {
         }
     }

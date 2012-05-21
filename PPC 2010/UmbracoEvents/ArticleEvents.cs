@@ -3,6 +3,7 @@ using PPC_2010.Extensions;
 using umbraco.BusinessLogic;
 using umbraco.cms.businesslogic;
 using umbraco.cms.businesslogic.web;
+using PPC_2010.Data;
 
 namespace PPC_2010.UmbracoEvents
 {
@@ -12,6 +13,7 @@ namespace PPC_2010.UmbracoEvents
         {
             Document.New += new Document.NewEventHandler(Document_New);
             Document.BeforeSave += new Document.SaveEventHandler(Document_BeforeSave);
+            Document.AfterSave += new Document.SaveEventHandler(Document_AfterSave);
         }
 
         static void Document_New(Document sender, NewEventArgs e)
@@ -33,6 +35,11 @@ namespace PPC_2010.UmbracoEvents
                     sender.Text = "Article-" + article.Date.Value.ToString("MM/dd/yyyy");
             }
            
+        }
+
+        static void Document_AfterSave(Document sender, SaveEventArgs e)
+        {
+            ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticles();
         }
     }
 }

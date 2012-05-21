@@ -79,9 +79,9 @@ namespace PPC_2010.Data.LinqToSql
         }
 
 
-        public void RefreshSermons()
+        public void RefreshArticles()
         {
-            _providence.RefreshSermons();
+            _providence.RefreshArticles();
         }
     }
 }
