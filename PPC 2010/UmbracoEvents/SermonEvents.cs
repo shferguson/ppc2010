@@ -23,7 +23,7 @@ namespace PPC_2010.UmbracoEvents
         
         void Media_New(Media sender, umbraco.cms.businesslogic.NewEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            if (sender.ContentType.Alias == Constants.SermonAlias)
             {
                 // Automatically populate the sermon title from what the user entered in for the element name
                 // The element name will be set in Media_BeforeSave and having the name they type in when
@@ -38,7 +38,7 @@ namespace PPC_2010.UmbracoEvents
 
         void Media_BeforeSave(Media sender, umbraco.cms.businesslogic.SaveEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            if (sender.ContentType.Alias == Constants.SermonAlias)
             {
                 if (CheckForRefresh(sender, e))
                     return;
@@ -79,7 +79,7 @@ namespace PPC_2010.UmbracoEvents
 
         void Media_AfterSave(Media sender, umbraco.cms.businesslogic.SaveEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            if (sender.ContentType.Alias == Constants.SermonAlias)
             {
                 if (CheckForRefresh(sender, e))
                     return;
@@ -103,7 +103,7 @@ namespace PPC_2010.UmbracoEvents
 
         void Media_AfterDelete(Media sender, umbraco.cms.businesslogic.DeleteEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            if (sender.ContentType.Alias == Constants.SermonAlias)
             {
                 ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(sender.Id, true);
             }
@@ -111,7 +111,7 @@ namespace PPC_2010.UmbracoEvents
 
         void Media_AfterMoveToTrash(Media sender, umbraco.cms.businesslogic.MoveToTrashEventArgs e)
         {
-            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            if (sender.ContentType.Alias == Constants.SermonAlias)
             {
                 ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(sender.Id, true);
             }
@@ -119,7 +119,7 @@ namespace PPC_2010.UmbracoEvents
 
         bool CheckForRefresh(Media sender, CancelEventArgs e)
         {
-            if (sender.Text.Equals("Refresh", StringComparison.CurrentCultureIgnoreCase))
+            if (sender.Text.Equals(Constants.RefreshIndicatorTitle, StringComparison.CurrentCultureIgnoreCase))
             {
                 ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermons();
                 e.Cancel = true;

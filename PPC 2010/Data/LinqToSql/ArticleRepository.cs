@@ -85,7 +85,8 @@ namespace PPC_2010.Data.LinqToSql
             _providence.ExecuteCommand(
                 @"insert into ppc2010.Article
                  (Id, UmbracoTitle, Title, Date, Text, ScriptureReference)
-                 (select Id, UmbracoTitle, Title, Date, Text, ScriptureReference from ppc2010.view_Articles where upper(UmbracoTitle) <> 'REFRESH')"
+                 (select Id, UmbracoTitle, Title, Date, Text, ScriptureReference from ppc2010.view_Articles where upper(UmbracoTitle) <> {0})",
+                 Constants.RefreshIndicatorTitle.ToUpper()
             );
         }
 
@@ -98,7 +99,9 @@ namespace PPC_2010.Data.LinqToSql
                 _providence.ExecuteCommand(
                     @"insert into ppc2010.Article
                  (Id, UmbracoTitle, Title, Date, Text, ScriptureReference)
-                 (select Id, UmbracoTitle, Title, Date, Text, ScriptureReference from ppc2010.view_Articles where Id = {0} and upper(UmbracoTitle) <> 'REFRESH')", articleId
+                 (select Id, UmbracoTitle, Title, Date, Text, ScriptureReference from ppc2010.view_Articles where Id = {0} and upper(UmbracoTitle) <> {1})",
+                 articleId,
+                 Constants.RefreshIndicatorTitle.ToUpper()
                 );
             }
         }

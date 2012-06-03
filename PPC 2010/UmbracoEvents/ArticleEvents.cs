@@ -21,7 +21,7 @@ namespace PPC_2010.UmbracoEvents
 
         static void Document_New(Document sender, NewEventArgs e)
         {
-            if (sender.ContentType.Alias == "Article")
+            if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
                 if (CheckForRefresh(sender, e))
                     return;
@@ -30,14 +30,13 @@ namespace PPC_2010.UmbracoEvents
                 article.Title = sender.Text;
                 article.Date = DateTime.Today.GetDateOfNext(DayOfWeek.Sunday);
 
-                if (sender.Text == "Refresh")
-                    ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticles();
+                CheckForRefresh(sender, e);
             }
         }
 
         static void Document_BeforeSave(Document sender, SaveEventArgs e)
         {
-            if (sender.ContentType.Alias == "Article")
+            if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
                 if (CheckForRefresh(sender, e))
                     return;
@@ -51,7 +50,7 @@ namespace PPC_2010.UmbracoEvents
 
         static void Document_AfterSave(Document sender, SaveEventArgs e)
         {
-            if (sender.ContentType.Alias == "Article")
+            if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
                 ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticle(sender.Id, sender.IsTrashed);
             }
@@ -59,7 +58,7 @@ namespace PPC_2010.UmbracoEvents
 
         static void Document_AfterDelete(Document sender, DeleteEventArgs e)
         {
-            if (sender.ContentType.Alias == "Article")
+            if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
                 ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticle(sender.Id, true);
             }
@@ -67,7 +66,7 @@ namespace PPC_2010.UmbracoEvents
 
         static void Document_AfterMoveToTrash(Document sender, MoveToTrashEventArgs e)
         {
-            if (sender.ContentType.Alias == "Article")
+            if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
                 ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticle(sender.Id, true);
             }
@@ -75,7 +74,7 @@ namespace PPC_2010.UmbracoEvents
 
         static bool CheckForRefresh(Document sender, CancelEventArgs e)
         {
-            if (sender.Text == "Refresh")
+            if (sender.Text == Constants.RefreshIndicatorTitle)
             {
                 ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticles();
                 e.Cancel = true;

@@ -171,6 +171,7 @@
       <DependentUpon>ContactList.ascx</DependentUpon>
     </Compile>
     <Compile Include="Data\ArticleCacheRepository.cs" />
+    <Compile Include="Data\Constants.cs" />
     <Compile Include="Data\IArticle.cs" />
     <Compile Include="Data\IArticleRepository.cs" />
     <Compile Include="Data\IPreValueRepository.cs" />

@@ -9,7 +9,6 @@ namespace PPC_2010.Data.Media
     public class SermonRepository : ISermonRepository
     {
         public const string SermonFolderAlias = "SermonFolder";
-        public const string SermonAlias = "Sermon";
 
         public ISermon LoadCurrentSermon(string recordingSession)
         {

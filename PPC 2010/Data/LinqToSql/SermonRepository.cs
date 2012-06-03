@@ -67,7 +67,8 @@ namespace PPC_2010.Data.LinqToSql
             _providence.ExecuteCommand(
                 @"insert into ppc2010.Sermon
                   (Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile)
-                  (select Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons where upper(UmbracoTitle) <> 'REFRESH')"
+                  (select Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons where upper(UmbracoTitle) <> {0})",
+                  Constants.RefreshIndicatorTitle.ToUpper()
             );
         }
 
@@ -80,8 +81,9 @@ namespace PPC_2010.Data.LinqToSql
                 _providence.ExecuteCommand(
                     @"insert into ppc2010.Sermon
                  (Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile)
-                 (select Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons where Id = {0} and upper(UmbracoTitle) <> 'REFRESH')",
-                     sermonId
+                 (select Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons where Id = {0} and upper(UmbracoTitle) <> {1})",
+                     sermonId,
+                     Constants.RefreshIndicatorTitle.ToUpper()
                 );
             }
         }
