@@ -23,11 +23,7 @@ namespace PPC_2010
             _container.Configure(x =>
             {
                 x.For<Data.LinqToSql.ProvidenceDbDataContext>().HttpContextScoped().Use(() => new Data.LinqToSql.ProvidenceDbDataContext(ConfigurationManager.AppSettings["umbracoDbDSN"]));
-                x.For<Data.LinqToSql.SermonRepository>().Use<Data.LinqToSql.SermonRepository>();
-                x.For<Data.LinqToSql.ArticleRepository>().Use<Data.LinqToSql.ArticleRepository>();
                 x.For<ISermonRepository>().HttpContextScoped().Use<Data.LinqToSql.SermonRepository>();
-                //x.For<ISermonRepository>().HttpContextScoped().Use(() => new Data.SermonCacheRepository(_container.GetInstance<Data.LinqToSql.LinqToSqlSermonRepository>()));
-                //x.For<IArticleRepository>().HttpContextScoped().Use(() => new Data.ArticleCacheRepository(_container.GetInstance<Data.LinqToSql.LinqToSqlArticleRepository>()));
                 x.For<IArticleRepository>().HttpContextScoped().Use<Data.LinqToSql.ArticleRepository>();
                 x.For<IPreValueRepository>().HttpContextScoped().Use<Data.LinqToSql.PreValueRepository>();
             });
