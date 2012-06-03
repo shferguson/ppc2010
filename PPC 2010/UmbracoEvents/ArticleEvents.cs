@@ -10,7 +10,7 @@ namespace PPC_2010.UmbracoEvents
 {
     public class ArticleEvents : ApplicationBase
     {
-        static ArticleEvents()
+        public ArticleEvents()
         {
             Document.New += new Document.NewEventHandler(Document_New);
             Document.BeforeSave += new Document.SaveEventHandler(Document_BeforeSave);
@@ -19,7 +19,7 @@ namespace PPC_2010.UmbracoEvents
             Document.AfterMoveToTrash += new Document.MoveToTrashEventHandler(Document_AfterMoveToTrash);
         }
 
-        static void Document_New(Document sender, NewEventArgs e)
+        void Document_New(Document sender, NewEventArgs e)
         {
             if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
@@ -34,7 +34,7 @@ namespace PPC_2010.UmbracoEvents
             }
         }
 
-        static void Document_BeforeSave(Document sender, SaveEventArgs e)
+        void Document_BeforeSave(Document sender, SaveEventArgs e)
         {
             if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
@@ -48,7 +48,7 @@ namespace PPC_2010.UmbracoEvents
            
         }
 
-        static void Document_AfterSave(Document sender, SaveEventArgs e)
+        void Document_AfterSave(Document sender, SaveEventArgs e)
         {
             if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
@@ -56,7 +56,7 @@ namespace PPC_2010.UmbracoEvents
             }
         }
 
-        static void Document_AfterDelete(Document sender, DeleteEventArgs e)
+        void Document_AfterDelete(Document sender, DeleteEventArgs e)
         {
             if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
@@ -64,7 +64,7 @@ namespace PPC_2010.UmbracoEvents
             }
         }
 
-        static void Document_AfterMoveToTrash(Document sender, MoveToTrashEventArgs e)
+        void Document_AfterMoveToTrash(Document sender, MoveToTrashEventArgs e)
         {
             if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
