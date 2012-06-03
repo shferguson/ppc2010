@@ -5,6 +5,8 @@ using PPC_2010.Data;
 using umbraco.NodeFactory;
 using umbraco.cms.businesslogic.web;
 using umbraco;
+using System.Linq;
+using System.Collections.Generic;
 
 
 namespace PPC_2010
@@ -12,6 +14,9 @@ namespace PPC_2010
     public partial class ArticleNavigate : System.Web.UI.UserControl
     {
         private readonly IArticleRepository _articleReposiotry;
+
+        public IEnumerable<IArticle> LatestArticles { get; set; }
+        public IArticle CurrentArticle { get; set; }
 
         public ArticleNavigate()
         {
@@ -23,12 +28,17 @@ namespace PPC_2010
             if (!Page.IsPostBack)
             {
                 var currentNode = Node.GetCurrent();
+                CurrentArticle = _articleReposiotry.LoadArticle(currentNode.Id);
 
                 var nextArticle = _articleReposiotry.NextArticle(currentNode.Id);
                 SetButtonText(nextButton, nextArticle);
                 
                 var prevArticle = _articleReposiotry.PrevArticle(currentNode.Id);
                 SetButtonText(prevButton, prevArticle);
+
+                LatestArticles = _articleReposiotry
+                    .LoadAllArticles()
+                    .Take(50);
             }
         }
 
