@@ -85,18 +85,22 @@ namespace PPC_2010.Data.LinqToSql
             _providence.ExecuteCommand(
                 @"insert into ppc2010.Article
                  (Id, UmbracoTitle, Title, Date, Text, ScriptureReference)
-                 (select Id, UmbracoTitle, Title, Date, Text, ScriptureReference from ppc2010.view_Articles)"
+                 (select Id, UmbracoTitle, Title, Date, Text, ScriptureReference from ppc2010.view_Articles where upper(UmbracoTitle) <> 'REFRESH')"
             );
         }
 
-        public void RefreshArticle(int articleId)
+        public void RefreshArticle(int articleId, bool deleted)
         {
             _providence.ExecuteCommand("delete from ppc2010.Article where Id = {0}", articleId);
-            _providence.ExecuteCommand(
-                @"insert into ppc2010.Article
+
+            if (!deleted)
+            {
+                _providence.ExecuteCommand(
+                    @"insert into ppc2010.Article
                  (Id, UmbracoTitle, Title, Date, Text, ScriptureReference)
-                 (select Id, UmbracoTitle, Title, Date, Text, ScriptureReference from ppc2010.view_Articles where Id = {0})", articleId
-            );
+                 (select Id, UmbracoTitle, Title, Date, Text, ScriptureReference from ppc2010.view_Articles where Id = {0} and upper(UmbracoTitle) <> 'REFRESH')", articleId
+                );
+            }
         }
     }
 }

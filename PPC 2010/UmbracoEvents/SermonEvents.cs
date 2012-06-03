@@ -1,12 +1,12 @@
-﻿using PPC_2010.Data;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Web;
+using PPC_2010.Data;
+using PPC_2010.Data.Media;
 using umbraco.BusinessLogic;
 using umbraco.cms.businesslogic.media;
-using System.IO;
-using System.Web;
-using System;
-using PPC_2010.Data.Media;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
 
 namespace PPC_2010.UmbracoEvents
 {
@@ -17,10 +17,10 @@ namespace PPC_2010.UmbracoEvents
             Media.New += new Media.NewEventHandler(Media_New);
             Media.AfterSave += new Media.SaveEventHandler(Media_AfterSave);
             Media.BeforeSave += new Media.SaveEventHandler(Media_BeforeSave);
-
-            //SermonMediaRepository.RebuildCache();
+            Media.AfterDelete += new Media.DeleteEventHandler(Media_AfterDelete);
+            Media.AfterMoveToTrash += new Media.MoveToTrashEventHandler(Media_AfterMoveToTrash);
         }
-
+        
         void Media_New(Media sender, umbraco.cms.businesslogic.NewEventArgs e)
         {
             if (sender.ContentType.Alias == SermonRepository.SermonAlias)
@@ -31,6 +31,8 @@ namespace PPC_2010.UmbracoEvents
                 var sermon = new Data.Media.MediaSermon(sender);
                 sermon.Title = sender.Text;
                 sermon.RecordingDate = DateTime.Today;
+
+                CheckForRefresh(sender, e);
             }
         }
 
@@ -38,6 +40,9 @@ namespace PPC_2010.UmbracoEvents
         {
             if (sender.ContentType.Alias == SermonRepository.SermonAlias)
             {
+                if (CheckForRefresh(sender, e))
+                    return;
+
                 Data.Media.MediaSermon sermon = new Data.Media.MediaSermon(sender);
 
                 // don't update anything recorded before the launch of the new web site
@@ -76,6 +81,9 @@ namespace PPC_2010.UmbracoEvents
         {
             if (sender.ContentType.Alias == SermonRepository.SermonAlias)
             {
+                if (CheckForRefresh(sender, e))
+                    return;
+
                 var sermons = new Data.Media.SermonRepository().LoadAllSermons().Cast<MediaSermon>();
 
                 int i = 1;
@@ -88,9 +96,36 @@ namespace PPC_2010.UmbracoEvents
 
                     i++;
                 }
+
+                ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(sender.Id, sender.IsTrashed);
+            }
+        }
+
+        void Media_AfterDelete(Media sender, umbraco.cms.businesslogic.DeleteEventArgs e)
+        {
+            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            {
+                ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(sender.Id, true);
+            }
+        }
+
+        void Media_AfterMoveToTrash(Media sender, umbraco.cms.businesslogic.MoveToTrashEventArgs e)
+        {
+            if (sender.ContentType.Alias == SermonRepository.SermonAlias)
+            {
+                ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(sender.Id, true);
+            }
+        }
+
+        bool CheckForRefresh(Media sender, CancelEventArgs e)
+        {
+            if (sender.Text.Equals("Refresh", StringComparison.CurrentCultureIgnoreCase))
+            {
+                ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermons();
+                e.Cancel = true;
             }
 
-            ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(sender.Id);
+            return e.Cancel;
         }
     }
 }

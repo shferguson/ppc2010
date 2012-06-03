@@ -63,23 +63,27 @@ namespace PPC_2010.Data.LinqToSql
 
         public void RefreshSermons()
         {
-            _providence.ExecuteCommand("truncate table ppc2010.Article");
+            _providence.ExecuteCommand("truncate table ppc2010.Sermon");
             _providence.ExecuteCommand(
                 @"insert into ppc2010.Sermon
-                  (Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, EndChapter, EndVerse, ScriptureReferenceText, AudioFile)
-                  (select Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons)"
+                  (Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile)
+                  (select Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons where upper(UmbracoTitle) <> 'REFRESH')"
             );
         }
 
-        public void RefreshSermon(int sermonId)
+        public void RefreshSermon(int sermonId, bool deleted)
         {
             _providence.ExecuteCommand("delete from ppc2010.Sermon where Id = {0}", sermonId);
-            _providence.ExecuteCommand(
-                @"insert into ppc2010.Sermon
-                 (Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, EndChapter, EndVerse, ScriptureReferenceText, AudioFile)
-                 (select Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons where Id = {0})",
-                 sermonId
-            );
+
+            if (!deleted)
+            {
+                _providence.ExecuteCommand(
+                    @"insert into ppc2010.Sermon
+                 (Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile)
+                 (select Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons where Id = {0} and upper(UmbracoTitle) <> 'REFRESH')",
+                     sermonId
+                );
+            }
         }
     }
 }

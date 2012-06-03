@@ -115,7 +115,7 @@ namespace PPC_2010.Data
         {
         }
 
-        public void RefreshArticle(int articleId)
+        public void RefreshArticle(int articleId, bool deleted)
         {
         }
     }

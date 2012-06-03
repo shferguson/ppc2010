@@ -110,7 +110,7 @@ namespace PPC_2010.Data
             }
         }
 
-        public void RefreshSermon(int sermonId)
+        public void RefreshSermon(int sermonId, bool deleted)
         {
             RefreshSermons();
         }

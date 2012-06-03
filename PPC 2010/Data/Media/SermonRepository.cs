@@ -72,7 +72,7 @@ namespace PPC_2010.Data.Media
         {
         }
 
-        public void RefreshSermon(int sermonId)
+        public void RefreshSermon(int sermonId, bool deleted)
         {
         }
     }
