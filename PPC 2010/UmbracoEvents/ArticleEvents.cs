@@ -39,7 +39,7 @@ namespace PPC_2010.UmbracoEvents
 
         static void Document_AfterSave(Document sender, SaveEventArgs e)
         {
-            ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticles();
+            ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticle(sender.Id);
         }
     }
 }

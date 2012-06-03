@@ -114,5 +114,9 @@ namespace PPC_2010.Data
         public void RefreshArticles()
         {
         }
+
+        public void RefreshArticle(int articleId)
+        {
+        }
     }
 }

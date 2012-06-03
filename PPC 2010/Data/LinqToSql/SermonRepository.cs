@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace PPC_2010.Data.LinqToSql
 {
-    public class LinqToSqlSermonRepository : ISermonRepository
+    public class SermonRepository : ISermonRepository
     {
         private readonly ProvidenceDbDataContext _providence;
 
-        public LinqToSqlSermonRepository(ProvidenceDbDataContext providence)
+        public SermonRepository(ProvidenceDbDataContext providence)
         {
             _providence = providence;
         }
@@ -61,10 +61,25 @@ namespace PPC_2010.Data.LinqToSql
 
         public void Dispose()  {  }
 
-
         public void RefreshSermons()
         {
-            _providence.RefreshSermons();
+            _providence.ExecuteCommand("truncate table ppc2010.Article");
+            _providence.ExecuteCommand(
+                @"insert into ppc2010.Sermon
+                  (Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, EndChapter, EndVerse, ScriptureReferenceText, AudioFile)
+                  (select Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons)"
+            );
+        }
+
+        public void RefreshSermon(int sermonId)
+        {
+            _providence.ExecuteCommand("delete from ppc2010.Sermon where Id = {0}", sermonId);
+            _providence.ExecuteCommand(
+                @"insert into ppc2010.Sermon
+                 (Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, EndChapter, EndVerse, ScriptureReferenceText, AudioFile)
+                 (select Id, UmbracoTitle, RecordingDate, Title, SpeakerName, RecordingSession, SermonSeries, Book, StartChapter, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons where Id = {0})",
+                 sermonId
+            );
         }
     }
 }

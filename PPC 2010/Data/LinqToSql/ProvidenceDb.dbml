@@ -36,10 +36,4 @@
       <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Function Name="ppc2010.sp_RefreshArticles" Method="RefreshArticles">
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="ppc2010.sp_RefreshSermons" Method="RefreshSermons">
-    <Return Type="System.Int32" />
-  </Function>
 </Database>

@@ -85,20 +85,6 @@ namespace PPC_2010.Data.LinqToSql
 				return this.GetTable<PreValue>();
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="ppc2010.sp_RefreshArticles")]
-		public int RefreshArticles()
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="ppc2010.sp_RefreshSermons")]
-		public int RefreshSermons()
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((int)(result.ReturnValue));
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="ppc2010.Sermon")]

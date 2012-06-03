@@ -118,8 +118,6 @@
     <Content Include="MediaUrlByPath.ascx" />
     <Content Include="Schema\ppc2010.Article.Table.sql" />
     <Content Include="Schema\ppc2010.Sermon.Table.sql" />
-    <Content Include="Schema\ppc2010.sp_RefreshArticles.StoredProcedure.sql" />
-    <Content Include="Schema\ppc2010.sp_RefreshSermons.StoredProcedure.sql" />
     <Content Include="Schema\ppc2010.view_Articles.View.sql" />
     <Content Include="Schema\ppc2010.view_Prevalues.View.sql" />
     <Content Include="Schema\ppc2010.view_Sermons.View.sql" />

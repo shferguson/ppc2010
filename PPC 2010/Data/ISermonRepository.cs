@@ -13,5 +13,6 @@ namespace PPC_2010.Data
         int GetNumberOfSermons();
 
         void RefreshSermons();
+        void RefreshSermon(int sermonId);
     }
 }

@@ -65,7 +65,6 @@ namespace PPC_2010.UmbracoEvents
                                     File.Delete(HttpContext.Current.Server.MapPath(newFileName));
 
                                 File.Move(HttpContext.Current.Server.MapPath(oldFileName), HttpContext.Current.Server.MapPath(newFileName));
-
                             }
                         }
                     }
@@ -90,6 +89,8 @@ namespace PPC_2010.UmbracoEvents
                     i++;
                 }
             }
+
+            ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(sender.Id);
         }
     }
 }

@@ -15,5 +15,6 @@ namespace PPC_2010.Data
         int GetNumberOfArticles();
 
         void RefreshArticles();
+        void RefreshArticle(int articleId);
     }
 }
