@@ -26,9 +26,7 @@
             <td><asp:TextBox runat="server" ID="title" Width="195" /></td>
         </tr>
     </table>
-
     <br />
     <asp:Button runat="server" ID="search" Text="Search" OnClick="searchClick" />
-
 </form>
 

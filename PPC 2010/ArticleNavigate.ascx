@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ArticleNavigate.ascx.cs" Inherits="PPC_2010.ArticleNavigate" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ArticleNavigate.ascx.cs" Inherits="PPC_2010.ArticleNavigate" ViewStateMode="Disabled" %>
 
 <form runat="server">
     <div>
@@ -19,8 +19,9 @@
                            article.Date.Value.ToShortDateString() + " - " + article.Title,
                            article.Id == CurrentArticle.Id ? "selected=\"\" " : "") %>
                 <% } %> 
-                <% if (!LatestArticles.Any(l => l.Id == CurrentArticle.Id)) %>
+                <% if (!LatestArticles.Any(l => l.Id == CurrentArticle.Id)) { %>
                 <option style="display:none;" selected="" value="<%= umbraco.library.NiceUrl(CurrentArticle.Id) %>"></option>
+                <% } %>
             </select>
         </div>
     </div>
