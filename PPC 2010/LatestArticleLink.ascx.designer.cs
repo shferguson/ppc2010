@@ -10,7 +10,7 @@
 namespace PPC_2010 {
     
     
-    public partial class LatestArticle {
+    public partial class LatestArticleLink {
         
         /// <summary>
         /// articleLink control.
@@ -19,6 +19,6 @@ namespace PPC_2010 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor articleLink;
+        protected global::System.Web.UI.WebControls.HyperLink articleLink;
     }
 }

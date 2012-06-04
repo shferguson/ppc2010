@@ -114,7 +114,7 @@
     <Content Include="Elmah.ascx" />
     <Content Include="Images\rss.gif" />
     <Content Include="AdminLogin.ascx" />
-    <Content Include="LatestArticle.ascx" />
+    <Content Include="LatestArticleLink.ascx" />
     <Content Include="MediaUrlByPath.ascx" />
     <Content Include="Schema\ppc2010.Article.Table.sql" />
     <Content Include="Schema\ppc2010.Sermon.Table.sql" />
@@ -209,12 +209,12 @@
     <Compile Include="AdminLogin.ascx.designer.cs">
       <DependentUpon>AdminLogin.ascx</DependentUpon>
     </Compile>
-    <Compile Include="LatestArticle.ascx.cs">
-      <DependentUpon>LatestArticle.ascx</DependentUpon>
+    <Compile Include="LatestArticleLink.ascx.cs">
+      <DependentUpon>LatestArticleLink.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="LatestArticle.ascx.designer.cs">
-      <DependentUpon>LatestArticle.ascx</DependentUpon>
+    <Compile Include="LatestArticleLink.ascx.designer.cs">
+      <DependentUpon>LatestArticleLink.ascx</DependentUpon>
     </Compile>
     <Compile Include="MediaUrlByPath.ascx.cs">
       <DependentUpon>MediaUrlByPath.ascx</DependentUpon>

@@ -5,7 +5,7 @@ using umbraco;
 
 namespace PPC_2010
 {
-    public partial class LatestArticle : System.Web.UI.UserControl
+    public partial class LatestArticleLink : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -13,13 +13,10 @@ namespace PPC_2010
             {
                 var articleRepo = ServiceLocator.Instance.Locate<IArticleRepository>();
                 var article = articleRepo.LoadLatestArticle();
-                if (article == null)
+                if (article != null)
                 {
-                    articleLink.Visible = false;
-                }
-                else
-                {
-                    articleLink.HRef = library.NiceUrl(article.Id);
+                    articleLink.NavigateUrl = library.NiceUrl(article.Id);
+                    articleLink.Text = article.Title;
                 }
             }
         }

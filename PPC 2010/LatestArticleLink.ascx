@@ -1,0 +1,2 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LatestArticleLink.ascx.cs" Inherits="PPC_2010.LatestArticleLink" ViewStateMode="Disabled" %>
+<asp:HyperLink runat="server" ID="articleLink" />
