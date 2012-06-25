@@ -9,7 +9,7 @@ namespace PPC_2010.Extensions
     {
         public static DateTime GetDateOfNext(this DateTime dateTime, DayOfWeek dayOfWeek)
         {
-            return dateTime.AddDays(7 - (dateTime.DayOfWeek - dayOfWeek));
+            return dateTime.AddDays((7 - (dateTime.DayOfWeek - dayOfWeek)) % 7);
         }
     }
 }
