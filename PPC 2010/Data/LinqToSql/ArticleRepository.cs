@@ -17,8 +17,7 @@ namespace PPC_2010.Data.LinqToSql
 
         public IArticle LoadLatestArticle()
         {
-            return _providence.Articles
-                .OrderByDescending(a => a.Date)
+            return SortedArticles()
                 .FirstOrDefault();
         }
 
@@ -32,7 +31,7 @@ namespace PPC_2010.Data.LinqToSql
         public IArticle NextArticle(int articleId)
         {
             IArticle article = LoadArticle(articleId);
-            return _providence.Articles
+            return SortedArticles()
                 .Where(a => a.Date > article.Date)
                 .OrderBy(a => a.Date)
                 .FirstOrDefault();
@@ -41,9 +40,8 @@ namespace PPC_2010.Data.LinqToSql
         public IArticle PrevArticle(int articleId)
         {
             IArticle article = LoadArticle(articleId);
-            return _providence.Articles
+            return SortedArticles()
                 .Where(a => a.Date < article.Date)
-                .OrderByDescending(a => a.Date)
                 .FirstOrDefault();
         }
 
@@ -74,7 +72,10 @@ namespace PPC_2010.Data.LinqToSql
 
         private IEnumerable<Article> SortedArticles()
         {
+            // Filter out any future articles so that we can upload articles before we want them visible
+            // and have them only show up that day
             return _providence.Articles
+                .Where(a => a.Date <= DateTime.Today)
                 .OrderByDescending(a => a.Date);
         }
 
