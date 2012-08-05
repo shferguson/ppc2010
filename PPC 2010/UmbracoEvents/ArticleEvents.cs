@@ -1,10 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
+using PPC_2010.Data;
 using PPC_2010.Extensions;
 using umbraco.BusinessLogic;
 using umbraco.cms.businesslogic;
 using umbraco.cms.businesslogic.web;
-using PPC_2010.Data;
-using System.ComponentModel;
 
 namespace PPC_2010.UmbracoEvents
 {
@@ -14,9 +14,12 @@ namespace PPC_2010.UmbracoEvents
         {
             Document.New += new Document.NewEventHandler(Document_New);
             Document.BeforeSave += new Document.SaveEventHandler(Document_BeforeSave);
-            Document.AfterSave += new Document.SaveEventHandler(Document_AfterSave);
-            Document.AfterDelete += new Document.DeleteEventHandler(Document_AfterDelete);
-            Document.AfterMoveToTrash += new Document.MoveToTrashEventHandler(Document_AfterMoveToTrash);
+            Document.AfterSave += new Document.SaveEventHandler(Document_Refresh);
+            Document.AfterDelete += new Document.DeleteEventHandler(Document_Refresh);
+            Document.AfterMoveToTrash += new Document.MoveToTrashEventHandler(Document_Refresh);
+            Document.AfterUnPublish += new Document.UnPublishEventHandler(Document_Refresh);
+            Document.AfterRollBack += new Document.RollBackEventHandler(Document_Refresh);
+            Document.AfterPublish += new Document.PublishEventHandler(Document_Refresh);
         }
 
         void Document_New(Document sender, NewEventArgs e)
@@ -48,27 +51,11 @@ namespace PPC_2010.UmbracoEvents
            
         }
 
-        void Document_AfterSave(Document sender, SaveEventArgs e)
+        void Document_Refresh(Document sender, EventArgs e)
         {
             if (sender.ContentType.Alias == Constants.ArticleAlias)
             {
                 ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticle(sender.Id, sender.IsTrashed);
-            }
-        }
-
-        void Document_AfterDelete(Document sender, DeleteEventArgs e)
-        {
-            if (sender.ContentType.Alias == Constants.ArticleAlias)
-            {
-                ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticle(sender.Id, true);
-            }
-        }
-
-        void Document_AfterMoveToTrash(Document sender, MoveToTrashEventArgs e)
-        {
-            if (sender.ContentType.Alias == Constants.ArticleAlias)
-            {
-                ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticle(sender.Id, true);
             }
         }
 
