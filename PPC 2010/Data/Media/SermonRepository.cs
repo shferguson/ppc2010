@@ -60,7 +60,7 @@ namespace PPC_2010.Data.Media
             {
                 return sermonRoot.Children.Select(m => new MediaSermon(m))
                     .OrderByDescending(s => s.RecordingDate)
-                    .ThenByDescending(s => s.RecordingSession)
+                    .ThenByDescending(s => s.Id)
                     .ToArray();
             }
             return Enumerable.Empty<MediaSermon>();

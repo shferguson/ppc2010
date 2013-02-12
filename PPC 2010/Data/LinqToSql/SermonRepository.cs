@@ -17,8 +17,7 @@ namespace PPC_2010.Data.LinqToSql
         {
             return _providence.Sermons
                 .Where(s => s.RecordingSession == recordingSession)
-                .OrderByDescending(s => s.RecordingDate)
-                .ThenByDescending(s => s.RecordingSession)
+                .SortSermons()
                 .Take(1)
                 .FirstOrDefault();
         }
@@ -33,16 +32,14 @@ namespace PPC_2010.Data.LinqToSql
         public IEnumerable<ISermon> LoadLastSermons(int count)
         {
             return _providence.Sermons
-                .OrderByDescending(s => s.RecordingDate)
-                .ThenByDescending(s => s.RecordingSession)
+                .SortSermons()
                 .Take(count);
         }
 
         public IEnumerable<ISermon> LoadSermonsByPage(int pageNumber, int itemsPerPage)
         {
             return _providence.Sermons
-                .OrderByDescending(s => s.RecordingDate)
-                .ThenByDescending(s => s.RecordingSession)
+                .SortSermons()
                 .Skip((pageNumber - 1) * itemsPerPage)
                 .Take(itemsPerPage);
         }
@@ -50,8 +47,7 @@ namespace PPC_2010.Data.LinqToSql
         public IEnumerable<ISermon> LoadAllSermons()
         {
             return _providence.Sermons
-                .OrderByDescending(s => s.RecordingDate)
-                .ThenByDescending(s => s.RecordingSession);
+                .SortSermons();
         }
 
         public int GetNumberOfSermons()
@@ -86,6 +82,16 @@ namespace PPC_2010.Data.LinqToSql
                      Constants.RefreshIndicatorTitle.ToUpper()
                 );
             }
+        }
+    }
+
+    public static class SermonSort
+    {
+        public static IQueryable<Sermon> SortSermons(this IQueryable<Sermon> sermons)
+        {
+            return sermons
+                .OrderByDescending(s => s.RecordingDate)
+                .ThenByDescending(s => s.Id);
         }
     }
 }
