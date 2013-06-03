@@ -16,6 +16,10 @@
       <Column Name="EndVerse" Modifier="Override" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ScriptureReferenceText" Modifier="Override" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="true" />
       <Column Name="AudioFile" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SpeakerNameId" Modifier="Override" Type="System.Int32" DbType="Int" CanBeNull="false" />
+      <Column Name="RecordingSessionId" Modifier="Override" Type="System.Int32" DbType="Int" CanBeNull="false" />
+      <Column Name="SermonSeriesId" Modifier="Override" Type="System.Int32" DbType="Int" CanBeNull="false" />
+      <Column Name="SpeakerTitleId" Modifier="Override" Type="System.Int32" DbType="Int" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="ppc2010.Article" Member="Articles">

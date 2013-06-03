@@ -59,6 +59,20 @@ namespace PPC_2010.Data.Media
             }
         }
 
+        private int speakerTitleId = -1;
+        public override int SpeakerTitleId
+        {
+            get
+            {
+                if (speakerTitleId == -1)
+                    speakerTitleId = media.getProperty("speakerTitle").Id;
+                return speakerTitleId;
+            }
+            set
+            {
+            }
+        }
+
         private string speakerTitle = null;
         public override string SpeakerTitle
         {
@@ -67,6 +81,20 @@ namespace PPC_2010.Data.Media
                 if (speakerTitle == null)
                     speakerTitle = media.getProperty("speakerTitle").GetPreValueAsString();
                 return speakerTitle;
+            }
+            set
+            {
+            }
+        }
+
+        private int speakerNameId = -1;
+        public override int SpeakerNameId
+        {
+            get
+            {
+                if (speakerNameId == -1)
+                    speakerNameId = media.getProperty("speakerName").Id;
+                return speakerNameId;
             }
             set
             {
@@ -87,6 +115,20 @@ namespace PPC_2010.Data.Media
             }
         }
 
+        private int recordingSessionId = -1;
+        public override int RecordingSessionId
+        {
+            get
+            {
+                if (recordingSessionId == -1)
+                    recordingSessionId = media.getProperty("recordingSession").Id;
+                return recordingSessionId;
+            }
+            set
+            {
+            }
+        }
+
         private string recordingSession = null;
         public override string RecordingSession
         {
@@ -96,6 +138,20 @@ namespace PPC_2010.Data.Media
                     recordingSession = media.getProperty("recordingSession").GetPreValueAsString();
 
                 return recordingSession;
+            }
+            set
+            {
+            }
+        }
+
+        private int sermonSeriesId = -1;
+        public override int SermonSeriesId
+        {
+            get
+            {
+                if (sermonSeriesId == -1)
+                    sermonSeriesId = media.getProperty("sermonSeries").Id;
+                return sermonSeriesId;
             }
             set
             {

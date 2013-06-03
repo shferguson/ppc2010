@@ -186,6 +186,7 @@
     <Compile Include="Data\Constants.cs" />
     <Compile Include="Data\IArticle.cs" />
     <Compile Include="Data\IArticleRepository.cs" />
+    <Compile Include="Data\IdValuePair.cs" />
     <Compile Include="Data\IPreValueRepository.cs" />
     <Compile Include="Data\LinqToSql\ArticleRepository.cs" />
     <Compile Include="Data\LinqToSql\PreValueRepository.cs" />

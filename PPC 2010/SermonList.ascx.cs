@@ -16,8 +16,11 @@ namespace PPC_2010
 
         public int SearchYear { get; set; }
         public int SearchMonth { get; set; }
+        public int SearchSpeakerId { get; set; }
         public string SearchSpeaker { get; set; }
+        public int SearchSeriesId { get; set; }
         public string SearchSeries { get; set; }
+        public int SearchRecordingTypeId { get; set; }
         public string SearchRecordingType { get; set; }
         public string SearchTitle { get; set; }
 
@@ -44,10 +47,16 @@ namespace PPC_2010
                     sermons = sermons.Where(s => s.RecordingDate.HasValue && s.RecordingDate.Value.Year == SearchYear);
                 if (SearchMonth != 0)
                     sermons = sermons.Where(s => s.RecordingDate.HasValue && s.RecordingDate.Value.Month == SearchMonth);
+                if (SearchSpeakerId != 0)
+                    sermons = sermons.Where(s => s.SpeakerNameId == SearchSpeakerId);
                 if (!string.IsNullOrEmpty(SearchSpeaker))
                     sermons = sermons.Where(s => String.Equals(s.SpeakerName, SearchSpeaker, StringComparison.CurrentCultureIgnoreCase));
+                if (SearchSeriesId != 0)
+                    sermons = sermons.Where(s => s.SermonSeriesId == SearchSeriesId);
                 if (!string.IsNullOrEmpty(SearchSeries))
                     sermons = sermons.Where(s => String.Equals(s.SermonSeries, SearchSeries, StringComparison.CurrentCultureIgnoreCase));
+                if (SearchRecordingTypeId != 0)
+                    sermons = sermons.Where(s => s.RecordingSessionId == SearchRecordingTypeId);
                 if (!string.IsNullOrEmpty(SearchRecordingType))
                     sermons = sermons.Where(s => String.Equals(s.RecordingSession, SearchRecordingType, StringComparison.CurrentCultureIgnoreCase));
                 if (!string.IsNullOrEmpty(SearchTitle))
@@ -89,10 +98,14 @@ namespace PPC_2010
         private void RedirectToPage(int pageNumber)
         {
             Response.Redirect(Request.Url.AbsolutePath +
-                string.Format("?year={0}&month={1}&speaker={2}&type={3}&series={4}&title={5}&page={6}",
-                    SearchYear, SearchMonth,
+                string.Format("?year={0}&month={1}&speakerId={2}&speaker={3}&typeId={4}&type={5}&seriesId={6}&series={7}&title={8}&page={9}",
+                    SearchYear,
+                    SearchMonth,
+                    SearchSpeakerId,
                     Server.UrlEncode(SearchSpeaker),
+                    SearchRecordingTypeId,
                     Server.UrlEncode(SearchRecordingType),
+                    SearchSeriesId,
                     Server.UrlEncode(SearchSeries),
                     Server.UrlEncode(SearchTitle),
                     pageNumber));

@@ -8,9 +8,13 @@ namespace PPC_2010.Data
         public abstract int Id { get; }
         public abstract string Title { get; set; }
         public abstract DateTime? RecordingDate { get; set; }
+        public abstract int SpeakerTitleId { get; set; }
         public abstract string SpeakerTitle { get; set; }
+        public abstract int SpeakerNameId { get; set; }
         public abstract string SpeakerName { get; set; }
+        public abstract int RecordingSessionId { get; set; }
         public abstract string RecordingSession { get; set; }
+        public abstract int SermonSeriesId { get; set; }
         public abstract string SermonSeries { get; set; }
         public abstract string ScriptureReferenceText { get; set; }
         public abstract string Book { get; set; }
@@ -50,5 +54,8 @@ namespace PPC_2010.Data
 
             return scriptureReferences;
         }
+
+
+        
     }
 }
