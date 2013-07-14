@@ -1,25 +1,27 @@
 ﻿using System.Linq;
+using Umbraco.Core.Services;
+using Umbraco.Core.Models;
 
 namespace PPC_2010.Data.Media
 {
-    using umbraco.cms.businesslogic.media;
-
     public class MediaRepository
     {
-        public Media GetMediaByAliasPath(string aliasPath)
+        public IMedia GetMediaByAliasPath(string aliasPath)
         {
             string[] parts = aliasPath.Split('/');
-           
-            Media currentMedia = null;
-            Media[] currentList = Media.GetRootMedias();
 
+            var mediaService = ServiceLocator.Instance.Locate<IMediaService>();
+
+            var currentList = mediaService.GetRootMedia();
+
+            IMedia currentMedia = null;
             foreach (var alias in parts)
             {
                 if (currentList != null)
                 {
-                    currentMedia = currentList.FirstOrDefault(m => m.Text == alias);
+                    currentMedia = currentList.FirstOrDefault(m => m.Name == alias);
                     if (currentMedia != null)
-                        currentList = currentMedia.Children;
+                        currentList = currentMedia.Children();
                 }
             }
 

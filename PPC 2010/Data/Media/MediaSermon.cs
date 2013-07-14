@@ -5,26 +5,26 @@ using PPC_2010.Extensions;
 
 namespace PPC_2010.Data.Media
 {
-    using umbraco.cms.businesslogic.media;
+    using Umbraco.Core.Models;
 
     public class MediaSermon : Sermon
     {
-        private Media media = null;
+        private IMedia _media = null;
 
-        public MediaSermon(Media media)
+        public MediaSermon(IMedia media)
         {
-            this.media = media;
+            this._media = media;
         }
 
         public override int SortOrder
         {
-            get { return media.sortOrder; }
-            set { media.sortOrder = value; }
+            get { return _media.SortOrder; }
+            set { _media.SortOrder = value; }
         }
 
         public override int Id
         {
-            get { return media.Id; }
+            get { return _media.Id; }
         }
 
         private string title = null;
@@ -33,13 +33,13 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (title == null)
-                    title = media.getProperty("title").Value as string;
+                    title = _media.GetValue<string>("title");
                 return title;
             }
             set
             {
                 title = value;
-                media.getProperty("title").Value = title;
+                _media.SetValue("title", title);
             }
         }
 
@@ -49,13 +49,13 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (recordingDate == null)
-                    recordingDate = media.getProperty("recordingDate").Value as DateTime? ?? DateTime.MinValue;
+                    recordingDate = _media.GetValue<DateTime?>("recordingDate") ?? DateTime.MinValue;
                 return recordingDate.Value;
             }
             set
             {
                 recordingDate = value;
-                media.getProperty("recordingDate").Value = value;
+                _media.SetValue("recordingDate", value);
             }
         }
 
@@ -65,7 +65,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (speakerTitleId == -1)
-                    speakerTitleId = media.getProperty("speakerTitle").Id;
+                    speakerTitleId = _media.Properties["speakerTitle"].Id;
                 return speakerTitleId;
             }
             set
@@ -79,7 +79,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (speakerTitle == null)
-                    speakerTitle = media.getProperty("speakerTitle").GetPreValueAsString();
+                    speakerTitle = _media.GetValue<string>("speakerTitle");
                 return speakerTitle;
             }
             set
@@ -93,7 +93,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (speakerNameId == -1)
-                    speakerNameId = media.getProperty("speakerName").Id;
+                    speakerNameId = _media.GetValue<int>("speakerName");
                 return speakerNameId;
             }
             set
@@ -107,7 +107,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (speakerName == null)
-                    speakerName = media.getProperty("speakerName").GetPreValueAsString();
+                    speakerName = _media.GetPreValue("speakerName");
                 return speakerName;
             }
             set
@@ -121,7 +121,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (recordingSessionId == -1)
-                    recordingSessionId = media.getProperty("recordingSession").Id;
+                    recordingSessionId = _media.GetValue<int>("recordingSession");
                 return recordingSessionId;
             }
             set
@@ -134,8 +134,11 @@ namespace PPC_2010.Data.Media
         {
             get
             {
+                if (_media == null)
+                    throw new Exception("Media is null");
+
                 if (recordingSession == null)
-                    recordingSession = media.getProperty("recordingSession").GetPreValueAsString();
+                    recordingSession = _media.GetPreValue("recordingSession");
 
                 return recordingSession;
             }
@@ -150,7 +153,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (sermonSeriesId == -1)
-                    sermonSeriesId = media.getProperty("sermonSeries").Id;
+                    sermonSeriesId = _media.GetValue<int>("sermonSeries");
                 return sermonSeriesId;
             }
             set
@@ -164,7 +167,7 @@ namespace PPC_2010.Data.Media
             get
             {
                 if (sermonSeries == null)
-                    sermonSeries = media.getProperty("sermonSeries").GetPreValueAsString();
+                    sermonSeries = _media.GetPreValue("sermonSeries");
                 return sermonSeries;
             }
             set
@@ -176,44 +179,44 @@ namespace PPC_2010.Data.Media
         protected override string GetUrl()
         {
             if (url == null)
-                url = "~" + media.getProperty("audioFile").Value as string;
+                url = "~" + _media.GetValue<string>("audioFile");
             return url;
         }
 
         public override string ScriptureReferenceText
         {
-            get { return media.getProperty("scriptureReferenceText").Value as string; }
+            get { return _media.GetValue<string>("scriptureReferenceText"); }
             set { }
         }
 
         public override string Book
         {
-            get { return media.getProperty("book").GetPreValueAsString(); }
+            get { return _media.GetValue<string>("book"); }
             set { }
         }
 
 
         public override int? StartChapter
         {
-            get { return media.getProperty("startChapter").Value as int?; }
+            get { return _media.GetValue<int?>("startChapter"); }
             set { }
         }
 
         public override int? StartVerse
         {
-            get { return media.getProperty("startVerse").Value as int?; }
+            get { return _media.GetValue<int?>("startVerse"); }
             set { }
         }
 
         public override int? EndChapter
         {
-            get { return media.getProperty("endChapter").Value as int?; }
+            get { return _media.GetValue<int?>("endChapter"); }
             set { }
         }
 
         public override int? EndVerse
         {
-            get { return media.getProperty("endVerse").Value as int?; }
+            get { return _media.GetValue<int?>("endVerse"); }
             set { }
         }
 
@@ -223,22 +226,24 @@ namespace PPC_2010.Data.Media
         public static IEnumerable<string> GetSpeakerList()
         {
             var sermon = (MediaSermon)new SermonRepository().LoadLastSermons(1).First();
-            return sermon.media.getProperty("speakerName").GetPreValues();
+            return sermon._media.GetPrevaluesForProperty("speakerName");
         }
 
         public static IEnumerable<string> GetSermonSeriesList()
         {
             var sermon = (MediaSermon)new SermonRepository().LoadLastSermons(1).First();
-
-            return sermon.media.getProperty("sermonSeries").GetPreValues();
+            return sermon._media.GetPrevaluesForProperty("sermonSeries");
         }
 
         public static IEnumerable<string> GetRecordingSessionList()
         {
             var sermon = (MediaSermon)new SermonRepository().LoadLastSermons(1).First();
-            return sermon.media.getProperty("recordingSession").GetPreValues();
+            return sermon._media.GetPrevaluesForProperty("recordingSession");
         }
 
         #endregion
     }
 }
+
+
+

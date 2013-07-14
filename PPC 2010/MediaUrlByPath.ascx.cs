@@ -21,15 +21,15 @@ namespace PPC_2010
                 if (!string.IsNullOrWhiteSpace(MediaPath))
                 {
                     MediaRepository repository = new MediaRepository();
-                    Media media = repository.GetMediaByAliasPath(MediaPath);
+                    var media = repository.GetMediaByAliasPath(MediaPath);
 
                     if (media != null)
                     {
                         string baseUrl = string.Format("{0}", (Request.ApplicationPath.Equals("/")) ? string.Empty : Request.ApplicationPath);
 
-                        object umbracoFile = media.getProperty("umbracoFile").Value;
+                        var umbracoFile = media.GetValue<string>("umbracoFile");
                         if (umbracoFile != null)
-                            mediaUrl.Text = umbracoFile.ToString().Replace("~", baseUrl);
+                            mediaUrl.Text = umbracoFile.Replace("~", baseUrl);
                     }
                 }
             }

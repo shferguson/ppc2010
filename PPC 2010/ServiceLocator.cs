@@ -1,6 +1,8 @@
 ﻿using PPC_2010.Data;
 using System.Configuration;
 using StructureMap;
+using Umbraco.Core.Services;
+using Umbraco.Core;
 
 namespace PPC_2010
 {
@@ -26,6 +28,8 @@ namespace PPC_2010
                 x.For<ISermonRepository>().HttpContextScoped().Use<Data.LinqToSql.SermonRepository>();
                 x.For<IArticleRepository>().HttpContextScoped().Use<Data.LinqToSql.ArticleRepository>();
                 x.For<IPreValueRepository>().HttpContextScoped().Use<Data.LinqToSql.PreValueRepository>();
+                x.For<IMediaService>().Use(() => ApplicationContext.Current.Services.MediaService);
+                x.For<IDataTypeService>().Use(() => ApplicationContext.Current.Services.DataTypeService);
             });
         }
 

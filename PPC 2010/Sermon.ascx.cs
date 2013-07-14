@@ -41,15 +41,15 @@ namespace PPC_2010
         private void SetDownloadImageUrl()
         {
             MediaRepository repository = new MediaRepository();
-            Media media = repository.GetMediaByAliasPath("Images/DownloadSermonButton");
+            var media = repository.GetMediaByAliasPath("Images/DownloadSermonButton");
 
             if (media != null)
             {
                 string baseUrl = string.Format("{0}", (Request.ApplicationPath.Equals("/")) ? string.Empty : Request.ApplicationPath);
 
-                object umbracoFile = media.getProperty("umbracoFile").Value;
+                var umbracoFile = media.GetValue<string>("umbracoFile");
                 if (umbracoFile != null)
-                    DownloadImageUrl = umbracoFile.ToString().Replace("~", baseUrl);
+                    DownloadImageUrl = umbracoFile.Replace("~", baseUrl);
             }
         }
 

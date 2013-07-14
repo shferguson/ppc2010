@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.UI;
 using umbraco.cms.businesslogic.media;
 using umbraco.NodeFactory;
+using Umbraco.Core.Services;
 
 namespace PPC_2010
 {
@@ -39,7 +40,11 @@ namespace PPC_2010
 
                         int imageId = 0;
                         if (int.TryParse(node.GetProperty("image").Value ?? "", out imageId))
-                            contact.ImageUrl = (new Media(imageId).getProperty("umbracoFile").Value as string ?? "").Replace("~", baseUrl);
+                        {
+                            var mediaService = ServiceLocator.Instance.Locate<IMediaService>();
+                            var media = mediaService.GetById(imageId);
+                            contact.ImageUrl = media.GetValue<string>("umbracoFile").Replace("~", baseUrl);
+                        }
 
                         contactList.Add(contact);
                     }

@@ -95,6 +95,10 @@
     <Reference Include="umbraco">
       <HintPath>..\UmbracoBin\umbraco.dll</HintPath>
     </Reference>
+    <Reference Include="Umbraco.Core, Version=1.0.4902.15214, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\UmbracoBin\Umbraco.Core.dll</HintPath>
+    </Reference>
     <Reference Include="umbraco.DataLayer">
       <HintPath>..\UmbracoBin\umbraco.DataLayer.dll</HintPath>
     </Reference>
@@ -214,7 +218,7 @@
     <Compile Include="Data\ScriptureReferences.cs" />
     <Compile Include="Data\Sermon.cs" />
     <Compile Include="Extensions\DateTimeExtentions.cs" />
-    <Compile Include="Extensions\PropertyExtensions.cs" />
+    <Compile Include="Extensions\IMediaExtensions.cs" />
     <Compile Include="AdminLogin.ascx.cs">
       <DependentUpon>AdminLogin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

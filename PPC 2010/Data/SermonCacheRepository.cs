@@ -5,7 +5,8 @@ using System.Web;
 
 namespace PPC_2010.Data
 {
-    using umbraco.cms.businesslogic.media;
+    using Umbraco.Core.Services;
+    using Umbraco.Core.Models;
 
     public class SermonCacheRepository : ISermonRepository
     {
@@ -74,11 +75,12 @@ namespace PPC_2010.Data
 
         private IEnumerable<ISermon> GetSermons()
         {
-            var sermonRoot = umbraco.cms.businesslogic.media.Media.GetRootMedias().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == Data.Media.SermonRepository.SermonFolderAlias);
+            var mediaService = ServiceLocator.Instance.Locate<IMediaService>();
+            IMedia sermonRoot = mediaService.GetRootMedia().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == Data.Media.SermonRepository.SermonFolderAlias);
 
             lock (sermonCache)
             {
-                if (sermonRoot.ChildCount != sermonCache.Count)
+                if (sermonRoot.Children().Count() != sermonCache.Count)
                 {
                     RefreshSermons();
                 }

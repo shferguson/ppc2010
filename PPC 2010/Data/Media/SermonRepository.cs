@@ -4,7 +4,8 @@ using System.Web;
 
 namespace PPC_2010.Data.Media
 {
-    using umbraco.cms.businesslogic.media;
+    using Umbraco.Core.Models;
+    using Umbraco.Core.Services;
 
     public class SermonRepository : ISermonRepository
     {
@@ -22,7 +23,7 @@ namespace PPC_2010.Data.Media
 
         public ISermon LoadSermon(int sermonId)
         {
-            Media media = new Media(sermonId);
+            IMedia media = ServiceLocator.Instance.Locate<IMediaService>().GetById(sermonId);
             if (media != null)
                 return new MediaSermon(media);
             return null;
@@ -55,10 +56,11 @@ namespace PPC_2010.Data.Media
 
         private static IEnumerable<MediaSermon> GetSermons()
         {
-            Media sermonRoot = Media.GetRootMedias().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == SermonFolderAlias);
+            var mediaService = ServiceLocator.Instance.Locate<IMediaService>();
+            var sermonRoot = mediaService.GetRootMedia().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == SermonFolderAlias);
             if (sermonRoot != null)
             {
-                return sermonRoot.Children.Select(m => new MediaSermon(m))
+                return sermonRoot.Children().Select(m => new MediaSermon(m))
                     .OrderByDescending(s => s.RecordingDate)
                     .ThenByDescending(s => s.Id)
                     .ToArray();

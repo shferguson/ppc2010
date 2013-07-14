@@ -1,67 +1,116 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Collections.Generic;
+using System.Linq;
 using PPC_2010.Data;
 using PPC_2010.Extensions;
-using umbraco.BusinessLogic;
-using umbraco.cms.businesslogic;
-using umbraco.cms.businesslogic.web;
+using umbraco.businesslogic;
+using Umbraco.Core.Events;
+using Umbraco.Core.Models;
+using Umbraco.Core.Publishing;
+using Umbraco.Core.Services;
+using Umbraco.Core;
 
 namespace PPC_2010.UmbracoEvents
 {
-    public class ArticleEvents : ApplicationBase
+    public class ArticleEvents : IApplicationEventHandler
     {
-        public ArticleEvents()
+        public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            Document.New += new Document.NewEventHandler(Document_New);
-            Document.BeforeSave += new Document.SaveEventHandler(Document_BeforeSave);
-            Document.AfterSave += new Document.SaveEventHandler(Document_Refresh);
-            Document.AfterDelete += new Document.DeleteEventHandler(Document_Refresh);
-            Document.AfterMoveToTrash += new Document.MoveToTrashEventHandler(Document_Refresh);
-            Document.AfterUnPublish += new Document.UnPublishEventHandler(Document_Refresh);
-            Document.AfterRollBack += new Document.RollBackEventHandler(Document_Refresh);
-            Document.AfterPublish += new Document.PublishEventHandler(Document_Refresh);
+            ContentService.Creating += new TypedEventHandler<IContentService, NewEventArgs<IContent>>(ContentService_Creating);
+            ContentService.Saving += new TypedEventHandler<IContentService, SaveEventArgs<IContent>>(ContentService_Saving);
+            ContentService.Deleted += new TypedEventHandler<IContentService, DeleteEventArgs<IContent>>(ContentService_Deleted);
+            ContentService.Saved += new TypedEventHandler<IContentService, SaveEventArgs<IContent>>(ContentService_Saved);
+            ContentService.RolledBack += new TypedEventHandler<IContentService, RollbackEventArgs<IContent>>(ContentService_RolledBack);
+            ContentService.SentToPublish += new TypedEventHandler<IContentService, SendToPublishEventArgs<IContent>>(ContentService_SentToPublish);
+            ContentService.Trashed += new TypedEventHandler<IContentService, MoveEventArgs<IContent>>(ContentService_Trashed);
+            ContentService.UnPublished += new TypedEventHandler<IPublishingStrategy, PublishEventArgs<IContent>>(ContentService_UnPublished);
+            ContentService.Published += new TypedEventHandler<IPublishingStrategy, PublishEventArgs<IContent>>(ContentService_Published);
         }
 
-        void Document_New(Document sender, NewEventArgs e)
+        public void OnApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext) { }
+
+        public void OnApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext) { }
+
+        void ContentService_Creating(IContentService sender, NewEventArgs<IContent> e)
         {
-            if (sender.ContentType.Alias == Constants.ArticleAlias)
+            if (e.Entity.ContentType.Alias == PPC_2010.Data.Constants.ArticleAlias)
             {
-                if (CheckForRefresh(sender, e))
+                if (CheckForRefresh(e.Entity, e))
                     return;
 
-                var article = new Data.Media.Article(sender);
-                article.Title = sender.Text;
+                var article = new Data.Media.Article(e.Entity);
+                article.Title = e.Entity.Name;
                 article.Date = DateTime.Today.GetDateOfNext(DayOfWeek.Sunday);
-
-                CheckForRefresh(sender, e);
             }
         }
 
-        void Document_BeforeSave(Document sender, SaveEventArgs e)
+        void ContentService_Saving(IContentService sender, SaveEventArgs<IContent> e)
         {
-            if (sender.ContentType.Alias == Constants.ArticleAlias)
+            foreach (IContent content in e.SavedEntities)
             {
-                if (CheckForRefresh(sender, e))
-                    return;
+                if (content.ContentType.Alias == PPC_2010.Data.Constants.ArticleAlias)
+                {
+                    if (CheckForRefresh(content, e))
+                        return;
 
-                var article = new Data.Media.Article(sender);
-                if (article.Date.HasValue)
-                    sender.Text = "Article-" + article.Date.Value.ToString("MM/dd/yyyy");
+                    var article = new Data.Media.Article(content);
+                    if (article.Date.HasValue)
+                        content.Name = "Article-" + article.Date.Value.ToString("MM/dd/yyyy");
+                }
             }
-           
         }
 
-        void Document_Refresh(Document sender, EventArgs e)
+        void ContentService_Published(IPublishingStrategy sender, PublishEventArgs<IContent> e)
         {
-            if (sender.ContentType.Alias == Constants.ArticleAlias)
+            RefreshArticles(e.PublishedEntities);
+        }
+
+        void ContentService_UnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> e)
+        {
+            RefreshArticles(e.PublishedEntities);
+        }
+
+        void ContentService_Trashed(IContentService sender, MoveEventArgs<IContent> e)
+        {
+            RefreshArticle(e.Entity);
+        }
+
+        void ContentService_SentToPublish(IContentService sender, SendToPublishEventArgs<IContent> e)
+        {
+            RefreshArticle(e.Entity);
+        }
+
+        void ContentService_RolledBack(IContentService sender, RollbackEventArgs<IContent> e)
+        {
+            RefreshArticle(e.Entity);
+        }
+
+        void ContentService_Saved(IContentService sender, SaveEventArgs<IContent> e)
+        {
+            RefreshArticles(e.SavedEntities);
+        }
+
+        void ContentService_Deleted(IContentService sender, DeleteEventArgs<IContent> e)
+        {
+            RefreshArticles(e.DeletedEntities);
+        }
+
+        void RefreshArticle(IContent content)
+        {
+            ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticle(content.Id, content.Status == ContentStatus.Trashed);
+        }
+
+        void RefreshArticles(IEnumerable<IContent> contents)
+        {
+            foreach (IContent content in contents.Where(c => c.ContentType.Alias == PPC_2010.Data.Constants.ArticleAlias))
             {
-                ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticle(sender.Id, sender.IsTrashed);
+                RefreshArticle(content);
             }
         }
 
-        static bool CheckForRefresh(Document sender, CancelEventArgs e)
+        static bool CheckForRefresh(IContent content, CancellableEventArgs e)
         {
-            if (sender.Text == Constants.RefreshIndicatorTitle)
+            if (content.Name == PPC_2010.Data.Constants.RefreshIndicatorTitle)
             {
                 ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticles();
                 e.Cancel = true;
