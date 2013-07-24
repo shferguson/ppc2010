@@ -98,7 +98,7 @@ namespace PPC_2010.UmbracoEvents
                         if (sermon.SortOrder != i)
                         {
                             sermon.SortOrder = i;
-                            sender.Save(entity, 0, false);
+                            sender.Save(sermon.Media, 0, false);
                         }
 
                         i++;

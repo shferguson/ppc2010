@@ -16,6 +16,8 @@ namespace PPC_2010.Data.Media
             this._media = media;
         }
 
+        public IMedia Media { get { return _media; } }
+
         public override int SortOrder
         {
             get { return _media.SortOrder; }
