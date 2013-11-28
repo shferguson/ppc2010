@@ -15,8 +15,6 @@ namespace PPC_2010
 
         public string SundaySermonType { get; set; }
 
-        protected int MediaPlayerHeight { get; set; }
-
         private IScriptureService scriptureService = null;
         
         protected string RecordingUrl { get; set; }
@@ -33,7 +31,6 @@ namespace PPC_2010
                     sermonId = -1;
 
                 LoadSermon(sermonId);
-                SetMediaPlayerHeight();
                 SetDownloadImageUrl();
             }
         }
@@ -75,42 +72,6 @@ namespace PPC_2010
 
                     scriptureText.Text = scriptureService.GetScriptureTextHtml(sermon.ScriptureReference);
                 }
-            }
-        }
-
-        private void SetMediaPlayerHeight()
-        {
-            // There is a different control on each browser
-            // MSIE uses the IE ActiveX control which is 50 pixels
-            // Other browsers on Windows use the Firefox media player plug in which is 45 pixels
-            // On Mac, all browsers use the QuickTime control which has no header
-
-            if (string.IsNullOrEmpty(Request.UserAgent))
-            {
-                sermonPlayerPanel.Visible = false;
-                return;
-            }
-
-            string userAgent = Request.UserAgent.ToLower();
-
-            if (userAgent.Contains("mobile"))
-            {
-                sermonPlayerPanel.Visible = false;
-            }
-            else if (userAgent.Contains("windows"))
-            {
-                if (userAgent.Contains("msie"))
-                    MediaPlayerHeight = 50;
-                else
-                    MediaPlayerHeight = 45;
-            }
-            else if (userAgent.Contains("macintosh"))
-            {
-                MediaPlayerHeight = 16;
-            }
-            else
-            {
-                MediaPlayerHeight = 50;
             }
         }
     }

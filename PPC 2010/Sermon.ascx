@@ -2,6 +2,7 @@
 <p>
     <h1>Current Sermon</h1>
 <p />
+<p>
    <h3>"<asp:Label runat="server" ID="sermonTitle" />"</h3>
 <p />
     <asp:Label runat="server" ID="speakerName" />&nbsp;|&nbsp;Recorded&nbsp;<asp:Label runat="server" ID="recordingDate" />&nbsp;|&nbsp;<asp:Label runat="server" ID="recordingSession" />
@@ -14,8 +15,11 @@
 <h3>Play This Sermon</h3>
 
  <div style="margin-left:10%;margin-right:10%">
-    <embed style="background:green" type="application/x-mplayer2" src="<%= RecordingUrl %>" name="MediaPlayer"
-		    width="500" height="<%= MediaPlayerHeight %>" showcontrols="1" showstatusbar="1" showdisplay="0" autostart="0" />
+    <br />
+    <p id="audioplayer">Sermon player</p>  
+    <script type="text/javascript">
+        AudioPlayer.embed("audioplayer", { soundFile: "<%= RecordingUrl %>", titles: "<%= sermonTitle.Text %>", artists: "<%= speakerName.Text %>" });  
+    </script>
  </div>
  </asp:Panel>
 <p>
