@@ -10,8 +10,8 @@
 <p>
     <a class="download_sermonbutton" style="background-image:url(<%= DownloadImageUrl %>)" title="Download Sermon" href="<%= RecordingUrl %>">Download Sermon</a>
 </p>
-<asp:Panel runat="server" id="sermonPlayerPanel">
 
+<div id="playSermon">
 <h3>Play This Sermon</h3>
 
  <div style="margin-left:10%;margin-right:10%">
@@ -21,7 +21,7 @@
         AudioPlayer.embed("audioplayer", { soundFile: "<%= RecordingUrl %>", titles: "<%= sermonTitle.Text %>", artists: "<%= speakerName.Text %>" });  
     </script>
  </div>
- </asp:Panel>
+  </div>
 <p>
     <asp:Literal runat="server" ID="scriptureText" />
 <p />
