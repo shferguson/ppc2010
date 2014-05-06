@@ -123,6 +123,7 @@
     <Content Include="ArticleNavigate.ascx" />
     <Content Include="Calendar.ascx" />
     <Content Include="CalendarList.ascx" />
+    <Content Include="ContactForm.ascx" />
     <Content Include="ContactList.ascx" />
     <Content Include="Elmah.ascx" />
     <Content Include="Images\rss.gif" />
@@ -176,6 +177,13 @@
     </Compile>
     <Compile Include="CalendarInterface\CalendarItem.cs" />
     <Compile Include="CalendarInterface\GoogleCalendar.cs" />
+    <Compile Include="ContactForm.ascx.cs">
+      <DependentUpon>ContactForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContactForm.ascx.designer.cs">
+      <DependentUpon>ContactForm.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ContactList.ascx.cs">
       <DependentUpon>ContactList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -191,11 +199,15 @@
     <Compile Include="Data\IArticle.cs" />
     <Compile Include="Data\IArticleRepository.cs" />
     <Compile Include="Data\IdValuePair.cs" />
+    <Compile Include="Data\IEmailGroup.cs" />
+    <Compile Include="Data\IEmailGroupRepository.cs" />
     <Compile Include="Data\IPreValueRepository.cs" />
     <Compile Include="Data\LinqToSql\ArticleRepository.cs" />
     <Compile Include="Data\LinqToSql\PreValueRepository.cs" />
     <Compile Include="Data\Media\Article.cs" />
     <Compile Include="Data\IPreValue.cs" />
+    <Compile Include="Data\Media\EmailGroupRepository.cs" />
+    <Compile Include="Data\Media\EmailGroup.cs" />
     <Compile Include="Data\SermonCacheRepository.cs" />
     <Compile Include="Data\DataTableConverter.cs">
       <SubType>Component</SubType>

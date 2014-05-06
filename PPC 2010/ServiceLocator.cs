@@ -30,6 +30,7 @@ namespace PPC_2010
                 x.For<IPreValueRepository>().HttpContextScoped().Use<Data.LinqToSql.PreValueRepository>();
                 x.For<IMediaService>().Use(() => ApplicationContext.Current.Services.MediaService);
                 x.For<IDataTypeService>().Use(() => ApplicationContext.Current.Services.DataTypeService);
+                x.For<IEmailGroupRepository>().HttpContextScoped().Use<Data.Media.EmailGroupRepository>();
             });
         }
 
