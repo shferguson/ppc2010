@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ContactForm.ascx.cs" Inherits="PPC_2010.ContactForm" %>
 <form runat="server">
-  <div style="
   <h1><asp:Label runat="server" id="title"/></h1>
   <p>
     Please send us your message below. 
