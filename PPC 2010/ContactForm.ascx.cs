@@ -16,6 +16,7 @@ namespace PPC_2010
 
             if (Page.IsPostBack)
             {
+
                 SendEmail();
                 Response.Redirect(ThanksPageUrl);
             }
@@ -33,8 +34,19 @@ namespace PPC_2010
                 foreach (var emailAddress in emailGroup.EmailAddresses)
                     mailMessage.To.Add(emailAddress);
                 mailMessage.ReplyToList.Add(email.Text);
-                mailMessage.Subject = subject.Text;
-                mailMessage.Body = message.Text;
+                mailMessage.Subject = subject.Text.Length > 0 ? subject.Text : emailGroup.Name;
+
+                string fromName = null;
+                if (name.Text.Length == 0)
+                    fromName = email.Text;
+                else
+                    fromName = string.Format("{0} ({1})", name.Text, email.Text);
+
+                string formattedMessage = string.Format("You have a new message from {0} about the {1} ministry at Providence.\r\nYou can reply directly to this email.\r\n\r\n\r\n{2}",
+                    fromName, emailGroup.Name, message.Text);
+
+                mailMessage.Body = formattedMessage;
+                
 
                 using (var smptClient = new SmtpClient())
                 {
