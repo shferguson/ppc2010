@@ -50,7 +50,6 @@ namespace PPC_2010
 
                 mailMessage.Body = formattedMessage;
                 
-
                 using (var smptClient = new SmtpClient())
                 {
                     smptClient.Send(mailMessage);
