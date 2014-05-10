@@ -16,6 +16,9 @@ namespace PPC_2010
 
             if (Page.IsPostBack)
             {
+                Page.Validate();
+                if (!Page.IsValid)
+                    return;
 
                 SendEmail();
                 Response.Redirect(ThanksPageUrl);
