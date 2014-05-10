@@ -33,7 +33,7 @@ namespace PPC_2010
             if (emailGroup != null)
             {
                 var mailMessage = new MailMessage();
-                mailMessage.From = new MailAddress("noreplay@providence-pca.net");
+                mailMessage.From = new MailAddress("noreply@providence-pca.net");
                 foreach (var emailAddress in emailGroup.EmailAddresses)
                     mailMessage.To.Add(emailAddress);
                 mailMessage.ReplyToList.Add(email.Text);
