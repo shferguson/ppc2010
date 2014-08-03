@@ -50,9 +50,9 @@ namespace PPC_2010
 
                 mailMessage.Body = formattedMessage;
                 
-                using (var smptClient = new SmtpClient())
+                using (var smtpClient = new SmtpClient())
                 {
-                    smptClient.Send(mailMessage);
+                    smtpClient.Send(mailMessage);
                 }
             }
         }
