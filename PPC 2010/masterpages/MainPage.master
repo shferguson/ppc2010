@@ -1,0 +1,72 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/SiteMaster.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="mainContent" runat="server">
+  <table cellspacing="0" cellpadding="0" border="0">
+    <tr>
+      <td width="950" height="211" colspan="2">
+        <img src="<umbraco:macro alias='MediaUrl' MediaPath='Images/ChurchPicture' runat='server' />" width="960" height="211">
+      </td>
+    </tr>
+    <tr>
+		<td class="body" width="600" valign="top" style="padding-left:5px;" >
+        <umbraco:item runat="server" field="beliefs" />
+        <p />
+        <div class="spacer">
+          <p>
+          ................................................................................................................................................................
+          </p>
+        </div>
+        <p />
+          <h1>Building for the Next Generation</h1>
+        <p>
+          See <b><a href="/BuildingForTheNextGeneration.aspx">the latest update</a></b> on Providence's buliding plan.
+        </p>
+        <p />
+        <umbraco:macro alias="EventList" runat="server" />        
+        <p />
+        <p />
+      </td>
+       <td class="sidebar-padding" valign="top" background="<umbraco:macro alias='MediaUrl' MediaPath='Images/SidebarBackground' runat='server' />" width="290" >
+         <div class="sidebar">
+            <h3>Current sermon series</h3>
+            <p>
+              <umbraco:item runat="server" field="currentSermonSeries" />
+            </p>
+            <div align="center">
+              <a class="sermonbutton" style="background-image:url(<umbraco:macro alias='MediaUrl' MediaPath='Images/CurrentSermonButton' runat='server' />)" title="Current Sermon" href="sermon.aspx">Current Sermon</a>
+            </div>
+            <div class="spacer">
+              <p>
+                ........................................................................
+              </p>
+            </div>
+            <div>
+              <h3>From the Pastor</h3>
+              Read this week's devotion article:
+              <br />
+              <b><umbraco:macro alias='LatestArticleLink' runat='server' /></b>
+           </div>
+            <div class="spacer">
+              <p>
+                ........................................................................
+              </p>
+            </div>
+
+            <h3>Sunday schedule</h3>
+              <p>
+                <umbraco:item runat="server" field="sundaySchedule" />
+              </p>
+
+            <div class="spacer">
+              <p>
+                ........................................................................
+              </p>
+            </div>
+          <h3>This week at PPC</h3>
+           <p />
+            <umbraco:macro alias="CalendarList" runat="server" CalendarUrl="[#calendarUrl]" />
+          </div>
+      </td>
+    </tr>
+  </table>
+</asp:Content>

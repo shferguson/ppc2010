@@ -1,0 +1,71 @@
+      
+.sermonTable TH
+{
+    font-family: georgia, times, serif;
+    font-size: 15pt; 
+    color: #800202; 
+    text-align: left; 
+    margin-bottom: 6px;
+    font-weight:bold;
+    letter-spacing:0px;
+    text-align:left;
+    padding:2px 4px;
+    border-bottom:solid 2px #000000;
+}
+.sermonTable th a
+{ 
+  padding-right:18px; 
+}
+
+.sermonTable .row td
+{
+   font-family: verdana, arial, helvetica, sans-serif;
+   font-size: 8pt; 
+   color: #2a180d; 
+   line-height: 20pt; 
+   text-align: left; 
+   margin-top: 5px;
+   border-bottom:solid 1px #000000;
+}  
+
+.sermonTable .row:hover
+{
+  background-color:#cbc399;
+}
+
+.sermonTable .row td.first { padding-left:10px; }
+.sermonTable th.first { padding-left:10px; }
+
+.sermonDateColumn {
+  width:100px;
+  text-align: right;
+}
+
+.sermonSpeakerColumn{
+  width:150px;
+}
+
+.sermonTitleColumn{
+  width:400px;
+}
+
+.sermonScriptureColumn{
+  width:200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */

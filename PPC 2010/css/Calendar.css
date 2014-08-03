@@ -1,0 +1,82 @@
+table.calendar {
+  border:solid 1px #cbc399;
+  border-collapse:collapse;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.calendar thead table {
+  border-collapse:collapse;
+  width:100%;
+}
+
+.calendar thead table td {
+  border:0px;
+  padding:4px;
+}
+
+.calendar .calendar_navprev {
+  text-align:left;
+  font-size: 15pt; 
+  height: 30px;
+}
+
+.calendar .calendar_navcurrent {
+  text-align:center;
+  font-family: georgia, times, serif;
+  font-size: 15pt; 
+  color: #800202; 
+  height: 30px;
+}
+
+.calendar .calendar_navnext {
+  text-align:right;
+  font-size: 15pt; 
+  height: 30px;
+}
+
+.calendar td {
+  width:120px;
+  height:120px;
+  border:solid 1px #cbc399;
+  text-align:left;
+  padding:6px;
+  vertical-align:top;
+}
+
+.calendar th {
+  border:solid 1px #cbc399;
+  text-align:left;
+  padding:6px;
+  font-family: arial black, gadget, sans-serif;
+  font-size: 9pt; 
+  color: #800202; 
+}
+
+.calendarItems {
+  font-size:8pt;
+}
+
+.calendarOtherMonth {
+  color: #cbc399;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */

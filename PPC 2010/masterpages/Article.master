@@ -1,0 +1,55 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/SiteMaster.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="headerContent" runat="server">
+  <style type="text/css">
+    #title span h1 {
+      text-align:center;
+    }
+    #date {
+      text-align:center;
+    }
+    #scripture {
+      line-height:1px;
+      font-style:italic;
+    }
+    #scripture p {
+      margin-left:30px;
+      margin-right:30px;
+      text-align:center;
+    }
+    #article {
+      text-align:left;
+      width:700px;
+      margin:0 auto;
+    }
+    #author {
+       text-align:right;
+    }
+  </style>
+  
+   <link rel="alternate" type="application/rss+xml" title="Sermon Rss" href="http://feeds.feedburner.com/ProvidencePcaArticles"/>
+</asp:Content>
+  
+<asp:Content ContentPlaceHolderID="mainContent" runat="server">
+  <div class="body" >
+   <div id="title">
+     <span><h1><umbraco:item field="title" runat="server" /></h1></span>
+    </div>
+    <div id="date">
+       <span><umbraco:item field="date" runat="server" formatAsDate="true" /></span>
+    </div>
+    <div id="scripture">
+      <span><umbraco:item field="scriptureReference" runat="server" /></span>
+      <br>
+    </div>
+    <div id="article">
+      <span><umbraco:item field="text" runat="server" /></span>
+      <div id="author"><span><umbraco:item field="author" runat="server" /></span></div>
+      <br>
+      <umbraco:macro alias="ArticleNav" runat="server" />
+      <br>
+      <a href="http://feeds.feedburner.com/ProvidencePcaArticles" target="_blank"><img src="/UserControls/images/rss.gif" /></a>
+      <br>
+    </div>
+  </div>
+</asp:Content>

@@ -1,0 +1,6 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/PopoutMaster.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="mainContent" runat="server">
+	<umbraco:item field="content" runat="server" />
+    <umbraco:item field="htmlContent" runat="server" />
+</asp:Content>

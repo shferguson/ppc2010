@@ -1,0 +1,307 @@
+body {
+  background-color:#cbc399;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 8pt;
+  color: #2a180d;
+  line-height: 17pt;
+  text-align: left;
+  margin: 0px;
+}
+
+/* --------------- TYPOGRAPHY --------------- */
+
+h1 {
+  font-family: georgia, times, serif;
+  font-size: 17pt;
+  color: #800202;
+  text-align: left;
+  line-height: 22pt;
+  }
+
+h2 {
+  font-family: arial black, gadget, sans-serif;
+  font-size: 9pt;
+  color: #800202;
+  text-align: left;
+  margin-bottom: 6px;
+  padding: 15px 0px 0px 0px
+}
+
+h3 {
+  font-family: georgia, times, serif;
+  font-size: 15pt;
+  color: #800202;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+h4 {
+  font-family: georgia, times, serif;
+  font-size: 13pt;
+  letter-spacing: 2pt;
+  color: #362f2d;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+p {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 8pt;
+  color: #2a180d;
+  line-height: 17pt;
+  text-align: left;
+  margin-top: 5px;
+}
+
+input, textarea, select {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 8pt;
+}
+
+.main_navigation {
+  font-weight: 900;
+  font-family: "Arial Black", Arial, sans-serif;
+  font-size: 9pt;
+  letter-spacing: 2pt;
+  color: #ffffff;
+  line-height: 17pt;
+  text-align: center;
+}
+
+.emph1 {
+   color: #800202;
+}
+
+.emph2 {
+   color: #a97b20;
+}
+
+.emph3 {
+   font-weight: 900;
+   font-family: "Arial Black", Arial, sans-serif;
+   font-size: 8pt;
+   color: #ffffff;
+   letter-spacing: 3pt;
+}
+
+.emph4 {
+   font-weight: 900;
+   font-family: "Arial Black", Arial, sans-serif;
+   font-size: 8pt;
+   color: #800202;
+   letter-spacing: 1pt;
+}
+
+.footer_text {
+   font-size: 10pt;
+   color: #ffffff;
+}
+
+a.navLink:link {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+a.navLink:visited {
+  color: #ffffff;
+}
+
+a.navLink:hover {
+  color: #cbc399;
+  text-decoration: none;
+}
+
+a:link {
+  color: #800202;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #803a01;
+}
+
+a:hover {
+  color: #3b0000;
+  text-decoration: none;
+}
+
+a {
+  text-decoration:none;
+}
+
+ul {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 8pt;
+  color: #2a180d;
+  line-height: 17pt;
+  text-align: left;
+  margin-top: 5px;
+  text-indent: 0px;
+  list-style-position: outside;
+  list-style-type: round;
+  padding: 0 10 0 0
+}
+
+.error li {
+  color: #800202;
+  font-weight: bold;
+}
+	
+.error {
+  color: #800202;
+  font-weight: bold;
+}
+
+/* --------------- ROLLOVERS (Current Sermon Button, Facebook Button) --------------- */
+
+a.contactImage {
+  display: block;
+  width: 190px;
+  height: 182px;
+  overflow: hidden;
+  text-indent: -10000px;
+  font-size: 0px;
+  line-height: 0px;
+}
+
+a:hover.contactImage {
+  background-position: 0 -182px;
+}
+
+a.sermonbutton {
+  display: block;
+  width: 240px;
+  height: 44px;
+  overflow: hidden;
+  text-indent: -10000px;
+  font-size: 0px;
+  line-height: 0px;
+  background-position: 0 -0px;
+}
+
+a:hover.sermonbutton {
+  background-position: 0 -44px;
+}
+
+a.download_sermonbutton {
+  display: block;
+  width: 144px;
+  height: 30px;
+  overflow: hidden;
+  text-indent: -10000px;
+  font-size: 0px;
+  line-height: 0px;
+}
+
+a:hover.download_sermonbutton {
+  background-position: 0 -30px;
+}
+
+a.facebookbutton {
+  display: block;
+  width: 118px;
+  height: 26px;
+  overflow: hidden;
+  text-indent: -10000px;
+  font-size: 0px;
+  line-height: 0px;
+}
+
+a:hover.facebookbutton {
+  background-position: 0 -26px;
+}
+
+a.providence_map {
+  display: block;
+  width: 553px;
+  height: 143px;
+  background: url(images/providence_map.jpg) no-repeat 0 0;
+  overflow: hidden;
+  text-indent: -10000px;
+  font-size: 0px;
+  line-height: 0px;
+}
+
+a:hover.providence_map {
+  background-position: 0 -143px;
+}
+
+a.contactImage {
+  display: block;
+  width: 190px;
+  height: 182px;
+  overflow: hidden;
+  text-indent: -10000px;
+  font-size: 0px;
+  line-height: 0px;
+}
+
+a:hover.contactImage {
+  background-position: 0 -182px;
+}
+
+.contactInfo {
+  padding: 0px 0px 0px 20px;
+}
+
+/* ----------- SERMON TEXT -------------- */
+
+.verse-num {
+  vertical-align: super;
+  font-size:xx-small;
+}
+
+.footerText {
+  font-size:xx-small;
+}
+
+/* --------------- LAYOUT --------------- */
+
+.header1 {
+  margin: 0px auto;
+  width: 600px;
+}
+
+.body {
+  padding: 10px 2px 10px 20px;
+}
+
+.sidebar-padding {
+  padding: 10px 5px 10px 5px;
+
+}
+
+#ppc_footer_logo {
+  position: absolute;
+  margin: 30px 30px 0px 30px;
+}
+
+#footer_address {
+  position: absolute;
+  margin: 30px 30px 0px 350px;
+}
+
+#facebook_button {
+  margin: 30px 30px 0px 750px;
+}
+
+.spacer {
+  margin: 20px 0px 10px 0px;
+}
+
+.main_nav {
+    text-align: center;
+    background-color: #211d1b;
+}
+
+.header2 {
+  margin: 0px auto;
+  width: 600px;
+}
+
+
+
+
+
+
+/* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="providence" Class="ProvidenceDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=(local)\sqlexpress;Initial Catalog=providence;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="providenceConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=Providence;User ID=ppc2010" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="umbracoDbDSN" Provider="System.Data.SqlClient" />
   <Table Name="ppc2010.Sermon" Member="Sermons">
     <Type Name="Sermon">
       <Column Name="Id" Modifier="Override" Type="System.Int32" DbType="Int NOT NULL" IsReadOnly="true" CanBeNull="false" />

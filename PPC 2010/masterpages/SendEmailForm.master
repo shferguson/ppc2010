@@ -1,0 +1,5 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/SiteMaster.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="mainContent" runat="server">
+  <umbraco:macro Alias="RVContactForm" runat="server" />
+</asp:Content>

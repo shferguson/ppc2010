@@ -1,0 +1,92 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/umbraco/masterpages/default.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="ContentPlaceHolderDefault" runat="server">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Providence Presbyterian Church</title>
+    <link rel="stylesheet" type="text/css" href="/css/stylesheet.css"></link>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript" ></script>
+    <asp:ContentPlaceHolder id="headerContent" runat="server" />
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-26102287-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+  <body>
+    
+<table cellpadding="0" border="0" width="100%" >
+  <tr>
+    <td background="<umbraco:macro alias='MediaUrl' MediaPath='Images/HeaderBackground' runat='server' />" height="154">
+      <div align="center">
+        <a href="/" >
+          <img src="<umbraco:macro alias='MediaUrl' MediaPath='Images/HeaderTitle' runat='server' />" border="0" alt="Providence Presbyterian Church" />
+        </a>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<table width="960" cellspacing="0" cellpadding="0" border="0" align="center">
+  <tr class="main_nav">
+    <td width="960" height="50" colspan="2">
+      <span class="main_navigation">
+        <a class="navLink" href="/beliefs.aspx">BELIEFS</a>
+        &nbsp;&nbsp;
+        <a class="navLink" href="/thechurch.aspx">THE CHURCH</a>
+        &nbsp;&nbsp;   
+        <a class="navLink" href="/ministries.aspx">MINISTRIES</a>  
+        &nbsp;&nbsp;    
+        <a class="navLink" href="/directions.aspx">DIRECTIONS</a>  
+        &nbsp;&nbsp;    
+        <a class="navLink" href="/calendar.aspx">CALENDAR</a>    
+        &nbsp;&nbsp;  
+        <a class="navLink" href="/contact.aspx">CONTACT</a>   
+        &nbsp;&nbsp;
+        <a class="navLink" href="/sermon.aspx">CURRENT SERMON</a>
+    </span>
+  </td>
+  </tr>
+  <tr>
+    <td style="background:url(<umbraco:macro alias='MediaUrl' MediaPath='Images/PageBackground' runat='server' />)">
+      <asp:ContentPlaceHolder id="mainContent" runat="server" />
+    </td>
+    </tr>
+</table>
+    
+<table cellpadding="0" border="0" width="100%" >
+  <tr>
+    <td background="<umbraco:macro alias='MediaUrl' MediaPath='Images/FooterBackground' runat='server' />" height="300" valign="top">
+      <table width="960" cellspacing="0" cellpadding="0" border="0" align="center" >
+        <tr >
+          <td >
+          <div id="ppc_footer_logo">
+            <a href="/"><img src="<umbraco:macro alias='MediaUrl' MediaPath='Images/FooterTitle' runat='server' />" alt="Providence Presbyterian Church" border="0" /></a>
+          </div>
+          <p>
+          <div id="footer_address">
+            <span class="footer_text">77 Phillips Lane  |  Robinson Township, PA 15136<br />
+            412-788-6100  |  <a class="navLink" href="mailto:info@providence-pca.net">info@providence-pca.net</a></span>
+          </div>
+          </p>
+          <div id="facebook_button">
+            <a class="facebookbutton" style="background-image:url(<umbraco:macro alias='MediaUrl' MediaPath='Images/FacebookButton' runat='server' />)"
+               title="Providence on Facebook" href="http://www.facebook.com/pages/Providence-Presbyterian-Church-PCA/242280549506">Facebook</a>
+          </div>
+        </td>
+       </tr>
+      </table>
+    </td>
+  </tr>
+</table>   
+    
+</body>
+</html>
+  
+</asp:Content>

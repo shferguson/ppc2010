@@ -13,7 +13,7 @@
     <RootNamespace>PPC_2010</RootNamespace>
     <AssemblyName>PPC 2010</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -243,33 +243,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AllSermons.ascx" />
-    <Content Include="ArticleNavigate.ascx" />
-    <Content Include="Calendar.ascx" />
-    <Content Include="CalendarList.ascx" />
-    <Content Include="ContactForm.ascx" />
-    <Content Include="ContactList.ascx" />
-    <Content Include="css\dummy.txt" />
+    <Content Include=".gitignore" />
+    <Content Include="config\splashes\booting.aspx" />
+    <Content Include="config\splashes\noNodes.aspx" />
+    <Content Include="scripts\audio-player-noswfobject.js" />
+    <Content Include="scripts\audio-player-uncompressed.js" />
+    <Content Include="scripts\audio-player.js" />
+    <Content Include="scripts\contactForm.js" />
+    <Content Include="scripts\json2.js" />
+    <Content Include="scripts\player.swf" />
+    <Content Include="scripts\RVContactForm.js" />
+    <Content Include="usercontrols\AllSermons.ascx" />
+    <Content Include="usercontrols\ArticleNavigate.ascx" />
+    <Content Include="usercontrols\Calendar.ascx" />
+    <Content Include="usercontrols\CalendarList.ascx" />
+    <Content Include="usercontrols\ContactForm.ascx" />
+    <Content Include="usercontrols\ContactList.ascx" />
     <Content Include="default.aspx" />
-    <Content Include="Elmah.ascx" />
+    <Content Include="usercontrols\Elmah.ascx" />
     <Content Include="Global.asax" />
     <Content Include="Images\rss.gif" />
-    <Content Include="AdminLogin.ascx" />
-    <Content Include="LatestArticleLink.ascx" />
+    <Content Include="usercontrols\AdminLogin.ascx" />
+    <Content Include="usercontrols\images\rss.gif" />
+    <Content Include="usercontrols\LatestArticleLink.ascx" />
     <Content Include="macroScripts\dummy.txt" />
-    <Content Include="masterpages\dummy.txt" />
-    <Content Include="MediaUrlByPath.ascx" />
-    <Content Include="media\dummy.txt" />
+    <Content Include="usercontrols\MediaUrlByPath.ascx" />
     <Content Include="Schema\ppc2010.Article.Table.sql" />
     <Content Include="Schema\ppc2010.Sermon.Table.sql" />
     <Content Include="Schema\ppc2010.view_Articles.View.sql" />
     <Content Include="Schema\ppc2010.view_Prevalues.View.sql" />
     <Content Include="Schema\ppc2010.view_Sermons.View.sql" />
-    <Content Include="scripts\dummy.txt" />
-    <Content Include="Sermon.ascx" />
-    <Content Include="SermonList.ascx" />
-    <Content Include="SermonSearch.ascx" />
-    <Content Include="usercontrols\dummy.txt" />
+    <Content Include="usercontrols\Sermon.ascx" />
+    <Content Include="usercontrols\SermonList.ascx" />
+    <Content Include="usercontrols\SermonSearch.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -279,51 +285,51 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllSermons.ascx.cs">
+    <Compile Include="usercontrols\AllSermons.ascx.cs">
       <DependentUpon>AllSermons.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AllSermons.ascx.designer.cs">
+    <Compile Include="usercontrols\AllSermons.ascx.designer.cs">
       <DependentUpon>AllSermons.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ArticleNavigate.ascx.cs">
+    <Compile Include="usercontrols\ArticleNavigate.ascx.cs">
       <DependentUpon>ArticleNavigate.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ArticleNavigate.ascx.designer.cs">
+    <Compile Include="usercontrols\ArticleNavigate.ascx.designer.cs">
       <DependentUpon>ArticleNavigate.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Calendar.ascx.cs">
+    <Compile Include="usercontrols\Calendar.ascx.cs">
       <DependentUpon>Calendar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Calendar.ascx.designer.cs">
+    <Compile Include="usercontrols\Calendar.ascx.designer.cs">
       <DependentUpon>Calendar.ascx</DependentUpon>
     </Compile>
-    <Compile Include="CalendarList.ascx.cs">
+    <Compile Include="usercontrols\CalendarList.ascx.cs">
       <DependentUpon>CalendarList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CalendarList.ascx.designer.cs">
+    <Compile Include="usercontrols\CalendarList.ascx.designer.cs">
       <DependentUpon>CalendarList.ascx</DependentUpon>
     </Compile>
     <Compile Include="CalendarInterface\CalendarItem.cs" />
     <Compile Include="CalendarInterface\GoogleCalendar.cs" />
-    <Compile Include="ContactForm.ascx.cs">
+    <Compile Include="usercontrols\ContactForm.ascx.cs">
       <DependentUpon>ContactForm.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ContactForm.ascx.designer.cs">
+    <Compile Include="usercontrols\ContactForm.ascx.designer.cs">
       <DependentUpon>ContactForm.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ContactList.ascx.cs">
+    <Compile Include="usercontrols\ContactList.ascx.cs">
       <DependentUpon>ContactList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ContactList.ascx.designer.cs">
+    <Compile Include="usercontrols\ContactList.ascx.designer.cs">
       <DependentUpon>ContactList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ArticleFeed.ashx.cs">
+    <Compile Include="usercontrols\ArticleFeed.ashx.cs">
       <DependentUpon>ArticleFeed.ashx</DependentUpon>
     </Compile>
     <Compile Include="Data\ArticleCacheRepository.cs" />
@@ -363,25 +369,25 @@
     <Compile Include="Data\Sermon.cs" />
     <Compile Include="Extensions\DateTimeExtentions.cs" />
     <Compile Include="Extensions\IMediaExtensions.cs" />
-    <Compile Include="AdminLogin.ascx.cs">
+    <Compile Include="usercontrols\AdminLogin.ascx.cs">
       <DependentUpon>AdminLogin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminLogin.ascx.designer.cs">
+    <Compile Include="usercontrols\AdminLogin.ascx.designer.cs">
       <DependentUpon>AdminLogin.ascx</DependentUpon>
     </Compile>
-    <Compile Include="LatestArticleLink.ascx.cs">
+    <Compile Include="usercontrols\LatestArticleLink.ascx.cs">
       <DependentUpon>LatestArticleLink.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="LatestArticleLink.ascx.designer.cs">
+    <Compile Include="usercontrols\LatestArticleLink.ascx.designer.cs">
       <DependentUpon>LatestArticleLink.ascx</DependentUpon>
     </Compile>
-    <Compile Include="MediaUrlByPath.ascx.cs">
+    <Compile Include="usercontrols\MediaUrlByPath.ascx.cs">
       <DependentUpon>MediaUrlByPath.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MediaUrlByPath.ascx.designer.cs">
+    <Compile Include="usercontrols\MediaUrlByPath.ascx.designer.cs">
       <DependentUpon>MediaUrlByPath.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -390,28 +396,28 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Sermon.ascx.cs">
+    <Compile Include="usercontrols\Sermon.ascx.cs">
       <DependentUpon>Sermon.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sermon.ascx.designer.cs">
+    <Compile Include="usercontrols\Sermon.ascx.designer.cs">
       <DependentUpon>Sermon.ascx</DependentUpon>
     </Compile>
-    <Compile Include="SermonFeed.ashx.cs">
+    <Compile Include="usercontrols\SermonFeed.ashx.cs">
       <DependentUpon>SermonFeed.ashx</DependentUpon>
     </Compile>
-    <Compile Include="SermonList.ascx.cs">
+    <Compile Include="usercontrols\SermonList.ascx.cs">
       <DependentUpon>SermonList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SermonList.ascx.designer.cs">
+    <Compile Include="usercontrols\SermonList.ascx.designer.cs">
       <DependentUpon>SermonList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="SermonSearch.ascx.cs">
+    <Compile Include="usercontrols\SermonSearch.ascx.cs">
       <DependentUpon>SermonSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SermonSearch.ascx.designer.cs">
+    <Compile Include="usercontrols\SermonSearch.ascx.designer.cs">
       <DependentUpon>SermonSearch.ascx</DependentUpon>
     </Compile>
     <Compile Include="ServiceLocator.cs" />
@@ -423,7 +429,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app_code\SermonRss.rss" />
-    <Content Include="ArticleFeed.ashx" />
+    <Content Include="usercontrols\ArticleFeed.ashx" />
     <Content Include="config\xsltExtensions.config" />
     <Content Include="config\UrlRewriting.config" />
     <Content Include="config\umbracoSettings.config" />
@@ -452,32 +458,34 @@
     <None Include="Data\LinqToSql\ProvidenceDb.dbml.layout">
       <DependentUpon>ProvidenceDb.dbml</DependentUpon>
     </None>
-    <Content Include="packages.config" />
+    <Content Include="usercontrols\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="SermonFeed.ashx" />
-    <Content Include="xslt\dummy.txt" />
+    <Content Include="usercontrols\SermonFeed.ashx" />
     <Content Include="xslt\Web.config" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="css\" />
+    <Folder Include="masterpages\" />
+    <Folder Include="media\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52441</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:52441/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -493,7 +501,7 @@ copy /y "$(TargetDir)\PPC 2010.pdb" "C:\inetpub\wwwroot\umbraco\bin"
 copy /y "$(TargetDir)\RssToolkit.dll" "C:\inetpub\wwwroot\umbraco\bin"
 copy /y "$(TargetDir)\BaseControls.dll" "C:\inetpub\wwwroot\umbraco\bin"
 copy /y "$(TargetDir)\Google*" "C:\inetpub\wwwroot\umbraco\bin"
-copy /y "$(ProjectDir)*.as?x" "C:\inetpub\wwwroot\umbraco\usercontrols"
+copy /y "$(ProjectDir)\usercontrols\*.as?x" "C:\inetpub\wwwroot\umbraco\usercontrols"
 copy /y "$(ProjectDir)\images\*" "C:\inetpub\wwwroot\umbraco\usercontrols\images"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

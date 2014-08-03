@@ -1,0 +1,15 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/SiteMaster.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="headerContent" runat="server">
+  <link rel="alternate" type="application/rss+xml" title="Sermon Rss" href="http://feeds.feedburner.com/ProvidencePcaSermons"/>
+  <link type="text/css" href="css/SermonTable.css" rel="stylesheet" />  
+</asp:Content>
+  
+<asp:Content ContentPlaceHolderID="mainContent" runat="server">
+  <div class="body">
+    <umbraco:macro alias="SermonList" runat="server" ItemsPerPage="[#itemsPerPage]" PageNumber="[@page]" 
+     SearchYear="[@year]" SearchMonth="[@month]" SearchSpeakerId="[@speakerId]" SearchSpeaker="[@speaker]" 
+	 SearchSeriesId="[@seriesId]" SearchSeries="[@series]" SearchRecordingTypeId="[@typeId]" SearchRecordingType="[@type]" SearchTitle="[@title]"
+    />
+  </div>
+</asp:Content>

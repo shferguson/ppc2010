@@ -1,0 +1,57 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/SiteMaster.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="headerContent" runat="server">
+  <link rel="alternate" type="application/rss+xml" title="Sermon Rss" href="http://feeds.feedburner.com/ProvidencePcaSermons"/>
+</asp:Content>
+  
+<asp:Content ContentPlaceHolderID="mainContent" runat="server">
+ <script type="text/javascript" src="scripts/audio-player.js"></script>  
+ <script type="text/javascript">
+    $(document).ready(function () {
+      var sermonFile = $(".download_sermonbutton")[0].href.replace(/.*\//, '');
+      var logViewSermonFunc = function() { _gaq.push(['_trackEvent', 'Sermon', 'View', sermonFile, 0, true]); }
+      window.setTimeout(logViewSermonFunc , 900000);
+      $(".download_sermonbutton")[0].onclick = logViewSermonFunc;
+		
+	  if (typeof navigator.plugins["Shockwave Flash"] === "undefined") {
+	  	$("#playSermon").hide();
+	  }
+    });
+  </script>
+  <script>
+	 AudioPlayer.setup("scripts/player.swf", {  
+     		width: "100%",
+			transparentpagebg: "yes",
+			animation: "no",
+			leftbg: "800202",
+			lefticon: "FFFFFF",
+			rightbg: "800202",
+			rightbghover: "5C0001",
+			righticon: "FFFFFF",
+			righticonhover: "F8DEAB",
+			bg: "800202",
+			volslider: "F8DEAB",
+		 track: "FFFFFF" });
+  </script>
+  <table>
+    <tr>
+      <td width="600" valign="top" class="body">
+        <umbraco:macro alias="Sermon" runat="server" SermonId="[@SermonId]" ScriptureApiKey="[#scriptureApiKey]" SundaySermonType="[#sundaySermonType]" />
+      </td>
+       <td class="sidebar-padding" background="<umbraco:macro alias='MediaUrl' MediaPath='Images/SidebarBackground' runat='server' />" width="290" valign="top" >
+         <div class="sidebar">
+           <h3><a href="/sermonarchive.aspx">Sermon Archives</a></h3>
+            <p>
+              Use the search tools below to hear and download previous sermons
+            </p>
+           <div class="spacer" />
+            <p>
+              ........................................................................
+            </p>
+            <umbraco:macro alias="SermonSearch" runat="server"  />
+         </div>
+      </td>
+    </tr>
+  </table>
+</asp:Content>  
+  

@@ -1,0 +1,56 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/SiteMaster.master" AutoEventWireup="true" %>
+
+<asp:content ContentPlaceHolderId="headerContent" runat="server">
+	<style type="text/css">
+		.taskTitle {
+			font-weight: bold;
+		}
+		.taskDates {
+			text-align:center;
+		}
+		.taskDone {
+		 	font-weight: 900;
+   			font-family: "Arial Black", Arial, sans-serif;
+   			font-size: 8pt;
+   			color: #808080;
+   			letter-spacing: 1pt;
+		}
+		.taskOngoing {
+		 	font-weight: 900;
+   			font-family: "Arial Black", Arial, sans-serif;
+   			font-size: 8pt;
+   			color: #000000;
+   			letter-spacing: 1pt;
+		}
+		.taskFuture {
+		 	font-weight: 900;
+   			font-family: "Arial Black", Arial, sans-serif;
+   			font-size: 8pt;
+   			color: #800202;
+   			letter-spacing: 1pt;
+		}
+	</style>
+</asp:content>
+
+<asp:content ContentPlaceHolderId="mainContent" runat="server">
+  <table>
+    <tr>
+      <td width="600" valign="top" class="body">
+        <h1>Building for the Next Generation</h1>
+        <img src="<umbraco:macro alias='MediaUrl' MediaPath='Images/NewSanctuary' runat='server'/>" />
+        <p>
+          <umbraco:item field="bodyText" runat="server" />
+        </p>
+		 <div class="spacer">
+          <p>................................................................................................................................................................</p>
+		 </div>  
+      </td>
+       <td class="sidebar-padding" background="<umbraco:macro alias='MediaUrl' MediaPath='Images/SidebarBackground' runat='server' />" width="290" valign="top" >
+         <div class="sidebar">
+           <h3>Announcements</h3>
+            <umbraco:macro alias="BuildingEventList" runat="server" />  
+         </div>
+      </td>
+    </tr>
+  </table>
+</asp:content>

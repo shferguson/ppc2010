@@ -1,0 +1,29 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/SiteMaster.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="mainContent" runat="server">
+  <div class="body">
+    <h1>Directions</h1>
+    <p>
+      <umbraco:item field="headerText" runat="server" />
+    </p>
+  
+    <div id="providence_map">
+      <a class="providence_map" title="Directions to Providence" target="_blank" href="<umbraco:item field='mapLinkUrl' runat='server'/>" style="background-image:url(<umbraco:macro alias='MediaUrl' MediaPath='Images/ProvidenceMap' runat='server' />)" >Providence Map</a>
+    </div>
+    <p>
+      <span class="emph1"><umbraco:item field="address" runat="server" /></span>
+    </p>
+  
+    <h2>FROM POINTS NORTH</h2>
+    <umbraco:item field="directionsNorth" runat="server" />
+  
+    <h2>FROM POINTS SOUTH</h2>
+    <umbraco:item field="directionsSouth" runat="server" />
+  
+    <h2>FROM POINTS EAST (DOWNTOWN)</h2>
+    <umbraco:item field="directionsEast" runat="server" />
+  
+    <h2>FROM POINTS WEST (AIRPORT)</h2>
+    <umbraco:item field="directionsWest" runat="server" />
+  </div>
+</asp:Content>

@@ -1,0 +1,15 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/SiteMaster.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="headerContent" runat="server">
+  <link type="text/css" href="css/Calendar.css" rel="stylesheet" />  
+</asp:Content>
+  
+<asp:Content ContentPlaceHolderID="mainContent" runat="server">
+  <div class="body" >
+    <h1>Calendar</h1>
+  </div>
+  <umbraco:macro alias="Calendar" runat="server" CalendarUrl="[#calendarUrl]" Date="[@d]" />
+  <br />
+  <br />
+  <br />
+</asp:Content>

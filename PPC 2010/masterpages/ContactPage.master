@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/SiteMaster.master" AutoEventWireup="true" %>
+	
+<asp:Content ContentPlaceHolderID="headerContent" runat="server">
+  <script src="/scripts/contactForm.js" type="text/javascript" ></script>  
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="mainContent" runat="server">
+  <div class="body">
+    <h1>Contact Us</h1>
+    <p>
+      <umbraco:item runat="server" field="welcomeMessage" />   
+    </p>
+    <umbraco:macro alias="ContactList" runat="server" CurrentPageId="[#pageID]" />
+    <br />
+    <h2>SESSION</h2>
+    <img src="<umbraco:macro alias='MediaUrl' MediaPath='Images/Elders' runat='server' />" alt="Providence Presbyterian Elders" />
+    <br />
+    <p>
+      <umbraco:item runat="server" field="elderList" />
+    </p>
+
+    <h2>DEACONS</h2>
+    <img src="<umbraco:macro alias='MediaUrl' MediaPath='Images/Deacons' runat='server' />" alt="Providence Presbyterian Deacons" />
+    <br />
+    <p>
+      <umbraco:item runat="server" field="deaconList" />   
+    </p>
+    <br />
+    <br />
+  </div>
+ </asp:Content>
