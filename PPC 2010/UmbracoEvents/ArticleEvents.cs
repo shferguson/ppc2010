@@ -16,7 +16,7 @@ namespace PPC_2010.UmbracoEvents
     {
         public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            ContentService.Creating += new TypedEventHandler<IContentService, NewEventArgs<IContent>>(ContentService_Creating);
+            ContentService.Created += new TypedEventHandler<IContentService, NewEventArgs<IContent>>(ContentService_Created);
             ContentService.Saving += new TypedEventHandler<IContentService, SaveEventArgs<IContent>>(ContentService_Saving);
             ContentService.Deleted += new TypedEventHandler<IContentService, DeleteEventArgs<IContent>>(ContentService_Deleted);
             ContentService.Saved += new TypedEventHandler<IContentService, SaveEventArgs<IContent>>(ContentService_Saved);
@@ -31,7 +31,7 @@ namespace PPC_2010.UmbracoEvents
 
         public void OnApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext) { }
 
-        void ContentService_Creating(IContentService sender, NewEventArgs<IContent> e)
+        void ContentService_Created(IContentService sender, NewEventArgs<IContent> e)
         {
             if (e.Entity.ContentType.Alias == PPC_2010.Data.Constants.ArticleAlias)
             {
@@ -72,7 +72,8 @@ namespace PPC_2010.UmbracoEvents
 
         void ContentService_Trashed(IContentService sender, MoveEventArgs<IContent> e)
         {
-            RefreshArticle(e.Entity);
+            foreach (var entity in e.MoveInfoCollection.Select(m => m.Entity))
+                RefreshArticle(entity);
         }
 
         void ContentService_SentToPublish(IContentService sender, SendToPublishEventArgs<IContent> e)

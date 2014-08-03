@@ -15,7 +15,7 @@ namespace PPC_2010.UmbracoEvents
     {
         public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            MediaService.Creating += new TypedEventHandler<IMediaService, NewEventArgs<IMedia>>(MediaService_Creating);
+            MediaService.Created += new TypedEventHandler<IMediaService, NewEventArgs<IMedia>>(MediaService_Created);
             MediaService.Saving += new TypedEventHandler<IMediaService, SaveEventArgs<IMedia>>(MediaService_Saving);
             MediaService.Saved += new TypedEventHandler<IMediaService, SaveEventArgs<IMedia>>(MediaService_Saved);
             MediaService.Deleted += new TypedEventHandler<IMediaService, DeleteEventArgs<IMedia>>(MediaService_Deleted);
@@ -26,7 +26,7 @@ namespace PPC_2010.UmbracoEvents
 
         public void OnApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext) { }
 
-        void MediaService_Creating(IMediaService sender, NewEventArgs<IMedia> e)
+        void MediaService_Created(IMediaService sender, NewEventArgs<IMedia> e)
         {
             if (e.Entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias)
             {
@@ -119,9 +119,9 @@ namespace PPC_2010.UmbracoEvents
 
         void MediaService_Trashed(IMediaService sender, MoveEventArgs<IMedia> e)
         {
-            if (e.Entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias)
+            foreach (IMedia entity in e.MoveInfoCollection.Select(m => m.Entity).Where(entity => entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias))
             {
-                ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(e.Entity.Id, true);
+                ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(entity.Id, true);
             }
         }
 
