@@ -37,7 +37,7 @@ namespace PPC_2010
                 foreach (var emailAddress in emailGroup.EmailAddresses)
                     mailMessage.To.Add(emailAddress);
                 mailMessage.ReplyToList.Add(email.Text);
-                mailMessage.Subject = subject.Text.Length > 0 ? subject.Text : emailGroup.Name;
+                mailMessage.Subject = subject.Text.Length > 0 ? string.Format("{0} - {1}", emailGroup.Name, subject.Text) : emailGroup.Name;
 
                 string fromName = null;
                 if (name.Text.Length == 0)
