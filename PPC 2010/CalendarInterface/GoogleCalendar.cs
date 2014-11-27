@@ -35,8 +35,6 @@ namespace PPC_2010.CalendarInterface
                 {
                     items = new List<CalendarItem>();
 
-
-
                     CalendarService service = new CalendarService("www.providence-pca.net");
 
                     if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))

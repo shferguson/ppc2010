@@ -1,6 +1,7 @@
 ﻿using PPC_2010.Data;
 using System.Configuration;
 using StructureMap;
+using StructureMap.Web;
 using Umbraco.Core.Services;
 using Umbraco.Core;
 
