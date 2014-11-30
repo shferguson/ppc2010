@@ -64,7 +64,7 @@
             </div>
           <h3>This week at PPC</h3>
            <p />
-            <umbraco:macro alias="CalendarList" runat="server" CalendarUrl="[#calendarUrl]" />
+            <umbraco:macro alias="CalendarList" runat="server" CalendarId="[#calendarId]" />
           </div>
       </td>
     </tr>

@@ -1,9 +1,10 @@
-﻿using PPC_2010.Data;
-using System.Configuration;
+﻿using System.Configuration;
+using PPC_2010.CalendarInterface;
+using PPC_2010.Data;
 using StructureMap;
 using StructureMap.Web;
-using Umbraco.Core.Services;
 using Umbraco.Core;
+using Umbraco.Core.Services;
 
 namespace PPC_2010
 {
@@ -32,6 +33,9 @@ namespace PPC_2010
                 x.For<IMediaService>().Use(() => ApplicationContext.Current.Services.MediaService);
                 x.For<IDataTypeService>().Use(() => ApplicationContext.Current.Services.DataTypeService);
                 x.For<IEmailGroupRepository>().HttpContextScoped().Use<Data.Media.EmailGroupRepository>();
+                x.For<IGoogleCalendarService>().HttpContextScoped().Use(
+                    () => new GoogleCalendarService(ConfigurationManager.AppSettings["googleServiceAccountEmail"], 
+                                                    ConfigurationManager.AppSettings["googleServiceAccountKeyFilePath"]));
             });
         }
 

@@ -11,7 +11,7 @@ namespace PPC_2010
 {
     public partial class Calendar : System.Web.UI.UserControl
     {
-        public string CalendarUrl { get; set; }
+        public string CalendarId { get; set; }
         public string Date { get; set; }
 
         List<CalendarItem> items = null;
@@ -32,8 +32,8 @@ namespace PPC_2010
             DateTime startDate = new DateTime(date.Year, date.Month, 1);
             DateTime endDate = startDate.AddMonths(1);
 
-            GoogleCalendar calendarService = new GoogleCalendar(CalendarUrl);
-            items = calendarService.GetCalendarItems(startDate, endDate);
+            GoogleCalendar calendarService = ServiceLocator.Instance.Locate<GoogleCalendar>();
+            items = calendarService.GetCalendarItems(CalendarId, startDate, endDate);
             items.Sort();
         }
 
@@ -43,7 +43,7 @@ namespace PPC_2010
             {
                 tag.Content.WriteLine("<b><span class=\"emph1\">" + tag.DefaultText + "</span></b><br/>");
 
-                var dayItems = items.Where(i => i.Start.Date == tag.Info.Date.Date).ToList();
+                var dayItems = items.Where(i => i.Start.GetValueOrDefault().Date == tag.Info.Date.Date).ToList();
 
                 if (dayItems.Count > 0)
                 {
@@ -59,7 +59,7 @@ namespace PPC_2010
                         {
                             tag.Content.WriteLine(
                                 string.Format("<span class=\"emph1\">{0}:</span> {1}<br />",
-                                item.Start.ToString("t"), item.Title)
+                                item.Start.Value.ToString("t"), item.Title)
                             );
                         }
                     }

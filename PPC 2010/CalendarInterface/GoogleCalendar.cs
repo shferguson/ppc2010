@@ -1,32 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Caching;
-using Google.GData.Calendar;
-using Google.GData.Extensions;
+using Google.Apis.Calendar.v3.Data;
 
 namespace PPC_2010.CalendarInterface
 {
     public class GoogleCalendar
     {
-        private string calendarUrl = null;
-        private string username = null;
-        private string password = null;
+        private IGoogleCalendarService _calendarService;
 
-        public GoogleCalendar(string calendarUrl)
+        public GoogleCalendar(IGoogleCalendarService calendarService)
         {
-            this.calendarUrl = calendarUrl;
+            _calendarService = calendarService;
         }
 
-        public GoogleCalendar(string calendarUrl, string username, string password)
-        {
-            this.calendarUrl = calendarUrl;
-            this.username = username;
-            this.password = password;
-        }
-
-        public List<CalendarItem> GetCalendarItems(DateTime startDate, DateTime endDate)
+        public List<CalendarItem> GetCalendarItems(string calendarId, DateTime startDate, DateTime endDate)
         {
             List<CalendarItem> items = HttpContext.Current.Cache[BuildCacheKey(startDate, endDate)] as List<CalendarItem>;
             if (items == null)
@@ -35,49 +24,29 @@ namespace PPC_2010.CalendarInterface
                 {
                     items = new List<CalendarItem>();
 
-                    CalendarService service = new CalendarService("www.providence-pca.net");
+                    var listRequest = _calendarService.Service.Events.List(calendarId);
+                    listRequest.TimeMin = startDate;
+                    listRequest.TimeMax = endDate;
+                    listRequest.SingleEvents = true;    // Show recurring events as invividual events
+                    listRequest.Fields = "items(end,start,summary)";
+                    
+                    var events = listRequest.Execute();
 
-                    if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
-                        service.setUserCredentials(username, password);
-
-                    EventQuery query = new EventQuery();
-                    query.Uri = new Uri(calendarUrl);
-
-                    query.StartTime = startDate;
-                    query.EndTime = endDate;
-                    query.NumberToRetrieve = 250;
-
-                    EventFeed feed = service.Query(query);
-
-                    var feedEntries = feed.Entries.OfType<EventEntry>().Where(e => !e.Status.Value.Contains("cancel"));
-                    foreach (EventEntry entry in feedEntries)
+                    foreach (var eventItem in events.Items)
                     {
-                        foreach (When w in entry.Times)
+                        bool isAlldayEvent = eventItem.Start.DateTime == null;
+                        if (isAlldayEvent)
                         {
-                            // Google seems to still include the overriden recurrance along with the override.
-                            // The override has an OriginalEvent.  So when ever we see an element without an override
-                            // we check for an element with the same time that has an original event
-                            if (entry.OriginalEvent == null)
+                            AddItemsForAllDateEvent(endDate, items, eventItem);
+                        }
+                        else {
+                            items.Add(new CalendarItem
                             {
-                                if (feedEntries.Any(
-                                    e => e.OriginalEvent != null &&
-                                         e.OriginalEvent.IdOriginal == entry.EventId &&
-                                         e.Times.Any(t => t.StartTime == w.StartTime && t.EndTime == w.EndTime)))
-                                {
-                                    continue;
-                                }
-                            }
-
-                            if (w.StartTime < endDate && w.EndTime > startDate)
-                            {
-                                items.Add(new CalendarItem
-                                {
-                                    Start = w.StartTime,
-                                    End = w.EndTime,
-                                    Title = entry.Title.Text,
-                                    AllDay = w.AllDay
-                                });
-                            }
+                                Start = eventItem.Start.DateTime,
+                                End = eventItem.End.DateTime,
+                                AllDay = false,
+                                Title = eventItem.Summary,
+                            });
                         }
                     }
 
@@ -97,6 +66,28 @@ namespace PPC_2010.CalendarInterface
                 items = new List<CalendarItem>();
 
             return items;
+        }
+
+        private static void AddItemsForAllDateEvent(DateTime endDate, List<CalendarItem> items, Event eventItem)
+        {
+            // Google only returns one event for a multi-day all day event, we need to add an individual CalendarItem
+            // for each day
+
+            DateTime eventStartDate, eventEndDate;
+            if (DateTime.TryParse(eventItem.Start.Date, out eventStartDate) && DateTime.TryParse(eventItem.End.Date, out eventEndDate))
+            {
+                while (eventStartDate < eventEndDate && eventStartDate < endDate)
+                {
+                    items.Add(new CalendarItem
+                    {
+                        Start = eventStartDate.Date,
+                        End = eventStartDate.Date,
+                        AllDay = true,
+                        Title = eventItem.Summary,
+                    });
+                    eventStartDate = eventStartDate.AddDays(1);
+                }
+            }
         }
 
         private string BuildCacheKey(DateTime startDate, DateTime endDate)

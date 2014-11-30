@@ -11,7 +11,7 @@ namespace PPC_2010
 {
     public partial class CalendarList : System.Web.UI.UserControl
     {
-        public string CalendarUrl { get; set; }
+        public string CalendarId { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,16 +36,17 @@ namespace PPC_2010
 
         private void LoadCalendar()
         {
-            GoogleCalendar calendar = new GoogleCalendar(CalendarUrl);
+            GoogleCalendar calendar = ServiceLocator.Instance.Locate<GoogleCalendar>();
 
-            var items = calendar.GetCalendarItems(DateTime.Today, DateTime.Today.AddDays(14));
+            var items = calendar.GetCalendarItems(CalendarId, DateTime.Today, DateTime.Today.AddDays(14));
 
             items.Sort();
 
             var itemsGroup = from i in items
-                             group i by i.Start.Date into g
+                             where i.Start.HasValue
+                             group i by i.Start.Value.Date into g
                              select new CalendarItemDayGroup { Date = g.Key.ToString("D"),
-                                 Items = g.Select(i => new CalendarItemDisplay { Start = i.AllDay ? "" : i.Start.ToString("t") + ": ", Title = i.Title }).ToList() };
+                                 Items = g.Select(i => new CalendarItemDisplay { Start = i.AllDay ? "" : i.Start.Value.ToString("t") + ": ", Title = i.Title }).ToList() };
 
             calendarList.DataSource = itemsGroup;
             calendarList.DataBind();

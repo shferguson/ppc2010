@@ -8,23 +8,29 @@ namespace PPC_2010.CalendarInterface
 {
     public class CalendarItem : IComparable<CalendarItem>
     {
-        private DateTime start;
-        public DateTime Start
+        private DateTime? start;
+        public DateTime? Start
         {
             get { return start; }
             set
             {
-                start = TimeZoneConverter.ConvertToEastern(value);
+                if (value.HasValue)
+                    start = TimeZoneConverter.ConvertToEastern(value.Value);
+                else
+                    start = null;
             }
         }
 
-        private DateTime end;
-        public DateTime End
+        private DateTime? end;
+        public DateTime? End
         {
             get { return end; }
             set
             {
-                end = TimeZoneConverter.ConvertToEastern(value);
+                if (value.HasValue)
+                    end = TimeZoneConverter.ConvertToEastern(value.Value);
+                else
+                    end = null;
             }
         }
 
@@ -34,10 +40,10 @@ namespace PPC_2010.CalendarInterface
 
         public int CompareTo(CalendarItem other)
         {
-            if (Start != other.Start)
-                return Start.CompareTo(other.Start);
-            if (End != other.End)
-                return End.CompareTo(other.End);
+            if (Start != other.Start && Start.HasValue && other.Start.HasValue)
+                return Start.Value.CompareTo(other.Start.Value);
+            if (End != other.End && End.HasValue && other.End.HasValue)
+                return End.Value.CompareTo(other.End.Value);
             if (AllDay != other.AllDay)
                 return AllDay.CompareTo(other.AllDay);
             if (Title != other.Title)
