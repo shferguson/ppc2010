@@ -12,16 +12,12 @@
     </p>
     <umbraco:macro alias="ContactList" runat="server" CurrentPageId="[#pageID]" />
     <br />
-    <h2>SESSION</h2>
-    <img src="<umbraco:macro alias='MediaUrl' MediaPath='Images/Elders' runat='server' />" alt="Providence Presbyterian Elders" />
-    <br />
+    <h3>Session</h3>
     <p>
       <umbraco:item runat="server" field="elderList" />
     </p>
 
-    <h2>DEACONS</h2>
-    <img src="<umbraco:macro alias='MediaUrl' MediaPath='Images/Deacons' runat='server' />" alt="Providence Presbyterian Deacons" />
-    <br />
+    <h3>Deacons</h3>
     <p>
       <umbraco:item runat="server" field="deaconList" />   
     </p>

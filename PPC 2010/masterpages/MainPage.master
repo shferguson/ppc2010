@@ -10,18 +10,6 @@
     <tr>
 		<td class="body" width="600" valign="top" style="padding-left:5px;" >
         <umbraco:item runat="server" field="beliefs" />
-        <p />
-        <div class="spacer">
-          <p>
-          ................................................................................................................................................................
-          </p>
-        </div>
-        <p />
-          <h1>Building for the Next Generation</h1>
-        <p>
-          See <b><a href="/BuildingForTheNextGeneration.aspx">the latest update</a></b> on Providence's buliding plan.
-        </p>
-        <p />
         <umbraco:macro alias="EventList" runat="server" />        
         <p />
         <p />
