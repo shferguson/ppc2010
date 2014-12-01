@@ -109,15 +109,16 @@ namespace PPC_2010.UmbracoEvents
             }
         }
 
+        // As of Umbraco 6.2.4 if you try to access e.Cancel for an event that isn't cancellable you'll get an exception
         static bool CheckForRefresh(IContent content, CancellableEventArgs e)
         {
             if (content.Name == PPC_2010.Data.Constants.RefreshIndicatorTitle)
             {
                 ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticles();
-                e.Cancel = true;
+                return true;
             }
 
-            return e.Cancel;
+            return false;
         }
     }
 }

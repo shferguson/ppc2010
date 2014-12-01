@@ -127,13 +127,14 @@ namespace PPC_2010.UmbracoEvents
 
         bool CheckForRefresh(IMedia sender, CancellableEventArgs e)
         {
+            // As of Umbraco 6.2.4 if you try to access e.Cancel for an event that isn't cancellable you'll get an exception
             if (sender.Name.Equals(PPC_2010.Data.Constants.RefreshIndicatorTitle, StringComparison.CurrentCultureIgnoreCase))
             {
                 ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermons();
-                e.Cancel = true;
+                return true;
             }
 
-            return e.Cancel;
+            return false;
         }
     }
 }
