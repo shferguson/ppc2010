@@ -11,7 +11,6 @@ namespace PPC_2010.CalendarInterface
     public class GoogleCalendarService : IGoogleCalendarService
     {
         public CalendarService Service { get; private set; }
-        public byte[] FileBytes { get; set; }
 
         public GoogleCalendarService(string serviceAccountEmail, string serviceAcountCertFilePath)
         {
@@ -28,7 +27,6 @@ namespace PPC_2010.CalendarInterface
             {
                 Scopes = new[] { CalendarService.Scope.Calendar }
             }.FromCertificate(certificate));
-
 
             Service = new CalendarService(new BaseClientService.Initializer()
             {
