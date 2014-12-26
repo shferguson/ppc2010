@@ -16,7 +16,6 @@ namespace PPC_2010.UmbracoEvents
     {
         public void OnApplicationInitialized(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            ContentService.Created += new TypedEventHandler<IContentService, NewEventArgs<IContent>>(ContentService_Created);
             ContentService.Saving += new TypedEventHandler<IContentService, SaveEventArgs<IContent>>(ContentService_Saving);
             ContentService.Deleted += new TypedEventHandler<IContentService, DeleteEventArgs<IContent>>(ContentService_Deleted);
             ContentService.Saved += new TypedEventHandler<IContentService, SaveEventArgs<IContent>>(ContentService_Saved);
@@ -31,19 +30,6 @@ namespace PPC_2010.UmbracoEvents
 
         public void OnApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext) { }
 
-        void ContentService_Created(IContentService sender, NewEventArgs<IContent> e)
-        {
-            if (e.Entity.ContentType.Alias == PPC_2010.Data.Constants.ArticleAlias)
-            {
-                if (CheckForRefresh(e.Entity, e))
-                    return;
-
-                var article = new Data.Media.Article(e.Entity);
-                article.Title = e.Entity.Name;
-                article.Date = DateTime.Today.GetDateOfNext(DayOfWeek.Sunday);
-            }
-        }
-
         void ContentService_Saving(IContentService sender, SaveEventArgs<IContent> e)
         {
             foreach (IContent content in e.SavedEntities)
@@ -54,8 +40,16 @@ namespace PPC_2010.UmbracoEvents
                         return;
 
                     var article = new Data.Media.Article(content);
-                    if (article.Date.HasValue)
-                        content.Name = "Article-" + article.Date.Value.ToString("MM/dd/yyyy");
+                    if (!content.HasIdentity)
+                    {
+                        article.Title = content.Name;
+                        article.Date = DateTime.Today.GetDateOfNext(DayOfWeek.Sunday);
+                    }
+                    else
+                    {
+                        if (article.Date.HasValue)
+                            content.Name = "Article-" + article.Date.Value.ToString("MM/dd/yyyy");
+                    }
                 }
             }
         }
