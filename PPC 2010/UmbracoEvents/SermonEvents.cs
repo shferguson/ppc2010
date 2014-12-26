@@ -116,6 +116,8 @@ namespace PPC_2010.UmbracoEvents
             if (sender.Name.Equals(PPC_2010.Data.Constants.RefreshIndicatorTitle, StringComparison.CurrentCultureIgnoreCase))
             {
                 ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermons();
+                if (e.CanCancel)
+                    e.Cancel = true;
                 return true;
             }
 

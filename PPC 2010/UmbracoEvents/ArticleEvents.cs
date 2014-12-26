@@ -109,6 +109,8 @@ namespace PPC_2010.UmbracoEvents
             if (content.Name == PPC_2010.Data.Constants.RefreshIndicatorTitle)
             {
                 ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticles();
+                if (e.CanCancel)
+                    e.Cancel = true;
                 return true;
             }
 
