@@ -18,7 +18,7 @@
     <br />
     <p id="audioplayer">Sermon player</p>  
     <script type="text/javascript">
-        AudioPlayer.embed("audioplayer", { soundFile: "<%= RecordingUrl %>", titles: "<%= sermonTitle.Text %>", artists: "<%= speakerName.Text %>" });  
+        AudioPlayer.embed("audioplayer", { "soundFile": <%= System.Web.Helpers.Json.Encode(RecordingUrl) %>, "titles": <%= System.Web.Helpers.Json.Encode(sermonTitle.Text) %>, "artists": <%= System.Web.Helpers.Json.Encode(speakerName.Text) %> });  
     </script>
  </div>
   </div>
