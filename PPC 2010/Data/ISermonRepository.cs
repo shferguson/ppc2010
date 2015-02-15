@@ -14,5 +14,6 @@ namespace PPC_2010.Data
 
         void RefreshSermons();
         void RefreshSermon(int sermonId, bool deleted = false);
+        void UpdateSermonSort();
     }
 }

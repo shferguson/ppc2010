@@ -4,9 +4,10 @@ using System.Web;
 
 namespace PPC_2010.Data.Media
 {
+    using Umbraco.Core;
     using Umbraco.Core.Models;
     using Umbraco.Core.Services;
-
+    
     public class SermonRepository : ISermonRepository
     {
         public const string SermonFolderAlias = "SermonFolder";
@@ -66,6 +67,23 @@ namespace PPC_2010.Data.Media
                     .ToArray();
             }
             return Enumerable.Empty<MediaSermon>();
+        }
+
+        public void UpdateSermonSort()
+        {
+            var sermons = GetSermons();
+
+            int i = 1;
+            foreach (var sermon in sermons)
+            {
+                if (sermon.SortOrder != i)
+                {
+                    sermon.SortOrder = i;
+                    ApplicationContext.Current.Services.MediaService.Save(sermon.Media, 0, false);
+                }
+
+                i++;
+            }
         }
 
 

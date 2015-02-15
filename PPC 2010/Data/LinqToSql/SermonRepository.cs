@@ -55,7 +55,7 @@ namespace PPC_2010.Data.LinqToSql
             return _providence.Sermons.Count();
         }
 
-        public void Dispose()  {  }
+        public void Dispose() { }
 
         public void RefreshSermons()
         {
@@ -84,6 +84,15 @@ namespace PPC_2010.Data.LinqToSql
                      Constants.RefreshIndicatorTitle.ToUpper()
                 );
             }
+        }
+
+        public void UpdateSermonSort()
+        {
+            _providence.ExecuteCommand(
+                @"update n
+                  set n.sortOrder = s.RowNumber
+                  from umbracoNode n
+                  inner join (select Id, ROW_NUMBER() OVER(order by RecordingDate desc, Id desc) as RowNumber from ppc2010.Sermon) s on s.Id = n.id");
         }
     }
 

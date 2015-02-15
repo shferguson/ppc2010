@@ -116,5 +116,10 @@ namespace PPC_2010.Data
         {
             RefreshSermons();
         }
+
+        public void UpdateSermonSort()
+        {
+            _repository.UpdateSermonSort();
+        }
     }
 }

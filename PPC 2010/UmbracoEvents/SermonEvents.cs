@@ -75,21 +75,10 @@ namespace PPC_2010.UmbracoEvents
             {
                 if (entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias && entity.IsValid())
                 {
-                    var sermons = new Data.Media.SermonRepository().LoadAllSermons().Cast<MediaSermon>();
+                    var repository = ServiceLocator.Instance.Locate<ISermonRepository>();
 
-                    int i = 1;
-                    foreach (var sermon in sermons)
-                    {
-                        if (sermon.SortOrder != i)
-                        {
-                            sermon.SortOrder = i;
-                            sender.Save(sermon.Media, 0, false);
-                        }
-
-                        i++;
-                    }
-
-                    ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(entity.Id, entity.Trashed);
+                    repository.RefreshSermon(entity.Id, entity.Trashed);
+                    repository.UpdateSermonSort();
                 }
             }
         }
