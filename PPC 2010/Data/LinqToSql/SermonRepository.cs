@@ -63,7 +63,8 @@ namespace PPC_2010.Data.LinqToSql
             _providence.ExecuteCommand(
                 @"insert into ppc2010.Sermon
                  (Id, UmbracoTitle, RecordingDate, Title, SpeakerNameId, SpeakerName, RecordingSessionId, RecordingSession, SermonSeriesId, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile)
-                 (select Id, UmbracoTitle, RecordingDate, Title, SpeakerNameId, SpeakerName, RecordingSessionId, RecordingSession, SermonSeriesId, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons where upper(UmbracoTitle) <> {0})",
+                 (select Id, UmbracoTitle, RecordingDate, Title, SpeakerNameId, SpeakerName, RecordingSessionId, RecordingSession, SermonSeriesId, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile
+                  from ppc2010.view_Sermons where upper(UmbracoTitle) <> {0} and SpeakerName is not null)",
                   Constants.RefreshIndicatorTitle.ToUpper()
             );
         }
@@ -77,7 +78,8 @@ namespace PPC_2010.Data.LinqToSql
                 _providence.ExecuteCommand(
                     @"insert into ppc2010.Sermon
                  (Id, UmbracoTitle, RecordingDate, Title, SpeakerNameId, SpeakerName, RecordingSessionId, RecordingSession, SermonSeriesId, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile)
-                 (select Id, UmbracoTitle, RecordingDate, Title, SpeakerNameId, SpeakerName, RecordingSessionId, RecordingSession, SermonSeriesId, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons where Id = {0} and upper(UmbracoTitle) <> {1})",
+                 (select Id, UmbracoTitle, RecordingDate, Title, SpeakerNameId, SpeakerName, RecordingSessionId, RecordingSession, SermonSeriesId, SermonSeries, Book, StartChapter, StartVerse, EndChapter, EndVerse, ScriptureReferenceText, AudioFile from ppc2010.view_Sermons
+                  where Id = {0} and upper(UmbracoTitle) <> {1})",
                      sermonId,
                      Constants.RefreshIndicatorTitle.ToUpper()
                 );
