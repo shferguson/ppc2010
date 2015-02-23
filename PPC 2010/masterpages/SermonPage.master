@@ -20,17 +20,17 @@
   </script>
   <script>
 	 AudioPlayer.setup("scripts/player.swf", {  
-     		width: "100%",
-			transparentpagebg: "yes",
-			animation: "no",
-			leftbg: "800202",
-			lefticon: "FFFFFF",
-			rightbg: "800202",
-			rightbghover: "5C0001",
-			righticon: "FFFFFF",
-			righticonhover: "F8DEAB",
-			bg: "800202",
-			volslider: "F8DEAB",
+     		"width": "100%",
+			"transparentpagebg": "yes",
+			"animation": "no",
+			"leftbg": "800202",
+			"lefticon": "FFFFFF",
+			"rightbg": "800202",
+			"rightbghover": "5C0001",
+			"righticon": "FFFFFF",
+			"righticonhover": "F8DEAB",
+			"bg": "800202",
+			"volslider": "F8DEAB",
 		 track: "FFFFFF" });
   </script>
   <table>

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Providence Presbyterian Church</title>
-    <link rel="stylesheet" type="text/css" href="/css/stylesheet.css"></link>
+	<link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript" ></script>
     <asp:ContentPlaceHolder id="headerContent" runat="server" />
     <script type="text/javascript">
@@ -69,12 +69,12 @@
           <div id="ppc_footer_logo">
             <a href="/"><img src="<umbraco:macro alias='MediaUrl' MediaPath='Images/FooterTitle' runat='server' />" alt="Providence Presbyterian Church" border="0" /></a>
           </div>
-          <p>
+         
           <div id="footer_address">
             <span class="footer_text">77 Phillips Lane  |  Robinson Township, PA 15136<br />
             412-788-6100  |  <a class="navLink" href="mailto:info@providence-pca.net">info@providence-pca.net</a></span>
           </div>
-          </p>
+         
           <div id="facebook_button">
             <a class="facebookbutton" style="background-image:url(<umbraco:macro alias='MediaUrl' MediaPath='Images/FacebookButton' runat='server' />)"
                title="Providence on Facebook" href="http://www.facebook.com/pages/Providence-Presbyterian-Church-PCA/242280549506">Facebook</a>
