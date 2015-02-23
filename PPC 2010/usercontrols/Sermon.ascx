@@ -1,10 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Sermon.ascx.cs" Inherits="PPC_2010.Sermon" ViewStateMode="Disabled" %>
+<h1>Current Sermon</h1>
+<h3>"<asp:Label runat="server" ID="sermonTitle" />"</h3>
 <p>
-    <h1>Current Sermon</h1>
-<p />
-<p>
-   <h3>"<asp:Label runat="server" ID="sermonTitle" />"</h3>
-<p />
     <asp:Label runat="server" ID="speakerName" />&nbsp;|&nbsp;Recorded&nbsp;<asp:Label runat="server" ID="recordingDate" />&nbsp;|&nbsp;<asp:Label runat="server" ID="recordingSession" />
 <p />
 <p>
