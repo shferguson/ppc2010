@@ -26,19 +26,22 @@ namespace PPC_2010.Services
             if (!scriptureReferences.HasReference)
                 return string.Empty;
 
-            string scriptureText = HttpContext.Current.Cache[BuildCacheKey(scriptureReferences)] as string;
+            var url =  string.Format(Url, Key, scriptureReferences.ScriptureString);
+            if (HttpContext.Current.Request.Browser.IsMobileDevice)
+                url = url + "&nclude-audio-link=false";
+
+            string scriptureText = HttpContext.Current.Cache[url] as string;
             if (scriptureText == null)
             {
                 try
                 {
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(
-                        string.Format(Url, Key, scriptureReferences.ScriptureString));
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
                     using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                         scriptureText = reader.ReadToEnd();
 
-                    HttpContext.Current.Cache[BuildCacheKey(scriptureReferences)] = scriptureText;
+                    HttpContext.Current.Cache[url] = scriptureText;
                 }
                 catch (WebException ex)
                 {
@@ -47,11 +50,6 @@ namespace PPC_2010.Services
             }
 
             return scriptureText;
-        }
-
-        private string BuildCacheKey(ScriptureReferences scriptureReferences)
-        {
-            return "ESV - " + scriptureReferences.ScriptureString;
         }
     }
 }
