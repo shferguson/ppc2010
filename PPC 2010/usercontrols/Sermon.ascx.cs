@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Web.UI;
 using PPC_2010.Data;
-using PPC_2010.Data.LinqToSql;
 using PPC_2010.Services;
-using umbraco.cms.businesslogic.media;
 using PPC_2010.Data.Media;
+using PPC_2010.Social.Facebook;
 
 namespace PPC_2010
 {
@@ -38,16 +37,7 @@ namespace PPC_2010
         private void SetDownloadImageUrl()
         {
             MediaRepository repository = new MediaRepository();
-            var media = repository.GetMediaByAliasPath("Images/DownloadSermonButton");
-
-            if (media != null)
-            {
-                string baseUrl = string.Format("{0}", (Request.ApplicationPath.Equals("/")) ? string.Empty : Request.ApplicationPath);
-
-                var umbracoFile = media.GetValue<string>("umbracoFile");
-                if (umbracoFile != null)
-                    DownloadImageUrl = umbracoFile.Replace("~", baseUrl);
-            }
+            DownloadImageUrl = repository.GetMeduaUrlByAliasPath("Images/DownloadSermonButton");
         }
 
         private void LoadSermon(int sermonId)
@@ -68,11 +58,28 @@ namespace PPC_2010
                     speakerName.Text = sermon.SpeakerName;
                     recordingDate.Text = sermon.RecordingDate.GetValueOrDefault().ToShortDateString();
                     recordingSession.Text = sermon.RecordingSession;
-                    RecordingUrl = sermon.RecordingUrl.Replace("~", baseUrl);
+                    RecordingUrl = UrlService.MakeRelativeUrl(sermon.RecordingUrl);
 
                     scriptureText.Text = scriptureService.GetScriptureTextHtml(sermon.ScriptureReference);
+
+                    SetFacebookHeaders(sermon);
                 }
             }
+        }
+
+        private void SetFacebookHeaders(ISermon sermon)
+        {
+            var url = new UriBuilder(Request.Url.Scheme, Request.Url.Host, Request.Url.Port).Uri;
+
+            var tagsService = ServiceLocator.Instance.Locate<IOpenGraphTagsService>();
+            tagsService.AddOpenTags(this, new OpenGraphTags
+            {
+                Type = "article",
+                Section = "Sermons",
+                Url = UrlService.MakeFullUrl(sermon.SermonUrl),
+                Title = sermon.Title,
+                Description = sermon.ScriptureReference.ToString(),
+            });
         }
     }
 }

@@ -5,6 +5,7 @@ using StructureMap;
 using StructureMap.Web;
 using Umbraco.Core;
 using Umbraco.Core.Services;
+using PPC_2010.Services;
 
 namespace PPC_2010
 {
@@ -33,6 +34,8 @@ namespace PPC_2010
                 x.For<IMediaService>().Use(() => ApplicationContext.Current.Services.MediaService);
                 x.For<IDataTypeService>().Use(() => ApplicationContext.Current.Services.DataTypeService);
                 x.For<IEmailGroupRepository>().HttpContextScoped().Use<Data.Media.EmailGroupRepository>();
+                x.For<IMetaTagService>().Use<MetaTagService>();
+                x.For<Social.Facebook.IOpenGraphTagsService>().Use<Social.Facebook.OpenGraphTagsService>();
                 x.For<IGoogleCalendarService>().HttpContextScoped().Use(
                     () => new GoogleCalendarService(ConfigurationManager.AppSettings["googleServiceAccountEmail"], 
                                                     ConfigurationManager.AppSettings["googleServiceAccountKeyFilePath"]));

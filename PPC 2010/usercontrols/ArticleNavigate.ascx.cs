@@ -7,7 +7,8 @@ using umbraco.cms.businesslogic.web;
 using umbraco;
 using System.Linq;
 using System.Collections.Generic;
-
+using PPC_2010.Social.Facebook;
+using System.Text.RegularExpressions;
 
 namespace PPC_2010
 {
@@ -39,6 +40,9 @@ namespace PPC_2010
                 LatestArticles = _articleReposiotry
                     .LoadAllArticles()
                     .Take(50);
+
+                if (CurrentArticle != null)
+                    SetFacebookHeaders(CurrentArticle);
             }
         }
 
@@ -54,5 +58,19 @@ namespace PPC_2010
                 link.HRef = library.NiceUrl(article.Id);
             }
         }
+
+        private void SetFacebookHeaders(IArticle article)
+        {
+            var tagsService = ServiceLocator.Instance.Locate<IOpenGraphTagsService>();
+            tagsService.AddOpenTags(this, new OpenGraphTags
+            {
+                Type = "article",
+                Section = "Articles",
+                Url = library.NiceUrl(article.Id),
+                Title = article.Title,
+                Description = Regex.Replace(article.Text.Substring(0, Math.Min(150, article.Text.Length)), @"<[^>]+>|&nbsp;", "").Trim(),
+            });
+        }
+
     }
 }

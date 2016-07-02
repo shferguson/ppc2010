@@ -9,6 +9,11 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <Import Project="..\packages\UmbracoCms.6.2.4\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.6.2.4\build\UmbracoCms.props')" />
   <PropertyGroup>
@@ -326,7 +331,6 @@
     <Content Include="usercontrols\ContactForm.ascx" />
     <Content Include="usercontrols\ContactList.ascx" />
     <Content Include="default.aspx" />
-    <Content Include="usercontrols\dummy.txt" />
     <Content Include="usercontrols\Elmah.ascx" />
     <Content Include="Global.asax" />
     <Content Include="Images\rss.gif" />
@@ -353,6 +357,13 @@
   <ItemGroup>
     <Compile Include="CalendarInterface\GoogleCalendarService.cs" />
     <Compile Include="CalendarInterface\IGoogleCalendarService.cs" />
+    <Compile Include="Services\IMetaTagService.cs" />
+    <Compile Include="Services\MetaTagService.cs" />
+    <Compile Include="Services\UrlService.cs" />
+    <Compile Include="Social\Facebook\FacebookSettings.cs" />
+    <Compile Include="Social\Facebook\IOpenGraphTagsService.cs" />
+    <Compile Include="Social\Facebook\OpenGraphTags.cs" />
+    <Compile Include="Social\Facebook\OpenGraphTagsService.cs" />
     <Compile Include="usercontrols\AllSermons.ascx.cs">
       <DependentUpon>AllSermons.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -583,13 +594,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>copy /y "$(TargetPath)" "C:\inetpub\wwwroot\umbraco\bin"
-copy /y "$(TargetDir)\PPC 2010.pdb" "C:\inetpub\wwwroot\umbraco\bin"
-copy /y "$(TargetDir)\RssToolkit.dll" "C:\inetpub\wwwroot\umbraco\bin"
-copy /y "$(TargetDir)\BaseControls.dll" "C:\inetpub\wwwroot\umbraco\bin"
-copy /y "$(TargetDir)\Google*" "C:\inetpub\wwwroot\umbraco\bin"
-copy /y "$(ProjectDir)\usercontrols\*.as?x" "C:\inetpub\wwwroot\umbraco\usercontrols"
-copy /y "$(ProjectDir)\images\*" "C:\inetpub\wwwroot\umbraco\usercontrols\images"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

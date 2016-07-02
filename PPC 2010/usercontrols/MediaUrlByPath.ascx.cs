@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using PPC_2010.Data;
-using umbraco.cms.businesslogic.media;
 using PPC_2010.Data.Media;
 
 namespace PPC_2010
@@ -21,16 +15,7 @@ namespace PPC_2010
                 if (!string.IsNullOrWhiteSpace(MediaPath))
                 {
                     MediaRepository repository = new MediaRepository();
-                    var media = repository.GetMediaByAliasPath(MediaPath);
-
-                    if (media != null)
-                    {
-                        string baseUrl = string.Format("{0}", (Request.ApplicationPath.Equals("/")) ? string.Empty : Request.ApplicationPath);
-
-                        var umbracoFile = media.GetValue<string>("umbracoFile");
-                        if (umbracoFile != null)
-                            mediaUrl.Text = umbracoFile.Replace("~", baseUrl);
-                    }
+                    mediaUrl.Text = repository.GetMeduaUrlByAliasPath(MediaPath);
                 }
             }
         }

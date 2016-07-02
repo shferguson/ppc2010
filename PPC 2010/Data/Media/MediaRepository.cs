@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Umbraco.Core.Services;
 using Umbraco.Core.Models;
+using PPC_2010.Services;
 
 namespace PPC_2010.Data.Media
 {
@@ -26,6 +27,20 @@ namespace PPC_2010.Data.Media
             }
 
             return currentMedia;
+        }
+
+        public string GetMeduaUrlByAliasPath(string aliasPath)
+        {
+            var media = GetMediaByAliasPath(aliasPath);
+            if (media != null)
+            {
+                var umbracoFile = media.GetValue<string>("umbracoFile");
+                if (umbracoFile != null)
+                    return UrlService.MakeRelativeUrl(umbracoFile);
+
+            }
+
+            return "";
         }
     }
 }
