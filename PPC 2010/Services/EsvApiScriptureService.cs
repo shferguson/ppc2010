@@ -14,7 +14,7 @@ namespace PPC_2010.Services
     public class EsvApiScriptureService : IScriptureService
     {
         private readonly string Key = "";
-        private string Url = "http://www.esvapi.org/v2/rest/passageQuery?key={0}&passage={1}&include-footnotes=false&include-headings=false&include-subheadings=false";
+        private string Url = "http://www.esvapi.org/v2/rest/passageQuery?key={0}&passage={1}&include-footnotes=false&include-headings=false&include-subheadings=false&audio-format=mp3";
 
         public EsvApiScriptureService(string key)
         {
@@ -27,9 +27,6 @@ namespace PPC_2010.Services
                 return string.Empty;
 
             var url =  string.Format(Url, Key, scriptureReferences.ScriptureString);
-            if (HttpContext.Current.Request.Browser.IsMobileDevice)
-                url = url + "&nclude-audio-link=false";
-
             string scriptureText = HttpContext.Current.Cache[url] as string;
             if (scriptureText == null)
             {
