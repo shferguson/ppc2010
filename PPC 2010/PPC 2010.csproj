@@ -308,7 +308,6 @@
   <ItemGroup>
     <Content Include="config\splashes\booting.aspx" />
     <Content Include="config\splashes\noNodes.aspx" />
-    <Content Include="css\audiojs.css" />
     <Content Include="css\Calendar.css" />
     <Content Include="css\RVContactForm.css" />
     <Content Include="css\SermonTable.css" />
