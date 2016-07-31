@@ -5,7 +5,7 @@
 </asp:Content>
   
 <asp:Content ContentPlaceHolderID="mainContent" runat="server">
- <script type="text/javascript" src="scripts/audio-player.js"></script>  
+ <script type="text/javascript" src="scripts/audio.min.js"></script>  
  <script type="text/javascript">
     $(document).ready(function () {
       var sermonFile = $(".download_sermonbutton")[0].href.replace(/.*\//, '');
@@ -13,26 +13,12 @@
       window.setTimeout(logViewSermonFunc , 900000);
       $(".download_sermonbutton")[0].onclick = logViewSermonFunc;
 		
-	  if (typeof navigator.plugins["Shockwave Flash"] === "undefined") {
-	  	$("#playSermon").hide();
-	  }
+	  audiojs.events.ready(function() {
+      	var as = audiojs.createAll();
+	  });
     });
   </script>
-  <script>
-	 AudioPlayer.setup("scripts/player.swf", {  
-     		"width": "100%",
-			"transparentpagebg": "yes",
-			"animation": "no",
-			"leftbg": "800202",
-			"lefticon": "FFFFFF",
-			"rightbg": "800202",
-			"rightbghover": "5C0001",
-			"righticon": "FFFFFF",
-			"righticonhover": "F8DEAB",
-			"bg": "800202",
-			"volslider": "F8DEAB",
-		 track: "FFFFFF" });
-  </script>
+ 
   <table>
     <tr>
       <td width="600" valign="top" class="body">

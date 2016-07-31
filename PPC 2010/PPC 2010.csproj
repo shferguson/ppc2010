@@ -308,21 +308,18 @@
   <ItemGroup>
     <Content Include="config\splashes\booting.aspx" />
     <Content Include="config\splashes\noNodes.aspx" />
+    <Content Include="css\audiojs.css" />
     <Content Include="css\Calendar.css" />
-    <Content Include="css\dummy.txt" />
     <Content Include="css\RVContactForm.css" />
     <Content Include="css\SermonTable.css" />
     <Content Include="css\StyleSheet.css" />
     <Content Include="macroScripts\dummy.txt" />
     <Content Include="masterpages\dummy.txt" />
     <Content Include="media\dummy.txt" />
-    <Content Include="scripts\audio-player-noswfobject.js" />
-    <Content Include="scripts\audio-player-uncompressed.js" />
-    <Content Include="scripts\audio-player.js" />
+    <Content Include="scripts\audio.min.js" />
+    <Content Include="scripts\audiojs.swf" />
     <Content Include="scripts\contactForm.js" />
-    <Content Include="scripts\dummy.txt" />
-    <Content Include="scripts\json2.js" />
-    <Content Include="scripts\player.swf" />
+    <Content Include="scripts\player-graphics.gif" />
     <Content Include="scripts\RVContactForm.js" />
     <Content Include="usercontrols\AllSermons.ascx" />
     <Content Include="usercontrols\ArticleNavigate.ascx" />

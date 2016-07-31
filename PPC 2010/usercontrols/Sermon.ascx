@@ -13,10 +13,7 @@
 
  <div style="margin-left:10%;margin-right:10%">
     <br />
-    <p id="audioplayer">Sermon player</p>  
-    <script type="text/javascript"> <% // The below uses a weird hack to work around a limitation in the AudioPlayer control, it uses comma's to separate title names, so a title can't have a comma in it, so we replace it with U+201A: Single Low-9 Quotation Mark %> 
-        AudioPlayer.embed("audioplayer", { "soundFile": <%= System.Web.Helpers.Json.Encode(RecordingUrl) %>, "titles": <%= System.Web.Helpers.Json.Encode(sermonTitle.Text).Replace(",", "\u201A") %>, "artists": <%= System.Web.Helpers.Json.Encode(speakerName.Text) %> });  
-    </script>
+    <audio src="<%= RecordingUrl %>"></audio>
  </div>
   </div>
 <p>
