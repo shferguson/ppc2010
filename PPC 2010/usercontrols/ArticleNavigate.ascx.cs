@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 using PPC_2010.Social.Facebook;
 using System.Text.RegularExpressions;
+using PPC_2010.Social;
 
 namespace PPC_2010
 {
@@ -42,7 +43,7 @@ namespace PPC_2010
                     .Take(50);
 
                 if (CurrentArticle != null)
-                    SetFacebookHeaders(CurrentArticle);
+                    SetSocialTags(CurrentArticle);
             }
         }
 
@@ -59,10 +60,10 @@ namespace PPC_2010
             }
         }
 
-        private void SetFacebookHeaders(IArticle article)
+        private void SetSocialTags(IArticle article)
         {
-            var tagsService = ServiceLocator.Instance.Locate<IOpenGraphTagsService>();
-            tagsService.AddOpenTags(this, new OpenGraphTags
+            var tagsService = ServiceLocator.Instance.Locate<ISocialTagsService>();
+            tagsService.AddSocialTags(this, new OpenGraphTags
             {
                 Type = "article",
                 Section = "Articles",
@@ -71,6 +72,5 @@ namespace PPC_2010
                 Description = Regex.Replace(article.Text.Substring(0, Math.Min(150, article.Text.Length)), @"<[^>]+>|&nbsp;", "").Trim(),
             });
         }
-
     }
 }

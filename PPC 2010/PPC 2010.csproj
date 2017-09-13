@@ -360,6 +360,10 @@
     <Compile Include="Social\Facebook\IOpenGraphTagsService.cs" />
     <Compile Include="Social\Facebook\OpenGraphTags.cs" />
     <Compile Include="Social\Facebook\OpenGraphTagsService.cs" />
+    <Compile Include="Social\ISocialTagsService.cs" />
+    <Compile Include="Social\SocialTagsService.cs" />
+    <Compile Include="Social\Twitter\ITwitterTagService.cs" />
+    <Compile Include="Social\Twitter\TwitterTagService.cs" />
     <Compile Include="usercontrols\AllSermons.ascx.cs">
       <DependentUpon>AllSermons.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

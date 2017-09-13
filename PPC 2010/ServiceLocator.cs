@@ -36,6 +36,9 @@ namespace PPC_2010
                 x.For<IEmailGroupRepository>().HttpContextScoped().Use<Data.Media.EmailGroupRepository>();
                 x.For<IMetaTagService>().Use<MetaTagService>();
                 x.For<Social.Facebook.IOpenGraphTagsService>().Use<Social.Facebook.OpenGraphTagsService>();
+                x.For<Social.Twitter.ITwitterTagService>().Use<Social.Twitter.TwitterTagService>();
+                x.For<Social.ISocialTagsService>().Use<Social.SocialTagsService>();
+                x.For<Social.Twitter.ITwitterTagService>().Use<Social.Twitter.TwitterTagService>();
                 x.For<IGoogleCalendarService>().HttpContextScoped().Use(
                     () => new GoogleCalendarService(ConfigurationManager.AppSettings["googleServiceAccountEmail"], 
                                                     ConfigurationManager.AppSettings["googleServiceAccountKeyFilePath"]));

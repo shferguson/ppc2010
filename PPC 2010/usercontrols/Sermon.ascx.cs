@@ -3,6 +3,7 @@ using System.Web.UI;
 using PPC_2010.Data;
 using PPC_2010.Services;
 using PPC_2010.Data.Media;
+using PPC_2010.Social;
 using PPC_2010.Social.Facebook;
 
 namespace PPC_2010
@@ -62,17 +63,17 @@ namespace PPC_2010
 
                     scriptureText.Text = scriptureService.GetScriptureTextHtml(sermon.ScriptureReference);
 
-                    SetFacebookHeaders(sermon);
+                    SetSocialTags(sermon);
                 }
             }
         }
 
-        private void SetFacebookHeaders(ISermon sermon)
+        private void SetSocialTags(ISermon sermon)
         {
             var url = new UriBuilder(Request.Url.Scheme, Request.Url.Host, Request.Url.Port).Uri;
 
-            var tagsService = ServiceLocator.Instance.Locate<IOpenGraphTagsService>();
-            tagsService.AddOpenTags(this, new OpenGraphTags
+            var tagsService = ServiceLocator.Instance.Locate<ISocialTagsService>();
+            tagsService.AddSocialTags(this, new OpenGraphTags
             {
                 Type = "article",
                 Section = "Sermons",
