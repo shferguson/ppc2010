@@ -5,7 +5,10 @@
 </asp:Content>
   
 <asp:Content ContentPlaceHolderID="mainContent" runat="server">
- <script type="text/javascript" src="scripts/audio.min.js"></script>  
+ <umbraco:macro alias="FacebookLoader" runat="server" />
+ <umbraco:macro alias="TwitterLoader" runat="server" />
+ <script type="text/javascript" src="scripts/audio.min.js"></script>
+
  <script type="text/javascript">
     $(document).ready(function () {
       var sermonFile = $(".download_sermonbutton")[0].href.replace(/.*\//, '');

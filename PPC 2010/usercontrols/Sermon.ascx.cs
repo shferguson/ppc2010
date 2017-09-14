@@ -17,6 +17,7 @@ namespace PPC_2010
 
         private IScriptureService scriptureService = null;
         
+        protected string ShareUrl { get; set; }
         protected string RecordingUrl { get; set; }
         protected string DownloadImageUrl { get; set; }
 
@@ -70,14 +71,14 @@ namespace PPC_2010
 
         private void SetSocialTags(ISermon sermon)
         {
-            var url = new UriBuilder(Request.Url.Scheme, Request.Url.Host, Request.Url.Port).Uri;
+            ShareUrl = UrlService.MakeFullUrl(sermon.SermonUrl);
 
             var tagsService = ServiceLocator.Instance.Locate<ISocialTagsService>();
             tagsService.AddSocialTags(this, new OpenGraphTags
             {
                 Type = "article",
                 Section = "Sermons",
-                Url = UrlService.MakeFullUrl(sermon.SermonUrl),
+                Url = ShareUrl,
                 Title = sermon.Title,
                 Description = sermon.ScriptureReference.ToString(),
             });

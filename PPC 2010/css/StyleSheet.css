@@ -351,4 +351,8 @@ a:hover.contactImage {
     line-height: 24px;
 }
 
+.fb-share-button span {
+    vertical-align: inherit !important;
+}
+
 /* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */

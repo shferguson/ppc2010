@@ -26,3 +26,13 @@
         </div>
     </div>
 </form>
+
+<div style="display: flex; flex-direction: row; align-items: center; margin: 20px 0px">
+    <div>
+        <div class="fb-share-button" data-href="<%=ShareUrl%>" data-layout="button" data-size="small" data-mobile-iframe="true"></div>
+    </div>
+    <div style="margin-left: 10px;">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?url=<%=Uri.EscapeUriString(ShareUrl)%>"></a>
+    </div>
+    <a style="margin-left:auto" href="http://feeds.feedburner.com/ProvidencePcaArticles" target="_blank"><img src="/UserControls/images/rss.gif"></img></a>
+</div>

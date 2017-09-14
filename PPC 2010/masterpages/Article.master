@@ -27,10 +27,12 @@
     }
   </style>
   
-   <link rel="alternate" type="application/rss+xml" title="Sermon Rss" href="http://feeds.feedburner.com/ProvidencePcaArticles"/>
+  <link rel="alternate" type="application/rss+xml" title="Sermon Rss" href="http://feeds.feedburner.com/ProvidencePcaArticles"/>
 </asp:Content>
   
 <asp:Content ContentPlaceHolderID="mainContent" runat="server">
+  <umbraco:macro alias="FacebookLoader" runat="server" />
+  <umbraco:macro alias="TwitterLoader" runat="server" />
   <div class="body" >
    <div id="title">
      <span><h1><umbraco:item field="title" runat="server" /></h1></span>
@@ -47,9 +49,6 @@
       <div id="author"><span><umbraco:item field="author" runat="server" /></span></div>
       <br>
       <umbraco:macro alias="ArticleNav" runat="server" />
-      <br>
-      <a href="http://feeds.feedburner.com/ProvidencePcaArticles" target="_blank"><img src="/UserControls/images/rss.gif" /></a>
-      <br>
     </div>
   </div>
 </asp:Content>

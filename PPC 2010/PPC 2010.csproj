@@ -331,6 +331,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\rss.gif" />
     <Content Include="usercontrols\AdminLogin.ascx" />
+    <Content Include="usercontrols\FacebookLoader.ascx" />
     <Content Include="usercontrols\images\rss.gif" />
     <Content Include="usercontrols\LatestArticleLink.ascx" />
     <Content Include="usercontrols\MediaUrlByPath.ascx" />
@@ -342,6 +343,7 @@
     <Content Include="usercontrols\Sermon.ascx" />
     <Content Include="usercontrols\SermonList.ascx" />
     <Content Include="usercontrols\SermonSearch.ascx" />
+    <Content Include="usercontrols\TwitterLoader.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -455,6 +457,13 @@
     <Compile Include="usercontrols\AdminLogin.ascx.designer.cs">
       <DependentUpon>AdminLogin.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrols\FacebookLoader.ascx.cs">
+      <DependentUpon>FacebookLoader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrols\FacebookLoader.ascx.designer.cs">
+      <DependentUpon>FacebookLoader.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrols\LatestArticleLink.ascx.cs">
       <DependentUpon>LatestArticleLink.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -505,6 +514,13 @@
     <Compile Include="TimeZone\TimeZoneConverter.cs" />
     <Compile Include="UmbracoEvents\ArticleEvents.cs" />
     <Compile Include="UmbracoEvents\SermonEvents.cs" />
+    <Compile Include="usercontrols\TwitterLoader.ascx.cs">
+      <DependentUpon>TwitterLoader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrols\TwitterLoader.ascx.designer.cs">
+      <DependentUpon>TwitterLoader.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app_code\SermonRss.rss" />

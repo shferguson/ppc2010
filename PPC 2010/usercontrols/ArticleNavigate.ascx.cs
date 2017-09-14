@@ -3,7 +3,6 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using PPC_2010.Data;
 using umbraco.NodeFactory;
-using umbraco.cms.businesslogic.web;
 using umbraco;
 using System.Linq;
 using System.Collections.Generic;
@@ -19,6 +18,8 @@ namespace PPC_2010
 
         public IEnumerable<IArticle> LatestArticles { get; set; }
         public IArticle CurrentArticle { get; set; }
+
+        protected string ShareUrl { get; set; }
 
         public ArticleNavigate()
         {
@@ -62,12 +63,13 @@ namespace PPC_2010
 
         private void SetSocialTags(IArticle article)
         {
+            ShareUrl = library.NiceUrl(article.Id);
             var tagsService = ServiceLocator.Instance.Locate<ISocialTagsService>();
             tagsService.AddSocialTags(this, new OpenGraphTags
             {
                 Type = "article",
                 Section = "Articles",
-                Url = library.NiceUrl(article.Id),
+                Url = ShareUrl,
                 Title = article.Title,
                 Description = Regex.Replace(article.Text.Substring(0, Math.Min(150, article.Text.Length)), @"<[^>]+>|&nbsp;", "").Trim(),
             });
