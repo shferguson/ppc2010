@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using PPC_2010.Social.Facebook;
 using System.Text.RegularExpressions;
 using PPC_2010.Social;
+using PPC_2010.Services;
 
 namespace PPC_2010
 {
@@ -63,7 +64,7 @@ namespace PPC_2010
 
         private void SetSocialTags(IArticle article)
         {
-            ShareUrl = library.NiceUrl(article.Id);
+            ShareUrl = UrlService.MakeFullUrl(library.NiceUrl(article.Id));
             var tagsService = ServiceLocator.Instance.Locate<ISocialTagsService>();
             tagsService.AddSocialTags(this, new OpenGraphTags
             {
