@@ -23,6 +23,11 @@ namespace PPC_2010.Social.Facebook
             if (!string.IsNullOrEmpty(tags.Description))
                 _metaTagService.AddMetaTag(control, "og:description", tags.Description);
 
+            _metaTagService.AddMetaTag(control, "og:image", UrlService.MakeFullUrl(FacebookSettings.Logo));
+            _metaTagService.AddMetaTag(control, "og:image:width", "300");
+            _metaTagService.AddMetaTag(control, "og:image:height", "300");
+            _metaTagService.AddMetaTag(control, "og:image:type", "image/jpeg");
+
             _metaTagService.AddMetaTag(control, "og:locale", "en_US");
             _metaTagService.AddMetaTag(control, "og:site_name", "Providence Presbyterian Church");
 
