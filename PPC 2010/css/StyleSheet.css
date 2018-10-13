@@ -68,6 +68,10 @@ input, textarea, select {
   text-align: center;
 }
 
+.main_navigation .navLink {
+	padding: 0 16px;
+}
+
 .emph1 {
    color: #800202;
 }

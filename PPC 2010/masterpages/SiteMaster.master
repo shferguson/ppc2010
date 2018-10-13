@@ -52,22 +52,13 @@
 
 <table width="960" cellspacing="0" cellpadding="0" border="0" align="center">
   <tr class="main_nav">
-    <td width="960" height="50" colspan="2">
-      <span class="main_navigation">
-        <a class="navLink" href="/beliefs.aspx">BELIEFS</a>
-        &nbsp;&nbsp;
-        <a class="navLink" href="/thechurch.aspx">THE CHURCH</a>
-        &nbsp;&nbsp;   
-        <a class="navLink" href="/ministries.aspx">MINISTRIES</a>  
-        &nbsp;&nbsp;    
-        <a class="navLink" href="/directions.aspx">DIRECTIONS</a>  
-        &nbsp;&nbsp;    
-        <a class="navLink" href="/calendar.aspx">CALENDAR</a>    
-        &nbsp;&nbsp;  
-        <a class="navLink" href="/contact.aspx">CONTACT</a>   
-        &nbsp;&nbsp;
-        <a class="navLink" href="/sermon.aspx">CURRENT SERMON</a>
-    </span>
+    <td width="960" height="50" colspan="2" class="main_navigation">
+	  <a class="navLink" href="/beliefs.aspx">BELIEFS</a>
+	  <a class="navLink" href="/thechurch.aspx">THE CHURCH</a>
+	  <a class="navLink" href="/ministries.aspx">MINISTRIES</a>  
+      <a class="navLink" href="/directions.aspx">DIRECTIONS</a>   
+	  <a class="navLink" href="/contact.aspx">CONTACT</a>   
+	  <a class="navLink" href="/sermon.aspx">CURRENT SERMON</a>
   </td>
   </tr>
   <tr>
