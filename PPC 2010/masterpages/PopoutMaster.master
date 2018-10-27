@@ -6,7 +6,7 @@
   <head>
     <title>Providence Presbyterian Church</title>
 	<link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript" ></script>
     <asp:ContentPlaceHolder id="headerContent" runat="server" />
   </head>
   <body style="background:url(<umbraco:macro alias='MediaUrl' MediaPath='Images/PageBackground' runat='server' />)">
