@@ -1,4 +1,5 @@
 ﻿using PPC_2010.Services;
+using PPC_2010.TimeZone;
 using System.Web.UI;
 
 namespace PPC_2010.Social.Facebook
@@ -35,6 +36,11 @@ namespace PPC_2010.Social.Facebook
             {
                 _metaTagService.AddMetaTag(control, "article:publisher", FacebookSettings.ChurchPageUrl);
                 _metaTagService.AddMetaTag(control, "article:author", FacebookSettings.ChurchPageUrl);
+
+                if (tags.Date.HasValue)
+                    _metaTagService.AddMetaTag(control, "article:published_time", tags.Date.Value.ToUniversalTime().ToString("o"));
+                if (tags.ExpirationDate.HasValue)
+                    _metaTagService.AddMetaTag(control, "article:expiration_time", tags.ExpirationDate.Value.ToUniversalTime().ToString("o"));
 
                 if (!string.IsNullOrEmpty(tags.Section))
                     _metaTagService.AddMetaTag(control, "article:section", tags.Section);

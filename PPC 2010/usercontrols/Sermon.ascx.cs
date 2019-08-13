@@ -5,6 +5,7 @@ using PPC_2010.Services;
 using PPC_2010.Data.Media;
 using PPC_2010.Social;
 using PPC_2010.Social.Facebook;
+using PPC_2010.TimeZone;
 
 namespace PPC_2010
 {
@@ -47,10 +48,11 @@ namespace PPC_2010
             using (ISermonRepository repository = ServiceLocator.Instance.Locate<ISermonRepository>())
             {
                 ISermon sermon = null;
-                if (sermonId > 0)
-                    sermon = repository.LoadSermon(sermonId);
-                else
+                bool loadCurrentSermon = sermonId <= 0;
+                if (loadCurrentSermon)
                     sermon = repository.LoadCurrentSermon(SundaySermonType);
+                else
+                    sermon = repository.LoadSermon(sermonId);
 
                 if (sermon != null)
                 {
@@ -64,23 +66,27 @@ namespace PPC_2010
 
                     scriptureText.Text = scriptureService.GetScriptureTextHtml(sermon.ScriptureReference);
 
-                    SetSocialTags(sermon);
+                    SetSocialTags(sermon, loadCurrentSermon);
                 }
             }
         }
 
-        private void SetSocialTags(ISermon sermon)
+        private void SetSocialTags(ISermon sermon, bool isCurrentSermonLink)
         {
             ShareUrl = UrlService.MakeFullUrl(sermon.SermonUrl);
+
+            var tagUrl = UrlService.MakeFullUrl(Request.Path);
 
             var tagsService = ServiceLocator.Instance.Locate<ISocialTagsService>();
             tagsService.AddSocialTags(this, new OpenGraphTags
             {
                 Type = "article",
                 Section = "Sermons",
-                Url = ShareUrl,
+                Url = tagUrl,
                 Title = sermon.Title,
                 Description = sermon.ScriptureReference.ToString(),
+                Date = sermon.RecordingDate.HasValue ? TimeZoneConverter.ConvertToEastern(sermon.RecordingDate.Value).AddHours(12) : (DateTime?)null,
+                ExpirationDate = isCurrentSermonLink && sermon.RecordingDate.HasValue ? TimeZoneConverter.ConvertToEastern(sermon.RecordingDate.Value).AddDays(7).AddHours(16) : (DateTime?)null,
             });
         }
     }

@@ -10,5 +10,6 @@ namespace PPC_2010.Social.Facebook
         public string Description { get; set; }
         public string Section { get; set; }
         public DateTime? Date { get; set; }
+        public DateTime? ExpirationDate { get; set; }
     }
 }
