@@ -8,6 +8,7 @@ using Umbraco.Core;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
+using PPC_2010.Services;
 
 namespace PPC_2010.UmbracoEvents
 {
@@ -79,6 +80,7 @@ namespace PPC_2010.UmbracoEvents
 
                     repository.RefreshSermon(entity.Id, entity.Trashed);
                     repository.UpdateSermonSort();
+                    ServiceLocator.Instance.Locate<SermonPublishApi>().Update(new MediaSermon(entity));
                 }
             }
         }
@@ -88,6 +90,8 @@ namespace PPC_2010.UmbracoEvents
             foreach (IMedia entity in e.DeletedEntities.Where(entity => entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias))
             {
                 ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(entity.Id, true);
+
+                ServiceLocator.Instance.Locate<SermonPublishApi>().Delete(entity.Id);
             }
         }
 

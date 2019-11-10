@@ -43,5 +43,10 @@ namespace PPC_2010.Data.LinqToSql
                 .Where(v => v.Name == name)
                 .OrderBy(v => v.SortOrder);
         }
+
+        public IPreValue GetById(int id)
+        {
+            return _providence.PreValues.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

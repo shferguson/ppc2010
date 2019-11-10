@@ -193,7 +193,12 @@ namespace PPC_2010.Data.Media
 
         public override string Book
         {
-            get { return _media.GetValue<string>("book"); }
+            get { 
+                // This should work, but Umbraco errors out on only this prevalue
+                //return _media.GetPreValue("book"); 
+                var id = _media.GetValue<int>("book");
+                return ServiceLocator.Instance.Locate<IPreValueRepository>().GetById(id).Value;
+            }
             set { }
         }
 
