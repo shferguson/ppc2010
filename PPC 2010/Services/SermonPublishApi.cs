@@ -81,14 +81,13 @@ namespace PPC_2010.Services
             }
             else
             {
-                if (!t.Result.IsSuccessStatusCode)
-                {
-                    t.Result.Content.ReadAsStringAsync()
-                        .ContinueWith(content =>
-                        {
-                            Debug.WriteLine(t.Result.StatusCode + " - " + content);
-                        });
-                }
+#if DEBUG
+                t.Result.Content.ReadAsStringAsync()
+                    .ContinueWith(content =>
+                    {
+                        Debug.WriteLine(t.Result.StatusCode + " - " + content.Result);
+                    });
+#endif
             }
         }
     }

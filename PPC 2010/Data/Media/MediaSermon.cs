@@ -197,7 +197,10 @@ namespace PPC_2010.Data.Media
                 // This should work, but Umbraco errors out on only this prevalue
                 //return _media.GetPreValue("book"); 
                 var id = _media.GetValue<int>("book");
-                return ServiceLocator.Instance.Locate<IPreValueRepository>().GetById(id).Value;
+                if (id <= 0) return null;
+                var bookPreValue = ServiceLocator.Instance.Locate<IPreValueRepository>().GetById(id);
+                if (bookPreValue == null) return null;
+                return bookPreValue.Value;
             }
             set { }
         }
