@@ -1,4 +1,5 @@
 ﻿using PPC_2010.Data;
+using PPC_2010.TimeZone;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -37,11 +38,15 @@ namespace PPC_2010.Services
 
         public void Update(ISermon sermon)
         {
+            var recordingDate = sermon.RecordingDate.GetValueOrDefault();
+            var recordingDateEastern = TimeZoneConverter.ConvertToEastern(recordingDate);
+            recordingDate += recordingDate - recordingDateEastern;
+
             var apiSermon = new ApiSermon
             {
                 dataId = sermon.Id,
                 title = sermon.Title,
-                recordingDate = sermon.RecordingDate.GetValueOrDefault().ToUniversalTime().ToString("o"),
+                recordingDate = recordingDate.ToUniversalTime().ToString("o"),
                 speakerTitleId = sermon.SpeakerTitleId,
                 speakerTitle = sermon.SpeakerTitle,
                 speakerNameId = sermon.SpeakerNameId,
