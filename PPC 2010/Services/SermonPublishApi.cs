@@ -3,6 +3,7 @@ using PPC_2010.TimeZone;
 using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
@@ -34,6 +35,9 @@ namespace PPC_2010.Services
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["publishSermonUrl"]);
             _httpClient.DefaultRequestHeaders.Add("x-api-key", ConfigurationManager.AppSettings["publishSermonApiKey"]);
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "www.providence-pca.net");
+            _httpClient.DefaultRequestHeaders.Add("Accept", "*/*");
+            _httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
         }
 
         public void Update(ISermon sermon)
@@ -74,25 +78,34 @@ namespace PPC_2010.Services
             _httpClient.Dispose();
         }
 
-        private static void HandleHttpResult(Task<HttpResponseMessage> t)
+        private async Task HandleHttpResult(Task<HttpResponseMessage> t)
         {
-            if (t.IsFaulted)
+            try
             {
-                Debug.WriteLine(t.Exception);
-            }
-            else if (t.IsCanceled)
-            {
-                Debug.WriteLine("Canceled!");
-            }
-            else
-            {
+                if (t.IsFaulted)
+                {
+                    throw new Exception("Error posting sermon to " + _httpClient.BaseAddress, t.Exception);
+                }
+                else if (t.IsCanceled)
+                {
+                    throw new TaskCanceledException("Sermon post canceled " + _httpClient.BaseAddress);
+                }
+                else if (!t.Result.IsSuccessStatusCode)
+                {
+                    var content = await t.Result.Content.ReadAsStringAsync();
+                    throw new Exception("Error uploading sermon to " + t.Result.RequestMessage.RequestUri + " Status Code: " + t.Result.StatusCode + " - " + content);
+                }
+                else
+                {
 #if DEBUG
-                t.Result.Content.ReadAsStringAsync()
-                    .ContinueWith(content =>
-                    {
-                        Debug.WriteLine(t.Result.StatusCode + " - " + content.Result);
-                    });
+                    var content = await t.Result.Content.ReadAsStringAsync();
+                    Debug.WriteLine(t.Result.StatusCode + " - " + content);
 #endif
+                }
+            }
+            catch (Exception ex)
+            {
+                Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error(ex));
             }
         }
     }

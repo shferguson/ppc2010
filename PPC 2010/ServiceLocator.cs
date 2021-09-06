@@ -1,11 +1,11 @@
 ﻿using System.Configuration;
-using PPC_2010.CalendarInterface;
 using PPC_2010.Data;
 using StructureMap;
 using StructureMap.Web;
 using Umbraco.Core;
 using Umbraco.Core.Services;
 using PPC_2010.Services;
+using System.Net;
 
 namespace PPC_2010
 {
@@ -14,6 +14,11 @@ namespace PPC_2010
         #region Singleton
 
         private static ServiceLocator instance = new ServiceLocator();
+
+        static ServiceLocator()
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        }
 
         public static ServiceLocator Instance { get { return instance; } }
 
@@ -40,9 +45,6 @@ namespace PPC_2010
                 x.For<Social.ISocialTagsService>().Use<Social.SocialTagsService>();
                 x.For<Social.Twitter.ITwitterTagService>().Use<Social.Twitter.TwitterTagService>();
                 x.For<SermonPublishApi>().Use<SermonPublishApi>().Singleton();
-                x.For<IGoogleCalendarService>().HttpContextScoped().Use(
-                    () => new GoogleCalendarService(ConfigurationManager.AppSettings["googleServiceAccountEmail"], 
-                                                    ConfigurationManager.AppSettings["googleServiceAccountKeyFilePath"]));
             });
         }
 
