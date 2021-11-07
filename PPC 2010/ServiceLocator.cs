@@ -45,6 +45,7 @@ namespace PPC_2010
                 x.For<Social.ISocialTagsService>().Use<Social.SocialTagsService>();
                 x.For<Social.Twitter.ITwitterTagService>().Use<Social.Twitter.TwitterTagService>();
                 x.For<SermonPublishApi>().Use<SermonPublishApi>().Singleton();
+                x.For<IMp3FileService>().Use<Mp3FileService>();
             });
         }
 

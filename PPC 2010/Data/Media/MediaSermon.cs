@@ -5,6 +5,7 @@ using PPC_2010.Extensions;
 
 namespace PPC_2010.Data.Media
 {
+    using PPC_2010.Services;
     using Umbraco.Core.Models;
 
     public class MediaSermon : Sermon
@@ -110,7 +111,18 @@ namespace PPC_2010.Data.Media
             {
                 if (speakerName == null)
                     speakerName = _media.GetPreValue("speakerName");
-                return speakerName;
+                return SpeakerNameHelper.SpeakerName(speakerName);
+            }
+            set
+            {
+            }
+        }
+
+        public override string SpeakerFormalName
+        {
+            get
+            {
+                return SpeakerNameHelper.FormalName(SpeakerName);
             }
             set
             {

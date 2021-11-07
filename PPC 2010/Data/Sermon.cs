@@ -12,6 +12,7 @@ namespace PPC_2010.Data
         public abstract string SpeakerTitle { get; set; }
         public abstract int SpeakerNameId { get; set; }
         public abstract string SpeakerName { get; set; }
+        public abstract string SpeakerFormalName { get; set; }
         public abstract int RecordingSessionId { get; set; }
         public abstract string RecordingSession { get; set; }
         public abstract int SermonSeriesId { get; set; }

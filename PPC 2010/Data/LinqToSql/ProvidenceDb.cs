@@ -15,6 +15,12 @@ namespace PPC_2010.Data.LinqToSql
             set { throw new System.NotImplementedException(); }
         }
 
+        public override string SpeakerFormalName
+        {
+            get { throw new System.NotImplementedException(); }
+            set { throw new System.NotImplementedException(); }
+        }
+
         protected override string GetUrl()
         {
             return AudioFile;

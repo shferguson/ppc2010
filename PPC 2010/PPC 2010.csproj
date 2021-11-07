@@ -227,6 +227,9 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="taglib-sharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\taglib-sharp-netstandard2.0.2.1.0\lib\netstandard2.0\taglib-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="TidyNet, Version=1.0.0.0, Culture=neutral">
       <HintPath>..\packages\UmbracoCms.Core.6.2.4\lib\TidyNet.dll</HintPath>
     </Reference>
@@ -324,7 +327,9 @@
   <ItemGroup>
     <Compile Include="Services\IMetaTagService.cs" />
     <Compile Include="Services\MetaTagService.cs" />
+    <Compile Include="Services\Mp3FileService.cs" />
     <Compile Include="Services\SermonPublishApi.cs" />
+    <Compile Include="Services\SpeakerNameHelper.cs" />
     <Compile Include="Services\UrlService.cs" />
     <Compile Include="Social\Facebook\FacebookSettings.cs" />
     <Compile Include="Social\Facebook\IOpenGraphTagsService.cs" />

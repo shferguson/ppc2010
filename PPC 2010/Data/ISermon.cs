@@ -12,6 +12,7 @@ namespace PPC_2010.Data
         string SpeakerTitle { get; set; }
         int SpeakerNameId { get; set; }
         string SpeakerName { get; set; }
+        string SpeakerFormalName { get; set; }
         int RecordingSessionId { get; set; }
         string RecordingSession { get; set; }
         int SermonSeriesId { get; set; }
