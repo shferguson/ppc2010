@@ -105,13 +105,19 @@ namespace PPC_2010.Data.Media
         }
 
         private string speakerName = null;
+        private string GetSpeakerName()
+        {
+            if (speakerName == null)
+                speakerName = _media.GetPreValue("speakerName");
+            return speakerName;
+
+        }
+
         public override string SpeakerName
         {
             get
             {
-                if (speakerName == null)
-                    speakerName = _media.GetPreValue("speakerName");
-                return SpeakerNameHelper.SpeakerName(speakerName);
+                return SpeakerNameHelper.SpeakerName(GetSpeakerName());
             }
             set
             {
@@ -122,7 +128,7 @@ namespace PPC_2010.Data.Media
         {
             get
             {
-                return SpeakerNameHelper.FormalName(SpeakerName);
+                return SpeakerNameHelper.FormalName(GetSpeakerName());
             }
             set
             {

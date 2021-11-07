@@ -80,8 +80,9 @@ namespace PPC_2010.UmbracoEvents
 
                     repository.RefreshSermon(entity.Id, entity.Trashed);
                     repository.UpdateSermonSort();
-                    ServiceLocator.Instance.Locate<SermonPublishApi>().Update(new MediaSermon(entity));
-                    ServiceLocator.Instance.Locate<IMp3FileService>().SetMp3FileTags(new MediaSermon(entity));
+                    var mediaSermon = new MediaSermon(entity);
+                    ServiceLocator.Instance.Locate<SermonPublishApi>().Update(mediaSermon);
+                    ServiceLocator.Instance.Locate<IMp3FileService>().SetMp3FileTags(mediaSermon);
                 }
             }
         }
