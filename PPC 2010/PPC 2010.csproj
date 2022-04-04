@@ -451,6 +451,9 @@
     <Compile Include="usercontrols\SermonFeed.ashx.cs">
       <DependentUpon>SermonFeed.ashx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrols\SermonFilters.ashx.cs">
+      <DependentUpon>SermonFilters.ashx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrols\SermonList.ascx.cs">
       <DependentUpon>SermonList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -540,6 +543,7 @@
     <Content Include="xslt\dummy.txt" />
     <Content Include="xslt\Web.config" />
     <Content Include="Views\Web.config" />
+    <Content Include="usercontrols\SermonFilters.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
