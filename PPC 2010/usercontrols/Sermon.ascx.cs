@@ -45,7 +45,7 @@ namespace PPC_2010
 
         private void LoadSermon(int sermonId)
         {
-            using (ISermonRepository repository = ServiceLocator.Instance.Locate<ISermonRepository>())
+            using (ISermonRepository repository = ServiceLocater.Instance.Locate<ISermonRepository>())
             {
                 ISermon sermon = null;
                 bool loadCurrentSermon = sermonId <= 0;
@@ -77,7 +77,7 @@ namespace PPC_2010
 
             var tagUrl = UrlService.MakeFullUrl(Request.Path);
 
-            var tagsService = ServiceLocator.Instance.Locate<ISocialTagsService>();
+            var tagsService = ServiceLocater.Instance.Locate<ISocialTagsService>();
             tagsService.AddSocialTags(this, new OpenGraphTags
             {
                 Type = "article",

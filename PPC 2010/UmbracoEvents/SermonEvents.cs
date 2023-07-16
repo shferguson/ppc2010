@@ -76,13 +76,13 @@ namespace PPC_2010.UmbracoEvents
             {
                 if (entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias && entity.IsValid())
                 {
-                    var repository = ServiceLocator.Instance.Locate<ISermonRepository>();
+                    var repository = ServiceLocater.Instance.Locate<ISermonRepository>();
 
                     repository.RefreshSermon(entity.Id, entity.Trashed);
                     repository.UpdateSermonSort();
                     var mediaSermon = new MediaSermon(entity);
-                    ServiceLocator.Instance.Locate<SermonPublishApi>().Update(mediaSermon);
-                    ServiceLocator.Instance.Locate<IMp3FileService>().SetMp3FileTags(mediaSermon);
+                    ServiceLocater.Instance.Locate<SermonPublishApi>().Update(mediaSermon);
+                    ServiceLocater.Instance.Locate<IMp3FileService>().SetMp3FileTags(mediaSermon);
                 }
             }
         }
@@ -91,9 +91,9 @@ namespace PPC_2010.UmbracoEvents
         {
             foreach (IMedia entity in e.DeletedEntities.Where(entity => entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias))
             {
-                ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(entity.Id, true);
+                ServiceLocater.Instance.Locate<ISermonRepository>().RefreshSermon(entity.Id, true);
 
-                ServiceLocator.Instance.Locate<SermonPublishApi>().Delete(entity.Id);
+                ServiceLocater.Instance.Locate<SermonPublishApi>().Delete(entity.Id);
             }
         }
 
@@ -101,7 +101,7 @@ namespace PPC_2010.UmbracoEvents
         {
             foreach (IMedia entity in e.MoveInfoCollection.Select(m => m.Entity).Where(entity => entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias))
             {
-                ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermon(entity.Id, true);
+                ServiceLocater.Instance.Locate<ISermonRepository>().RefreshSermon(entity.Id, true);
             }
         }
 
@@ -110,7 +110,7 @@ namespace PPC_2010.UmbracoEvents
             // As of Umbraco 6.2.4 if you try to access e.Cancel for an event that isn't cancellable you'll get an exception
             if (sender.Name.Equals(PPC_2010.Data.Constants.RefreshIndicatorTitle, StringComparison.CurrentCultureIgnoreCase))
             {
-                ServiceLocator.Instance.Locate<ISermonRepository>().RefreshSermons();
+                ServiceLocater.Instance.Locate<ISermonRepository>().RefreshSermons();
                 if (e.CanCancel)
                     e.Cancel = true;
                 return true;

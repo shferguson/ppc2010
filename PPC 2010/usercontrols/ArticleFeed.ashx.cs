@@ -27,7 +27,7 @@ namespace PPC_2010
             Rss.Channel.Description = "Articles from Providence Presbyterian Church in Robinson Twp, PA";
             Rss.Channel.Link = Context.Request.Url.ToString();
 
-            using (IArticleRepository repsository = ServiceLocator.Instance.Locate<IArticleRepository>())
+            using (IArticleRepository repsository = ServiceLocater.Instance.Locate<IArticleRepository>())
             {
                 Rss.Channel.Items = repsository.LoadLastArticles(50).Select(a =>
                     new RssItem()

@@ -92,7 +92,7 @@ namespace PPC_2010.UmbracoEvents
 
         void RefreshArticle(IContent content)
         {
-            ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticle(content.Id, content.Status == ContentStatus.Trashed);
+            ServiceLocater.Instance.Locate<IArticleRepository>().RefreshArticle(content.Id, content.Status == ContentStatus.Trashed);
         }
 
         void RefreshArticles(IEnumerable<IContent> contents)
@@ -108,7 +108,7 @@ namespace PPC_2010.UmbracoEvents
         {
             if (content.Name == PPC_2010.Data.Constants.RefreshIndicatorTitle)
             {
-                ServiceLocator.Instance.Locate<IArticleRepository>().RefreshArticles();
+                ServiceLocater.Instance.Locate<IArticleRepository>().RefreshArticles();
                 if (e.CanCancel)
                     e.Cancel = true;
                 return true;

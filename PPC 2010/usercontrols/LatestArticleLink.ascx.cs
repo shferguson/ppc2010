@@ -11,7 +11,7 @@ namespace PPC_2010
         {
             if (!Page.IsPostBack)
             {
-                var articleRepo = ServiceLocator.Instance.Locate<IArticleRepository>();
+                var articleRepo = ServiceLocater.Instance.Locate<IArticleRepository>();
                 var article = articleRepo.LoadLatestArticle();
                 if (article != null)
                 {

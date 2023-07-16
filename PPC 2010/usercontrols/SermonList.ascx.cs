@@ -39,7 +39,7 @@ namespace PPC_2010
 
         private void LoadSermons()
         {
-            using (ISermonRepository repository = ServiceLocator.Instance.Locate<ISermonRepository>())
+            using (ISermonRepository repository = ServiceLocater.Instance.Locate<ISermonRepository>())
             {
                 var sermons = repository.LoadAllSermons();
 

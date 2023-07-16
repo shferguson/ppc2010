@@ -24,7 +24,7 @@ namespace PPC_2010
 
         public ArticleNavigate()
         {
-            _articleReposiotry = ServiceLocator.Instance.Locate<IArticleRepository>();
+            _articleReposiotry = ServiceLocater.Instance.Locate<IArticleRepository>();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace PPC_2010
         private void SetSocialTags(IArticle article)
         {
             ShareUrl = UrlService.MakeFullUrl(library.NiceUrl(article.Id));
-            var tagsService = ServiceLocator.Instance.Locate<ISocialTagsService>();
+            var tagsService = ServiceLocater.Instance.Locate<ISocialTagsService>();
             tagsService.AddSocialTags(this, new OpenGraphTags
             {
                 Type = "article",

@@ -11,7 +11,7 @@ namespace PPC_2010.Data.Media
         {
             string[] parts = aliasPath.Split('/');
 
-            var mediaService = ServiceLocator.Instance.Locate<IMediaService>();
+            var mediaService = ServiceLocater.Instance.Locate<IMediaService>();
 
             var currentList = mediaService.GetRootMedia();
 

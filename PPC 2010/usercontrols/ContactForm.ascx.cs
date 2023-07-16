@@ -27,7 +27,7 @@ namespace PPC_2010
 
         private void SendEmail()
         {
-            var repo = ServiceLocator.Instance.Locate<IEmailGroupRepository>();
+            var repo = ServiceLocater.Instance.Locate<IEmailGroupRepository>();
             var emailGroup = repo.GetEmailGroupByName(EmailGroupName);
 
             if (emailGroup != null)

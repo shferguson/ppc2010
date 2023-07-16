@@ -24,7 +24,7 @@ namespace PPC_2010.Data.Media
 
         public ISermon LoadSermon(int sermonId)
         {
-            IMedia media = ServiceLocator.Instance.Locate<IMediaService>().GetById(sermonId);
+            IMedia media = ServiceLocater.Instance.Locate<IMediaService>().GetById(sermonId);
             if (media != null)
                 return new MediaSermon(media);
             return null;
@@ -57,7 +57,7 @@ namespace PPC_2010.Data.Media
 
         private static IEnumerable<MediaSermon> GetSermons()
         {
-            var mediaService = ServiceLocator.Instance.Locate<IMediaService>();
+            var mediaService = ServiceLocater.Instance.Locate<IMediaService>();
             var sermonRoot = mediaService.GetRootMedia().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == SermonFolderAlias);
             if (sermonRoot != null)
             {

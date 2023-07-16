@@ -41,7 +41,7 @@ namespace PPC_2010
                         int imageId = 0;
                         if (int.TryParse(node.GetProperty("image").Value ?? "", out imageId))
                         {
-                            var mediaService = ServiceLocator.Instance.Locate<IMediaService>();
+                            var mediaService = ServiceLocater.Instance.Locate<IMediaService>();
                             var media = mediaService.GetById(imageId);
                             contact.ImageUrl = media.GetValue<string>("umbracoFile").Replace("~", baseUrl);
                         }

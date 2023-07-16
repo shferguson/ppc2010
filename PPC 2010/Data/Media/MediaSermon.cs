@@ -216,7 +216,7 @@ namespace PPC_2010.Data.Media
                 //return _media.GetPreValue("book"); 
                 var id = _media.GetValue<int>("book");
                 if (id <= 0) return null;
-                var bookPreValue = ServiceLocator.Instance.Locate<IPreValueRepository>().GetById(id);
+                var bookPreValue = ServiceLocater.Instance.Locate<IPreValueRepository>().GetById(id);
                 if (bookPreValue == null) return null;
                 return bookPreValue.Value;
             }

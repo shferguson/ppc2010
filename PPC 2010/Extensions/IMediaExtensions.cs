@@ -17,7 +17,7 @@ namespace PPC_2010.Extensions
             var propertyType = media.PropertyTypes.FirstOrDefault(pt => pt.Alias == property.Alias);
             if (propertyType != null)
             {
-                var dataTypeService = ServiceLocator.Instance.Locate<IDataTypeService>();
+                var dataTypeService = ServiceLocater.Instance.Locate<IDataTypeService>();
                 return dataTypeService.GetPreValuesByDataTypeId(propertyType.DataTypeDefinitionId);
             }
 
@@ -26,7 +26,7 @@ namespace PPC_2010.Extensions
 
         public static string GetPreValue(this IMedia media, string propertyName)
         {
-            var dataTypeService = ServiceLocator.Instance.Locate<IDataTypeService>();
+            var dataTypeService = ServiceLocater.Instance.Locate<IDataTypeService>();
             int propertyValue = 0; // For some reason prevalue values are stored as strings, not ints
             if (int.TryParse(media.Properties[propertyName].Value.ToString(), out propertyValue)) {
                 return dataTypeService.GetPreValueAsString(propertyValue);

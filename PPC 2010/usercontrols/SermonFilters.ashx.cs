@@ -24,7 +24,7 @@ namespace PPC_2010.usercontrols
 
         public SermonFileters()
         {
-            _PreValueRepository = ServiceLocator.Instance.Locate<IPreValueRepository>();
+            _PreValueRepository = ServiceLocater.Instance.Locate<IPreValueRepository>();
         }
 
         public void ProcessRequest(HttpContext context)
@@ -33,7 +33,7 @@ namespace PPC_2010.usercontrols
             context.Response.ContentEncoding = System.Text.Encoding.UTF8;
             context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
-            ISermonRepository repository = ServiceLocator.Instance.Locate<ISermonRepository>();
+            ISermonRepository repository = ServiceLocater.Instance.Locate<ISermonRepository>();
             var sermons = repository.LoadAllSermons();
             var years = sermons.Where(s => s.RecordingDate.HasValue).Select(s => s.RecordingDate.Value.Year).Distinct().OrderByDescending(y => y).Select( y => new DropDownPair { Value = y.ToString(), Label = y.ToString()});
             var speakers = _PreValueRepository.Speakers().OrderBy(s => s.Value).Select(s => new DropDownPair { Value = s.Id.ToString(), Label = s.Value });

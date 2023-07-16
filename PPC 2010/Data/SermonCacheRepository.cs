@@ -75,7 +75,7 @@ namespace PPC_2010.Data
 
         private IEnumerable<ISermon> GetSermons()
         {
-            var mediaService = ServiceLocator.Instance.Locate<IMediaService>();
+            var mediaService = ServiceLocater.Instance.Locate<IMediaService>();
             IMedia sermonRoot = mediaService.GetRootMedia().FirstOrDefault(m => m != null && m.ContentType != null && m.ContentType.Alias == Data.Media.SermonRepository.SermonFolderAlias);
 
             lock (sermonCache)

@@ -23,7 +23,7 @@ namespace PPC_2010
 
         private void LoadSermons()
         {
-            using (ISermonRepository repository = ServiceLocator.Instance.Locate<ISermonRepository>())
+            using (ISermonRepository repository = ServiceLocater.Instance.Locate<ISermonRepository>())
             {
                 var sermons = repository.LoadAllSermons();
                 if (sermons.Count() == 0 && pageNumber != 1)
@@ -45,7 +45,7 @@ namespace PPC_2010
 
         protected void nextClick(object sender, EventArgs e)
         {
-            using (ISermonRepository repository = ServiceLocator.Instance.Locate<ISermonRepository>())
+            using (ISermonRepository repository = ServiceLocater.Instance.Locate<ISermonRepository>())
             {
                 if (repository.GetNumberOfSermons() > pageNumber * 10)
                 {

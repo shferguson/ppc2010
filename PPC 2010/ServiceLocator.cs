@@ -9,18 +9,18 @@ using System.Net;
 
 namespace PPC_2010
 {
-    public class ServiceLocator
+    public class ServiceLocater
     {
         #region Singleton
 
-        private static ServiceLocator instance = new ServiceLocator();
+        private static ServiceLocater instance = new ServiceLocater();
 
-        static ServiceLocator()
+        static ServiceLocater()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
-        public static ServiceLocator Instance { get { return instance; } }
+        public static ServiceLocater Instance { get { return instance; } }
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace PPC_2010
 
         private readonly IContainer _container = new Container();
 
-        protected ServiceLocator()
+        protected ServiceLocater()
         {
             _container.Configure(x =>
             {

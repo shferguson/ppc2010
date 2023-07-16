@@ -13,7 +13,7 @@ namespace PPC_2010
 
         public SermonSearch()
         {
-            _PreValueRepository = ServiceLocator.Instance.Locate<IPreValueRepository>();
+            _PreValueRepository = ServiceLocater.Instance.Locate<IPreValueRepository>();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -26,7 +26,7 @@ namespace PPC_2010
 
         private void PopulateListBoxes()
         {
-            ISermonRepository repository = ServiceLocator.Instance.Locate<ISermonRepository>();
+            ISermonRepository repository = ServiceLocater.Instance.Locate<ISermonRepository>();
             var sermons = repository.LoadAllSermons();
 
             var years = sermons.Where(s => s.RecordingDate.HasValue).Select(s => s.RecordingDate.Value.Year).Distinct().OrderByDescending(y => y).Select( y => new IdValuePair { Id = y, Value = y.ToString()});
