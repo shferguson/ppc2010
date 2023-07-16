@@ -349,6 +349,9 @@
     <Compile Include="usercontrols\AllSermons.ascx.designer.cs">
       <DependentUpon>AllSermons.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrols\ArticleFeed.ashx.cs">
+      <DependentUpon>ArticleFeed.ashx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrols\ArticleNavigate.ascx.cs">
       <DependentUpon>ArticleNavigate.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -543,6 +546,7 @@
     <Content Include="xslt\Web.config" />
     <Content Include="Views\Web.config" />
     <Content Include="usercontrols\SermonFilters.ashx" />
+    <Content Include="usercontrols\ArticleFeed.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
