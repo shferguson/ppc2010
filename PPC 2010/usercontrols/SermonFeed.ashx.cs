@@ -24,7 +24,7 @@ namespace PPC_2010
                         );
 
             context.Response.ContentEncoding = Encoding.UTF8;
-            context.Response.ContentType = "application/xml";
+            context.Response.ContentType = "application/rss+xml";
 
             using (XmlWriter xmlWriter = XmlWriter.Create(context.Response.OutputStream, new XmlWriterSettings() { Async = true, Indent = true }))
             {
@@ -34,7 +34,6 @@ namespace PPC_2010
                 await writer.WritePubDate(DateTime.Now);
                 await writer.WriteDescription("Sermons from Providence Presbyterian Church in Robinson, PA");
                 await writer.Write(new SyndicationLink(new Uri("https://providencepgh.org")));
-                await writer.Write(new SyndicationPerson("Providence Presbyterian Church", "sysadmin@providencepgh.org"));
 
                 using (ISermonRepository repsository = ServiceLocater.Instance.Locate<ISermonRepository>())
                 {
