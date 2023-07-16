@@ -289,6 +289,8 @@
     <Content Include="css\StyleSheet.css" />
     <Content Include="macroScripts\dummy.txt" />
     <Content Include="media\dummy.txt" />
+    <Content Include="Schema\ppc2010.sp_RefreshArticles.StoredProcedure.sql" />
+    <Content Include="Schema\ppc2010.sp_RefreshSermons.StoredProcedure.sql" />
     <Content Include="scripts\audio.min.js" />
     <Content Include="scripts\audiojs.swf" />
     <Content Include="scripts\contactForm.js" />
@@ -325,6 +327,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\PropertyExtensions.cs" />
     <Compile Include="Services\IMetaTagService.cs" />
     <Compile Include="Services\MetaTagService.cs" />
     <Compile Include="Services\Mp3FileService.cs" />
