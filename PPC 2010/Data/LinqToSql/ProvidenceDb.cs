@@ -1,3 +1,5 @@
+using PPC_2010.Services;
+
 namespace PPC_2010.Data.LinqToSql
 {
     partial class Sermon : PPC_2010.Data.Sermon
@@ -17,7 +19,10 @@ namespace PPC_2010.Data.LinqToSql
 
         public override string SpeakerFormalName
         {
-            get { throw new System.NotImplementedException(); }
+            get
+            {
+                return SpeakerNameHelper.FormalName(SpeakerName);
+            }
             set { throw new System.NotImplementedException(); }
         }
 

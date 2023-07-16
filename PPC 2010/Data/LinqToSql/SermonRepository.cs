@@ -102,6 +102,7 @@ namespace PPC_2010.Data.LinqToSql
         {
             return sermons
                 .OrderByDescending(s => s.RecordingDate)
+                .ThenBy(s => s.RecordingSessionId)
                 .ThenByDescending(s => s.Id);
         }
     }

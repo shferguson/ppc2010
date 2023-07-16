@@ -109,6 +109,9 @@
       <HintPath>..\packages\UmbracoCms.Core.6.2.4\lib\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.SyndicationFeed.ReaderWriter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SyndicationFeed.ReaderWriter.1.0.2\lib\netstandard1.3\Microsoft.SyndicationFeed.ReaderWriter.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
@@ -145,9 +148,6 @@
     </Reference>
     <Reference Include="Our.Umbraco.uGoLive.Checks, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.6.2.4\lib\Our.Umbraco.uGoLive.Checks.dll</HintPath>
-    </Reference>
-    <Reference Include="RssToolkit">
-      <HintPath>..\lib\RssToolkit.dll</HintPath>
     </Reference>
     <Reference Include="SQLCE4Umbraco, Version=1.0.5394.15652, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -367,9 +367,6 @@
     <Compile Include="usercontrols\ContactList.ascx.designer.cs">
       <DependentUpon>ContactList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="usercontrols\ArticleFeed.ashx.cs">
-      <DependentUpon>ArticleFeed.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Data\ArticleCacheRepository.cs" />
     <Compile Include="Data\Constants.cs" />
     <Compile Include="Data\IArticle.cs" />
@@ -484,7 +481,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app_code\SermonRss.rss" />
-    <Content Include="usercontrols\ArticleFeed.ashx" />
     <Content Include="config\xsltExtensions.config" />
     <Content Include="config\UrlRewriting.config" />
     <Content Include="config\umbracoSettings.config" />
