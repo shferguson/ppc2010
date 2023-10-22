@@ -9,6 +9,9 @@ using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using PPC_2010.Services;
+using System.Diagnostics;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace PPC_2010.UmbracoEvents
 {
@@ -49,20 +52,52 @@ namespace PPC_2010.UmbracoEvents
                         // Canonicalize the name of the sermon so they are consistent and easy to find in the list
                         entity.Name = sermon.RecordingDate.Value.ToString("MM/dd/yyyy") + " - " + sermon.RecordingSession;
 
-                        string oldFileName = entity.GetValue<string>("audioFile"); ;
-                        if (!string.IsNullOrWhiteSpace(oldFileName) && System.IO.File.Exists(HttpContext.Current.Server.MapPath(oldFileName)))
+                        bool fileChanged = false;
+
+                        if (!System.IO.File.Exists(HttpContext.Current.Server.MapPath(sermon.AudioFile)))
+                            sermon.AudioFile = null;
+
+                        string oldFileName = sermon.AudioFile;
+
+                        if (!string.IsNullOrWhiteSpace(oldFileName))
                         {
                             string newFileName = Path.GetDirectoryName(oldFileName) + "/" + entity.Name.Replace("/", "-") + Path.GetExtension(oldFileName);
                             newFileName = newFileName.Replace("\\", "/").Replace(" ", "");
 
                             if (oldFileName != newFileName)
                             {
-                                entity.SetValue("audioFile", newFileName);
+                                fileChanged = true;
+                                sermon.AudioFile = newFileName;
 
                                 if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(newFileName)))
                                     System.IO.File.Delete(HttpContext.Current.Server.MapPath(newFileName));
 
                                 System.IO.File.Move(HttpContext.Current.Server.MapPath(oldFileName), HttpContext.Current.Server.MapPath(newFileName));
+                            }
+                        }
+
+                        if (sermon.RecordingDate > new DateTime(2023, 10, 1)) // Don't send anything old to SermonAudio
+                        {
+                            var sermonAudioApi = ServiceLocater.Instance.Locate<ISermonAudioApi>();
+                            var filePath = HttpContext.Current.Server.MapPath(sermon.AudioFile);
+                            var podSermon = PodSermon.Clone(sermon);
+
+                            try
+                            {
+                                if (string.IsNullOrEmpty(sermon.SermonAudioId))
+                                {
+                                    var sermonId = System.Threading.Tasks.Task.Run(async () => await sermonAudioApi.Create(podSermon, filePath)).Result;
+                                    if (sermonId != null)
+                                        sermon.SermonAudioId = sermonId;
+                                }
+                                else
+                                {
+                                    System.Threading.Tasks.Task.Run(() => sermonAudioApi.Update(sermon.SermonAudioId, podSermon, fileChanged ? filePath : null)).Wait();
+                                }
+                            }
+                            catch (Exception ex) 
+                            {
+                                Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(ex, HttpContext.Current));
                             }
                         }
                     }
@@ -80,29 +115,47 @@ namespace PPC_2010.UmbracoEvents
 
                     repository.RefreshSermon(entity.Id, entity.Trashed);
                     repository.UpdateSermonSort();
+
                     var mediaSermon = new MediaSermon(entity);
-                    ServiceLocater.Instance.Locate<SermonPublishApi>().Update(mediaSermon);
                     ServiceLocater.Instance.Locate<IMp3FileService>().SetMp3FileTags(mediaSermon);
+                    ServiceLocater.Instance.Locate<SermonPublishApi>().Update(mediaSermon);
                 }
             }
         }
 
         void MediaService_Deleted(IMediaService sender, DeleteEventArgs<IMedia> e)
         {
-            foreach (IMedia entity in e.DeletedEntities.Where(entity => entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias))
-            {
-                ServiceLocater.Instance.Locate<ISermonRepository>().RefreshSermon(entity.Id, true);
-
-                ServiceLocater.Instance.Locate<SermonPublishApi>().Delete(entity.Id);
-            }
+            SermonsDeleted(e.DeletedEntities.Where(entity => entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias));
         }
 
         void MediaService_Trashed(IMediaService sender, MoveEventArgs<IMedia> e)
         {
-            foreach (IMedia entity in e.MoveInfoCollection.Select(m => m.Entity).Where(entity => entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias))
+            SermonsDeleted(e.MoveInfoCollection.Select(m => m.Entity).Where(entity => entity.ContentType.Alias == PPC_2010.Data.Constants.SermonAlias));
+        }
+
+        void SermonsDeleted(IEnumerable<IMedia> entities)
+        {
+            foreach (IMedia entity in entities)
             {
                 ServiceLocater.Instance.Locate<ISermonRepository>().RefreshSermon(entity.Id, true);
+
+                ServiceLocater.Instance.Locate<SermonPublishApi>().Delete(entity.Id);
+
+                var mediaSermon = new MediaSermon(entity);
+                if (!string.IsNullOrEmpty(mediaSermon.SermonAudioId))
+                {
+                    var sermonAudioId = mediaSermon.SermonAudioId;
+                    try
+                    {
+                        System.Threading.Tasks.Task.Run(async () => await ServiceLocater.Instance.Locate<ISermonAudioApi>().Delete(sermonAudioId)).Wait();
+                    }
+                    catch (Exception ex)
+                    {
+                        Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(ex, HttpContext.Current));
+                    }
+                }
             }
+
         }
 
         bool CheckForRefresh(IMedia sender, CancellableEventArgs e)

@@ -55,8 +55,60 @@ namespace PPC_2010.Data
 
             return scriptureReferences;
         }
+    }
 
+    public class PodSermon : ISermon
+    {
+        public static PodSermon Clone(ISermon sermon)
+        {
+            return new PodSermon
+            {
+                SortOrder = sermon.SortOrder,
+                Id = sermon.Id,
+                Title = sermon.Title,
+                RecordingDate = sermon.RecordingDate,
+                SpeakerTitleId = sermon.SpeakerTitleId,
+                SpeakerTitle = sermon.SpeakerTitle,
+                SpeakerNameId = sermon.SpeakerNameId,
+                SpeakerName = sermon.SpeakerName,
+                SpeakerFormalName = sermon.SpeakerFormalName,
+                RecordingSessionId = sermon.RecordingSessionId,
+                RecordingSession = sermon.RecordingSession,
+                SermonSeriesId = sermon.SermonSeriesId,
+                SermonSeries = sermon.SermonSeries,
+                ScriptureReferenceText = sermon.ScriptureReferenceText,
+                Book = sermon.Book,
+                StartChapter = sermon.StartChapter,
+                StartVerse = sermon.StartVerse,
+                EndChapter = sermon.EndChapter,
+                EndVerse = sermon.EndVerse,
+                ScriptureReference = sermon.ScriptureReference,
+                RecordingUrl = sermon.RecordingUrl,
+                SermonUrl = sermon.SermonUrl,
+            };
+        }
 
-        
+        public int SortOrder { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public DateTime? RecordingDate { get; set; }
+        public int SpeakerTitleId { get; set; }
+        public string SpeakerTitle { get; set; }
+        public int SpeakerNameId { get; set; }
+        public string SpeakerName { get; set; }
+        public string SpeakerFormalName { get; set; }
+        public int RecordingSessionId { get; set; }
+        public string RecordingSession { get; set; }
+        public int SermonSeriesId { get; set; }
+        public string SermonSeries { get; set; }
+        public string ScriptureReferenceText { get; set; }
+        public string Book { get; set; }
+        public int? StartChapter { get; set; }
+        public int? StartVerse { get; set; }
+        public int? EndChapter { get; set; }
+        public int? EndVerse { get; set; }
+        public ScriptureReferences ScriptureReference { get; set; }
+        public string RecordingUrl { get; set;}
+        public string SermonUrl { get; set; }
     }
 }

@@ -23,6 +23,9 @@ namespace PPC_2010.Services
             if (string.IsNullOrEmpty(fileName))
                 return;
 
+            if (!File.Exists(fileName))
+                return;
+
             if (sermon.RecordingDate.HasValue)
             {
                 var mp3FilePath = HttpContext.Current.Server.MapPath(fileName);

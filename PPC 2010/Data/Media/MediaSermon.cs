@@ -248,6 +248,17 @@ namespace PPC_2010.Data.Media
             set { }
         }
 
+        public string AudioFile
+        {
+            get { return _media.GetValue<string>("audioFile"); }
+            set { _media.SetValue("audioFile", value); }
+        }
+
+        public string SermonAudioId
+        {
+            get { return _media.GetValue<string>("sermonaudioid"); }
+            set { _media.SetValue("sermonaudioid", value); }
+        }
 
         #region Static Methods
 

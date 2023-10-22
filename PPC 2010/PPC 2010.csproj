@@ -67,8 +67,8 @@
     <Reference Include="ClientDependency.Core, Version=1.9.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ClientDependency.1.9.10\lib\net45\ClientDependency.Core.dll</HintPath>
     </Reference>
-    <Reference Include="ClientDependency.Core.Mvc, Version=1.7.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ClientDependency-Mvc.1.7.0.4\lib\ClientDependency.Core.Mvc.dll</HintPath>
+    <Reference Include="ClientDependency.Core.Mvc, Version=1.9.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClientDependency-Mvc.1.9.3\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="cms, Version=1.0.5394.15651, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -89,8 +89,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Examine.0.1.57.2941\lib\Examine.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.54.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.54\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.3.3.11, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.1.3.3\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -138,7 +138,7 @@
       <HintPath>..\packages\MySql.Data.6.6.5\lib\net40\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Our.Umbraco.uGoLive, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.6.2.4\lib\Our.Umbraco.uGoLive.dll</HintPath>
@@ -327,10 +327,16 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Osis.cs" />
+    <Compile Include="Extensions\HttpClientExtensions.cs" />
+    <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\PropertyExtensions.cs" />
     <Compile Include="Services\IMetaTagService.cs" />
     <Compile Include="Services\MetaTagService.cs" />
     <Compile Include="Services\Mp3FileService.cs" />
+    <Compile Include="Services\SermonAudioApi.cs" />
+    <Compile Include="Services\SermonAudio\Media.cs" />
+    <Compile Include="Services\SermonAudio\Sermon.cs" />
     <Compile Include="Services\SermonPublishApi.cs" />
     <Compile Include="Services\SpeakerNameHelper.cs" />
     <Compile Include="Services\UrlService.cs" />
