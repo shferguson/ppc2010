@@ -2,19 +2,19 @@
 using PPC_2010.TimeZone;
 using System;
 using System.Configuration;
-using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 
 namespace PPC_2010.Services
 {
-    public class SermonPublishApi: IDisposable
+
+    public class SermonPublishApi : IDisposable, ISermonPublishApi
     {
         private readonly HttpClient _httpClient;
 
-        private class ApiSermon {
+        private class ApiSermon
+        {
             public int dataId { get; set; }
             public string title { get; set; }
             public string recordingDate { get; set; }

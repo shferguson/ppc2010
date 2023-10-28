@@ -118,7 +118,7 @@ namespace PPC_2010.UmbracoEvents
 
                     var mediaSermon = new MediaSermon(entity);
                     ServiceLocater.Instance.Locate<IMp3FileService>().SetMp3FileTags(mediaSermon);
-                    ServiceLocater.Instance.Locate<SermonPublishApi>().Update(mediaSermon);
+                    ServiceLocater.Instance.Locate<ISermonPublishApi>().Update(mediaSermon);
                 }
             }
         }
@@ -138,8 +138,7 @@ namespace PPC_2010.UmbracoEvents
             foreach (IMedia entity in entities)
             {
                 ServiceLocater.Instance.Locate<ISermonRepository>().RefreshSermon(entity.Id, true);
-
-                ServiceLocater.Instance.Locate<SermonPublishApi>().Delete(entity.Id);
+                ServiceLocater.Instance.Locate<ISermonPublishApi>().Delete(entity.Id);
 
                 var mediaSermon = new MediaSermon(entity);
                 if (!string.IsNullOrEmpty(mediaSermon.SermonAudioId))

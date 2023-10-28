@@ -332,6 +332,8 @@
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\PropertyExtensions.cs" />
     <Compile Include="Services\IMetaTagService.cs" />
+    <Compile Include="Services\ISermonAudioApi.cs" />
+    <Compile Include="Services\ISermonPublishApi.cs" />
     <Compile Include="Services\MetaTagService.cs" />
     <Compile Include="Services\Mp3FileService.cs" />
     <Compile Include="Services\SermonAudioApi.cs" />

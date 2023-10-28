@@ -13,14 +13,6 @@ using System.Threading.Tasks;
 
 namespace PPC_2010.Services
 {
-    public interface ISermonAudioApi
-    {
-        Task<string> Create(ISermon sermon, string filePath);
-        Task Update(string id, ISermon sermon, string filePath);
-        Task Delete(string id);
-    }
-
-
     public class SermonAudioApi : ISermonAudioApi
     {
         private readonly HttpClient _httpClient;
@@ -149,7 +141,6 @@ namespace PPC_2010.Services
         {
             return CreateOrUpdate(id, sermon, filePath);    
         }
-
 
         async Task<string> CreateOrUpdate(string id, ISermon sermon, string filePath)
         {
