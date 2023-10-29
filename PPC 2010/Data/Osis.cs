@@ -92,6 +92,9 @@ namespace PPC_2010.Data
 
         public static string IdForBibleBookName(string bibleBookName)
         {
+            if (string.IsNullOrEmpty(bibleBookName))
+                return null;
+
             if (nameToId.TryGetValue(bibleBookName, out var id))
                 return id;
             return bibleBookName;

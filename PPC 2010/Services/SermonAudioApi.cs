@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using PPC_2010.Data;
 using PPC_2010.Extensions;
+using PPC_2010.Services.SermonAudio;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -150,7 +151,7 @@ namespace PPC_2010.Services
             if (!RecordingSessionMap.TryGetValue(sermon.RecordingSession, out var sessionName))
                 return null;
 
-            int seriesId = await GetOrCreateSeries(sermon.SermonSeries);
+            int? seriesId = await GetOrCreateSeries(sermon.SermonSeries);
 
             if (id == null)
                 id = await TryFindByContent(sermon);
@@ -159,7 +160,7 @@ namespace PPC_2010.Services
             {
                 BroadcasterId = BroadcasterId,
                 SeriesId = seriesId,
-                FullTitle = sermon.Title.Substring(0, Math.Min(sermon.Title.Length, 85)),
+                FullTitle = SermonAudioStrings.TruncateSermonTitle(sermon.Title),
                 SpeakerName = speakerName,
                 PublishTimestamp = 0,
                 Subtitle = null,
@@ -225,11 +226,11 @@ namespace PPC_2010.Services
             {
                 { "broadcasterID", BroadcasterId },
                 { "speakerName", speakerName },
-                { "book", Osis.IdForBibleBookName(sermon.Book) },
+                { "book",  Osis.IdForBibleBookName(sermon.Book) },
                 { "year", sermon.RecordingDate.Value.Year.ToString() },
                 { "month", sermon.RecordingDate.Value.Month.ToString() },
                 { "day", sermon.RecordingDate.Value.Day.ToString() },
-                { "series", sermon.SermonSeries },
+                { "series", SermonAudioStrings.TruncateSeriesName(sermon.SermonSeries) },
                 { "includeDrafts", "true" },
                 { "includeScheduled", "true" },
                 { "includePublished", "true" },
@@ -255,8 +256,14 @@ namespace PPC_2010.Services
             return null;
         }
 
-        public async Task<int> GetOrCreateSeries(string seriesName)
+        public async Task<int?> GetOrCreateSeries(string seriesName)
         {
+            if (seriesName == null || seriesName.Length > SermonAudioStrings.SeriesNameMaxLength)
+                return await Task.FromResult(new int?());
+
+            if (seriesName == "Non-Series")
+                return await Task.FromResult(new int?());
+
             HttpResponseMessage resp = await _httpClient.GetAsync($"node/broadcasters/{BroadcasterId}/series/{seriesName}");
             if (!resp.IsSuccessStatusCode)
             {

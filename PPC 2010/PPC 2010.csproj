@@ -339,6 +339,7 @@
     <Compile Include="Services\SermonAudioApi.cs" />
     <Compile Include="Services\SermonAudio\Media.cs" />
     <Compile Include="Services\SermonAudio\Sermon.cs" />
+    <Compile Include="Services\SermonAudio\SermonAudioStrings.cs" />
     <Compile Include="Services\SermonPublishApi.cs" />
     <Compile Include="Services\SpeakerNameHelper.cs" />
     <Compile Include="Services\UrlService.cs" />

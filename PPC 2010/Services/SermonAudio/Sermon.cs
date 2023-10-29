@@ -21,7 +21,7 @@ namespace PPC_2010.Services.SermonAudio
         public string LanguageCode;
         public string Keywords;
         [JsonProperty("series_id")]
-        public int SeriesId;
+        public int? SeriesId;
     }
 
     public class PatchSermon
