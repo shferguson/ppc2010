@@ -9,8 +9,6 @@ using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using PPC_2010.Services;
-using System.Diagnostics;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace PPC_2010.UmbracoEvents
