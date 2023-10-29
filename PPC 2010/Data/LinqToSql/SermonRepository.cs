@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using Umbraco.Core.Models;
 
 namespace PPC_2010.Data.LinqToSql
 {
@@ -86,7 +87,7 @@ namespace PPC_2010.Data.LinqToSql
             }
         }
 
-        public void UpdateSermonSort()
+        public void UpdateSermonSort(IMedia item)
         {
             _providence.ExecuteCommand(
                 @"update n

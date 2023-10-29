@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Umbraco.Core.Models;
 
 namespace PPC_2010.Data
 {
@@ -14,6 +15,6 @@ namespace PPC_2010.Data
 
         void RefreshSermons();
         void RefreshSermon(int sermonId, bool deleted = false);
-        void UpdateSermonSort();
+        void UpdateSermonSort(IMedia item);
     }
 }

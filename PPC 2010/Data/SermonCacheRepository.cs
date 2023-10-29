@@ -117,9 +117,9 @@ namespace PPC_2010.Data
             RefreshSermons();
         }
 
-        public void UpdateSermonSort()
+        public void UpdateSermonSort(IMedia item)
         {
-            _repository.UpdateSermonSort();
+            _repository.UpdateSermonSort(item);
         }
     }
 }

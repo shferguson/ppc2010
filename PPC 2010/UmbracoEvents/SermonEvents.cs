@@ -114,7 +114,7 @@ namespace PPC_2010.UmbracoEvents
                     var repository = ServiceLocater.Instance.Locate<ISermonRepository>();
 
                     repository.RefreshSermon(entity.Id, entity.Trashed);
-                    repository.UpdateSermonSort();
+                    repository.UpdateSermonSort(entity);
 
                     var mediaSermon = new MediaSermon(entity);
                     ServiceLocater.Instance.Locate<IMp3FileService>().SetMp3FileTags(mediaSermon);
