@@ -44,6 +44,13 @@ namespace PPC_2010.Services
            */
         };
 
+        private static Dictionary<string, string> SeriesNameMap = new Dictionary<string, string>()
+        {
+            { "Non-Series", null },
+            { "James, The Epistle of Gold and Silver", "James" }
+        };
+
+
         // Only publish sermons from these speakers to sermon audio
 
         private static Dictionary<string, string> SpeakerNameMap = new Dictionary<string, string>()
@@ -185,9 +192,11 @@ namespace PPC_2010.Services
             dynamic sermonResult = JsonConvert.DeserializeObject(await resp.Content.ReadAsStringAsync(), _formatter.SerializerSettings);
             string sermonId = sermonResult.sermonID;
 
-            resp = await _httpClient.PatchAsync($"node/sermons/{sermonId}", new { series_id = seriesId,}, _formatter);
-
-            await CheckForError(resp);
+            if (seriesId != null)
+            {
+                resp = await _httpClient.PatchAsync($"node/sermons/{sermonId}", new { series_id = seriesId, }, _formatter);
+                await CheckForError(resp);
+            }
 
             var createMedia = new SermonAudio.Media.Create
             {
@@ -222,21 +231,26 @@ namespace PPC_2010.Services
             if (!SpeakerNameMap.TryGetValue(sermon.SpeakerName, out var speakerName))
                 return null;
 
+            var seriesName = sermon.SermonSeries;
+            if (SeriesNameMap.TryGetValue(sermon.SermonSeries, out var overrideSeriesName))
+                seriesName = overrideSeriesName;
+
             var queryStringParams = new NameValueCollection
             {
                 { "broadcasterID", BroadcasterId },
                 { "speakerName", speakerName },
-                { "book",  Osis.IdForBibleBookName(sermon.Book) },
                 { "year", sermon.RecordingDate.Value.Year.ToString() },
                 { "month", sermon.RecordingDate.Value.Month.ToString() },
                 { "day", sermon.RecordingDate.Value.Day.ToString() },
-                { "series", SermonAudioStrings.TruncateSeriesName(sermon.SermonSeries) },
+                { "series", SermonAudioStrings.TruncateSeriesName(seriesName) },
                 { "includeDrafts", "true" },
                 { "includeScheduled", "true" },
                 { "includePublished", "true" },
                 { "lite", "true" },
                 { "liteBroadcaster", "true" },
             };
+
+            if (sermon.Book != null) queryStringParams.Add("book", Osis.IdForBibleBookName(sermon.Book));
             if (sermon.StartChapter.HasValue) queryStringParams.Add("chapter", sermon.StartChapter.Value.ToString());
             if (sermon.EndChapter.HasValue) queryStringParams.Add("chapterEnd", sermon.EndChapter.Value.ToString());
             if (sermon.StartVerse.HasValue) queryStringParams.Add("verse", sermon.StartVerse.Value.ToString());
@@ -261,7 +275,12 @@ namespace PPC_2010.Services
             if (seriesName == null || seriesName.Length > SermonAudioStrings.SeriesNameMaxLength)
                 return await Task.FromResult(new int?());
 
-            if (seriesName == "Non-Series")
+            if (SeriesNameMap.TryGetValue(seriesName, out var overrideSeriesName))
+            {
+                seriesName = overrideSeriesName;
+            }
+
+            if (seriesName == null)
                 return await Task.FromResult(new int?());
 
             HttpResponseMessage resp = await _httpClient.GetAsync($"node/broadcasters/{BroadcasterId}/series/{seriesName}");

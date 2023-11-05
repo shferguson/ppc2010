@@ -10,7 +10,9 @@ namespace PPC_2010.Extensions
         {
             var formatted =
                 from key in nvc.AllKeys
+                where key != null
                 from value in nvc.GetValues(key)
+                where value != null
                 select $"{HttpUtility.UrlEncode(key)}={HttpUtility.UrlEncode(value)}";
             return "?" + string.Join("&", formatted);
         }

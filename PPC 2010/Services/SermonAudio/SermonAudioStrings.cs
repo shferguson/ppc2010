@@ -12,7 +12,7 @@
         }
         public static string TruncateSermonTitle(string title)
         {
-            if (title.Length > SeriesNameMaxLength) return title.Substring(0, SermonTitleMaxLength);
+            if (title.Length > SermonTitleMaxLength) return title.Substring(0, SermonTitleMaxLength);
             return title;
         }
     }
