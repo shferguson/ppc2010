@@ -20,6 +20,7 @@ namespace PPC_2010.Services
         private readonly JsonMediaTypeFormatter _formatter;
 
         private const string BroadcasterId = "providencepgh";
+        private const string FallbackSpeakerName = "Various Speakers";
 
         // Only publish sermons from sessions to sermon audio
         private static Dictionary<string, string> RecordingSessionMap = new Dictionary<string, string>()
@@ -140,25 +141,33 @@ namespace PPC_2010.Services
             _formatter = new JsonMediaTypeFormatter();
             _formatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
-        public Task<string> Create(ISermon sermon, string filePath)
+        public Task<string> Create(ISermon sermon)
         {
-            return CreateOrUpdate(null, sermon, filePath);
+            return CreateOrUpdate(null, sermon);
         }
 
-        public Task Update(string id, ISermon sermon, string filePath)
+        public Task Update(string id, ISermon sermon)
         {
-            return CreateOrUpdate(id, sermon, filePath);    
+            return CreateOrUpdate(id, sermon);    
         }
 
-        async Task<string> CreateOrUpdate(string id, ISermon sermon, string filePath)
+        async Task<string> CreateOrUpdate(string id, ISermon sermon)
         {
+            bool isNormalyPublishedSpeaker = false;
+
             if (!SpeakerNameMap.TryGetValue(sermon.SpeakerName, out var speakerName))
-                return null;
+            {
+                isNormalyPublishedSpeaker = true;
+                speakerName = FallbackSpeakerName;
+            }
 
             if (!RecordingSessionMap.TryGetValue(sermon.RecordingSession, out var sessionName))
                 return null;
 
-            int? seriesId = await GetOrCreateSeries(sermon.SermonSeries);
+            int? seriesId = await GetOrCreateSeries(sermon.SermonSeries, createIfNonExisting: isNormalyPublishedSpeaker);
+
+            if (seriesId == null && !isNormalyPublishedSpeaker)
+                return null;
 
             if (id == null)
                 id = await TryFindByContent(sermon);
@@ -198,15 +207,19 @@ namespace PPC_2010.Services
                 await CheckForError(resp);
             }
 
+            return sermonId;
+        }
+
+        public async Task UploadFile(string id, string filePath)
+        {
             var createMedia = new SermonAudio.Media.Create
             {
-                SermonID = sermonId,
+                SermonID = id,
                 UploadType = "original-audio",
             };
 
-            resp = await _httpClient.PostAsync("media", createMedia, _formatter);
+            var resp = await _httpClient.PostAsync("media", createMedia, _formatter);
             await CheckForError(resp);
-
             var createResult = JsonConvert.DeserializeObject<SermonAudio.Media.CreateResponse>(await resp.Content.ReadAsStringAsync(), _formatter.SerializerSettings);
 
             if (!string.IsNullOrEmpty(filePath) && System.IO.File.Exists(filePath))
@@ -217,8 +230,6 @@ namespace PPC_2010.Services
                     await CheckForError(resp);
                 }
             }
-
-            return sermonId;
         }
 
         public async Task Delete(string id)
@@ -270,7 +281,7 @@ namespace PPC_2010.Services
             return null;
         }
 
-        public async Task<int?> GetOrCreateSeries(string seriesName)
+        public async Task<int?> GetOrCreateSeries(string seriesName, bool createIfNonExisting)
         {
             if (seriesName == null || seriesName.Length > SermonAudioStrings.SeriesNameMaxLength)
                 return await Task.FromResult(new int?());
@@ -288,11 +299,20 @@ namespace PPC_2010.Services
             {
                 if (resp.StatusCode == HttpStatusCode.NotFound)
                 {
-                    resp = await _httpClient.PostAsync($"node/broadcasters/{BroadcasterId}/series", new { series_name = seriesName }, _formatter);
+                    if (createIfNonExisting)
+                    {
+                        resp = await _httpClient.PostAsync($"node/broadcasters/{BroadcasterId}/series", new { series_name = seriesName }, _formatter);
+                        await CheckForError(resp);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
                     await CheckForError(resp);
                 }
-                
-                await CheckForError(resp);
             }
 
             dynamic seriesResult = JsonConvert.DeserializeObject(await resp.Content.ReadAsStringAsync(), _formatter.SerializerSettings);

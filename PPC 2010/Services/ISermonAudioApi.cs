@@ -5,14 +5,16 @@ namespace PPC_2010.Services
 {
     public interface ISermonAudioApi
     {
-        Task<string> Create(ISermon sermon, string filePath);
-        Task Update(string id, ISermon sermon, string filePath);
+        Task<string> Create(ISermon sermon);
+        Task Update(string id, ISermon sermon);
         Task Delete(string id);
+
+        Task UploadFile(string id, string filePath);
     }
 
     public class NullSermonAudioApi : ISermonAudioApi
     {
-        public Task<string> Create(ISermon sermon, string filePath)
+        public Task<string> Create(ISermon sermon)
         {
             return Task.FromResult((string)null);
         }
@@ -26,6 +28,15 @@ namespace PPC_2010.Services
         {
             return Task.CompletedTask;
         }
-    }
 
+        public Task Update(string id, ISermon sermon)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task UploadFile(string id, string filePath)
+        {
+            return Task.CompletedTask;
+        }
+    }
 }

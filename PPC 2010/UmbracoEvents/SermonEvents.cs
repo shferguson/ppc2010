@@ -10,6 +10,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using PPC_2010.Services;
 using System.Collections.Generic;
+using PPC_2010.Extensions;
 
 namespace PPC_2010.UmbracoEvents
 {
@@ -84,13 +85,13 @@ namespace PPC_2010.UmbracoEvents
                             {
                                 if (string.IsNullOrEmpty(sermon.SermonAudioId))
                                 {
-                                    var sermonId = System.Threading.Tasks.Task.Run(async () => await sermonAudioApi.Create(podSermon, filePath)).Result;
+                                    var sermonId = System.Threading.Tasks.Task.Run(async () => await sermonAudioApi.Create(podSermon)).Result;
                                     if (sermonId != null)
                                         sermon.SermonAudioId = sermonId;
                                 }
                                 else
                                 {
-                                    System.Threading.Tasks.Task.Run(() => sermonAudioApi.Update(sermon.SermonAudioId, podSermon, fileChanged ? filePath : null)).Wait();
+                                    System.Threading.Tasks.Task.Run(() => sermonAudioApi.Update(sermon.SermonAudioId, podSermon)).Wait();
                                 }
                             }
                             catch (Exception ex) 
@@ -115,8 +116,23 @@ namespace PPC_2010.UmbracoEvents
                     repository.UpdateSermonSort(entity);
 
                     var mediaSermon = new MediaSermon(entity);
-                    ServiceLocater.Instance.Locate<IMp3FileService>().SetMp3FileTags(mediaSermon);
                     ServiceLocater.Instance.Locate<ISermonPublishApi>().Update(mediaSermon);
+
+                    var filePath = HttpContext.Current.Server.MapPath(mediaSermon.AudioFile);
+
+                    // Was the audio file updated?
+                    // Assume it was if it was written to in the last 5 minutes
+                    if (System.IO.File.GetLastWriteTime(filePath) > DateTime.Now.AddMinutes(-5))
+                    {
+                        ServiceLocater.Instance.Locate<IMp3FileService>().SetMp3FileTags(mediaSermon);
+
+                        if (!string.IsNullOrEmpty(mediaSermon.SermonAudioId))
+                        {
+                            var sermonAudioApi = ServiceLocater.Instance.Locate<ISermonAudioApi>();
+
+                            sermonAudioApi.UploadFile(mediaSermon.SermonAudioId, filePath).RunInBackground();
+                        }
+                    }
                 }
             }
         }
@@ -141,15 +157,7 @@ namespace PPC_2010.UmbracoEvents
                 var mediaSermon = new MediaSermon(entity);
                 if (!string.IsNullOrEmpty(mediaSermon.SermonAudioId))
                 {
-                    var sermonAudioId = mediaSermon.SermonAudioId;
-                    try
-                    {
-                        System.Threading.Tasks.Task.Run(async () => await ServiceLocater.Instance.Locate<ISermonAudioApi>().Delete(sermonAudioId)).Wait();
-                    }
-                    catch (Exception ex)
-                    {
-                        Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(ex, HttpContext.Current));
-                    }
+                    ServiceLocater.Instance.Locate<ISermonAudioApi>().Delete(mediaSermon.SermonAudioId).RunInBackground();
                 }
             }
 
