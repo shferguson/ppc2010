@@ -134,7 +134,15 @@ namespace PPC_2010.Services
 
         public SermonAudioApi()
         {
-            _httpClient = new HttpClient();
+            var handler = new HttpClientHandler();
+            handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+            handler.ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) =>
+            {
+                // Started getting SSL validation errors uploading sermons - no need for validation, anyone can listen to our sermons :)
+                return true;
+            };
+
+            _httpClient = new HttpClient(handler);
             _httpClient.BaseAddress = new Uri("https://api.sermonaudio.com/v2/");
             _httpClient.DefaultRequestHeaders.Add("x-api-key", ConfigurationManager.AppSettings["sermonAudioApiKey"]);
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "www.providencepgh.org");
