@@ -7,11 +7,13 @@
 
         public static string TruncateSeriesName(string series)
         {
+            if (series == null) return null;
             if (series.Length > SeriesNameMaxLength) return series.Substring(0, SeriesNameMaxLength);
             return series;
         }
         public static string TruncateSermonTitle(string title)
         {
+            if (title == null) return null;
             if (title.Length > SermonTitleMaxLength) return title.Substring(0, SermonTitleMaxLength);
             return title;
         }

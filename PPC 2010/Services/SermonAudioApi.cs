@@ -21,13 +21,15 @@ namespace PPC_2010.Services
 
         private const string BroadcasterId = "providencepgh";
         private const string FallbackSpeakerName = "Various Speakers";
+        private const string SundayMorning = "Sunday Morning";
+        private const string SundayEvening = "Sunday Evening";
 
         // Only publish sermons from sessions to sermon audio
         private static Dictionary<string, string> RecordingSessionMap = new Dictionary<string, string>()
         {
-           {"Sunday Evening", "Sunday - PM" },
-           {"Sunday Morning", "Sunday - AM" },
            {"Sunday School", "Sunday School" },
+           {SundayMorning, "Sunday - AM" },
+           {SundayEvening, "Sunday - PM" },
            /*
            {"Biblical Counseling Course - Session 1", "Teaching" },
            {"Biblical Counseling Course - Session 2", "Teaching" },
@@ -141,6 +143,7 @@ namespace PPC_2010.Services
             _formatter = new JsonMediaTypeFormatter();
             _formatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
+
         public Task<string> Create(ISermon sermon)
         {
             return CreateOrUpdate(null, sermon);
@@ -153,11 +156,11 @@ namespace PPC_2010.Services
 
         async Task<string> CreateOrUpdate(string id, ISermon sermon)
         {
-            bool isNormalyPublishedSpeaker = false;
+            bool isNormalyPublishedSpeaker = true;
 
             if (!SpeakerNameMap.TryGetValue(sermon.SpeakerName, out var speakerName))
             {
-                isNormalyPublishedSpeaker = true;
+                isNormalyPublishedSpeaker = false;
                 speakerName = FallbackSpeakerName;
             }
 
@@ -166,7 +169,11 @@ namespace PPC_2010.Services
 
             int? seriesId = await GetOrCreateSeries(sermon.SermonSeries, createIfNonExisting: isNormalyPublishedSpeaker);
 
-            if (seriesId == null && !isNormalyPublishedSpeaker)
+            // Automatically upload:
+            // Existing series
+            // Listed speakers
+            // Sunday Morning or Sunday Evening services
+            if (seriesId == null && !isNormalyPublishedSpeaker && sermon.RecordingSession != SundayMorning && sermon.RecordingSession != SundayEvening)
                 return null;
 
             if (id == null)
@@ -253,7 +260,6 @@ namespace PPC_2010.Services
                 { "year", sermon.RecordingDate.Value.Year.ToString() },
                 { "month", sermon.RecordingDate.Value.Month.ToString() },
                 { "day", sermon.RecordingDate.Value.Day.ToString() },
-                { "series", SermonAudioStrings.TruncateSeriesName(seriesName) },
                 { "includeDrafts", "true" },
                 { "includeScheduled", "true" },
                 { "includePublished", "true" },
@@ -266,6 +272,7 @@ namespace PPC_2010.Services
             if (sermon.EndChapter.HasValue) queryStringParams.Add("chapterEnd", sermon.EndChapter.Value.ToString());
             if (sermon.StartVerse.HasValue) queryStringParams.Add("verse", sermon.StartVerse.Value.ToString());
             if (sermon.EndVerse.HasValue) queryStringParams.Add("verseEnd", sermon.EndVerse.Value.ToString());
+            if (!string.IsNullOrEmpty(seriesName)) queryStringParams.Add("series", SermonAudioStrings.TruncateSeriesName(seriesName));
 
             var resp = await _httpClient.GetAsync($"node/sermons{queryStringParams.ToQueryString()}");
             if (resp.StatusCode == HttpStatusCode.NotFound)
