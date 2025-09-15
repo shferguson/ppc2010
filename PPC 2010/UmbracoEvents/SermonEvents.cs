@@ -129,8 +129,8 @@ namespace PPC_2010.UmbracoEvents
                         if (!string.IsNullOrEmpty(mediaSermon.SermonAudioId))
                         {
                             var sermonAudioApi = ServiceLocater.Instance.Locate<ISermonAudioApi>();
-
-                            sermonAudioApi.UploadFile(mediaSermon.SermonAudioId, filePath).RunInBackground();
+                            var sermonAudioId = mediaSermon.SermonAudioId;
+                            TaskExtensions.RunInBackground(() => sermonAudioApi.UploadFile(sermonAudioId, filePath));
                         }
                     }
                 }
@@ -157,7 +157,8 @@ namespace PPC_2010.UmbracoEvents
                 var mediaSermon = new MediaSermon(entity);
                 if (!string.IsNullOrEmpty(mediaSermon.SermonAudioId))
                 {
-                    ServiceLocater.Instance.Locate<ISermonAudioApi>().Delete(mediaSermon.SermonAudioId).RunInBackground();
+                    var sermonAudioId = mediaSermon.SermonAudioId; 
+                    TaskExtensions.RunInBackground(() => ServiceLocater.Instance.Locate<ISermonAudioApi>().Delete(sermonAudioId));
                 }
             }
 
