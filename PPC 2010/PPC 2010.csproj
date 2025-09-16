@@ -383,7 +383,6 @@
     <Compile Include="usercontrols\ContactList.ascx.designer.cs">
       <DependentUpon>ContactList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Data\ArticleCacheRepository.cs" />
     <Compile Include="Data\Constants.cs" />
     <Compile Include="Data\IArticle.cs" />
     <Compile Include="Data\IArticleRepository.cs" />
@@ -397,7 +396,6 @@
     <Compile Include="Data\IPreValue.cs" />
     <Compile Include="Data\Media\EmailGroupRepository.cs" />
     <Compile Include="Data\Media\EmailGroup.cs" />
-    <Compile Include="Data\SermonCacheRepository.cs" />
     <Compile Include="Data\DataTableConverter.cs">
       <SubType>Component</SubType>
     </Compile>
