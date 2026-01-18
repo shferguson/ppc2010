@@ -90,10 +90,12 @@ namespace PPC_2010.Data.LinqToSql
         public void UpdateSermonSort(IMedia item)
         {
             _providence.ExecuteCommand(
-                @"update n
-                  set n.sortOrder = s.RowNumber
-                  from umbracoNode n
-                  inner join (select Id, ROW_NUMBER() OVER(order by RecordingDate desc, Id desc) as RowNumber from ppc2010.Sermon) s on s.Id = n.id");
+               @" update n
+                   set n.sortOrder = x.RowNumber
+                   from umbracoNode n
+                   inner join (select ni.id, ROW_NUMBER() over( order by s.RecordingDate desc, ni.text desc) as RowNumber from umbracoNode ni left outer join ppc2010.Sermon s on s.Id = ni.id where ni.parentId = {0}) x on x.Id = n.id",
+               item.ParentId
+            );
         }
     }
 
