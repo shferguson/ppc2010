@@ -63,7 +63,7 @@ namespace PPC_2010.Services
                     id3v2Tags.AddFrame(textFrame);
                 }
 
-                var cover = new TagLib.Id3v2.AttachedPictureFrame
+                var cover = new TagLib.Id3v2.AttachmentFrame
                 {
                     Type = TagLib.PictureType.FrontCover,
                     Description = "Cover",
